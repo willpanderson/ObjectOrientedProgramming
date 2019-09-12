@@ -8,18 +8,19 @@ std::ostream& operator <<(std::ostream& ost, Average& average);
 {
  if (_value != 0)
 {
- average = _sum/_value;
- ost << average << std::endl
+ double averages = _sum/_value;
+ ost << averages;
 }
 else
 {
- ost<<"undefined"<< std::endl;
+ ost<<"undefined";
 }
  return *this;
 }
 
 std::istream& operator >>(std::istream& ist, Average& average);
 {
+
  }
 Average& operator+=(double value);
 {
