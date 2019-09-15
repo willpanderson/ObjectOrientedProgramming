@@ -1,6 +1,5 @@
 #include "average.h"
 #include <iostream>
-#include <cstdlib>
 #include <iomanip>
 #include <random>
 
@@ -34,10 +33,9 @@ if (i ==1)
 else if (i ==2)
 {
 	std::random_device rd;
-	std::mt19937 gen(rd()); 
+	std::mt19937 gen(rd());
 	std::uniform_real_distribution<> dis(0.0, 100.0);
 	double number = dis(gen);
-  std::cout << std::setprecision(4)<<std::fixed << number;
 	std::cout << "\n";
   average+= number;
  }
