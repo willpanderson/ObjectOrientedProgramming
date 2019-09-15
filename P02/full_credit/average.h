@@ -15,5 +15,6 @@ public:
 private:
 	double _sum;
 	int _values;
+};
 
 #endif

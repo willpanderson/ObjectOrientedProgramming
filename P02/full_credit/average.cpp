@@ -3,15 +3,15 @@
 
 
 Average::Average(){
-  _value = 0;
+  _values = 0;
   _sum = 0;
 }
 
-std::ostream& Average::operator <<(std::ostream& ost, Average& average)
+std::ostream& operator <<(std::ostream& ost, Average& average)
 {
- if (_value != 0)
+ if (average._values != 0)
 {
- double averages = _sum/_value;
+ double averages = average._sum/average._values;
  ost << averages;
 }
 else
@@ -21,17 +21,25 @@ else
  return ost;
 }
 
-std::istream& Average::operator >>(std::istream& ist, Average& average)
+std::istream& operator >>(std::istream& ist, Average& average)
 {
   double f;
   ist >> f;
   average._sum = f + average._sum;
-  average._value++;
+  average._values++;
   return ist;
  }
 Average& Average::operator+=(double value)
 {
-  this._sum += value;
-  this._value++;
+  this->_sum += value;
+  this->_values++;
   return *this;
  }
+
+
+void Average::Clear()
+{
+ _values = 0;
+ _sum = 0;
+}
+
