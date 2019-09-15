@@ -2,11 +2,10 @@
 #include <iostream>
 
 
-Average::Average(){
-  _values = 0;
-  _sum = 0;
+Average::Average() {
+  _values =0;
+  _sum =0;
 }
-
 std::ostream& operator <<(std::ostream& ost, Average& average)
 {
  if (average._values != 0)
@@ -35,11 +34,3 @@ Average& Average::operator+=(double value)
   this->_values++;
   return *this;
  }
-
-
-void Average::Clear()
-{
- _values = 0;
- _sum = 0;
-}
-
