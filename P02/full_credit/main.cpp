@@ -1,10 +1,8 @@
-//#include "average.h"
+#include "average.h"
 #include <iostream>
-//#include <string>
-//#include <cstdlib> 
+#include <random>
 
 int main (){
-//std::string j;
 int i;
 Average average;
 while (i != 0)
@@ -13,7 +11,7 @@ while (i != 0)
 	std::cout<<"\tMerely Average Calculator\n";
 	std::cout<<"\t=========================\n";
 
-	std::cout<<"The current value is" << average.;
+	std::cout<<"The current value is" << average;
 
 	std::cout<<"\n\n1 - Enter a new value";
 	std::cout<<"\n2 - Auto enter a random value";
@@ -25,18 +23,24 @@ while (i != 0)
 
 if (i ==1)
 {
-	std::cout<<"Value\n"; //temp
+	std::cout<<"Value? ";
+	std::cin >>average;
 
 }
 
 else if (i ==2)
 {
-	std::cout<<"Auto enter\n"; //temp
+	double lower = 0;
+  double upper = 100;
+  std::uniform_real_distribution<double> unif(lower,upper);
+  std::default_random_engine read;
+  average = unif(read);
 }
 
 else if (i ==9)
 {
-	std::cout<<"Clear\n"; //temp
+average._values = 0;
+average._sum = 0;
 }
 
 else if (i == 0)
@@ -44,6 +48,6 @@ else if (i == 0)
 	std::exit(0); //temp
 }
 else
-	std::cout<<"\n##Invalid Selection##\n\n";	
+	std::cout<<"\n##Invalid Selection##\n\n";
 }
-}
+}};

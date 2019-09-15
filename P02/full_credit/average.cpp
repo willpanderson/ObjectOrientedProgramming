@@ -1,10 +1,13 @@
-#include "average.h" 
+#include "average.h"
 #include <iostream>
 
 
-Average::Average() : _sum{sum},_values{value};
+Average::Average(){
+  _value = 0;
+  _sum = 0;
+}
 
-std::ostream& operator <<(std::ostream& ost, Average& average);
+std::ostream& Average::operator <<(std::ostream& ost, Average& average)
 {
  if (_value != 0)
 {
@@ -13,16 +16,22 @@ std::ostream& operator <<(std::ostream& ost, Average& average);
 }
 else
 {
- ost<<"undefined";
+ ost<< "undefined";
 }
- return *this;
+ return ost;
 }
 
-std::istream& operator >>(std::istream& ist, Average& average);
+std::istream& Average::operator >>(std::istream& ist, Average& average)
 {
-
+  double f;
+  ist >> f;
+  average._sum = f + average._sum;
+  average._value++;
+  return ist;
  }
-Average& operator+=(double value);
+Average& Average::operator+=(double value)
 {
+  this._sum += value;
+  this._value++;
+  return *this;
  }
-
