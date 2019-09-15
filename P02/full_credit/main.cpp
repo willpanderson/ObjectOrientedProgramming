@@ -1,3 +1,4 @@
+//FINAL REVISION. READY FOR GRADING -William Anderson.
 #include "average.h"
 #include <iostream>
 #include <iomanip>

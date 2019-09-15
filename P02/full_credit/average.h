@@ -1,10 +1,9 @@
 #ifndef __AVERAGE_H
 #define __AVERAGE_H
 
-
 #include <iostream>
 
-
+//FINAL REVISION. READY FOR GRADING -William Anderson.
 
 class Average {
 public:

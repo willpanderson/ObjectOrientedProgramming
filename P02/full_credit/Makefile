@@ -1,3 +1,4 @@
+#FINAL REVISION. READY FOR GRADING -William Anderson.
 CXXFLAGS = --std=c++17
 
 average: main.o average.o
@@ -11,4 +12,3 @@ average.o: average.cpp
 
 clean:
 	rm -f *.o *.gch ~* a.out average
-
