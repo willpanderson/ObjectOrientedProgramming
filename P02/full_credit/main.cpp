@@ -2,7 +2,7 @@
 #include <iostream>
 #include <cstdlib>
 #include <iomanip>
-
+#include <random>
 
 int main (){
 int i;
@@ -33,7 +33,10 @@ if (i ==1)
 
 else if (i ==2)
 {
-  double number = rand() % 100;
+	std::random_device rd;
+	std::mt19937 gen(rd()); 
+	std::uniform_real_distribution<> dis(0.0, 100.0);
+	double number = dis(gen);
   std::cout << std::setprecision(4)<<std::fixed << number;
 	std::cout << "\n";
   average+= number;
