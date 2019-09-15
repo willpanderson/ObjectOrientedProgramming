@@ -2,10 +2,12 @@
 #include <iostream>
 
 
-Average::Average() {
-  _values =0;
-  _sum =0;
+Average::Average()
+{
+  _values=0.0;
+  _sum=0.0;
 }
+
 std::ostream& operator <<(std::ostream& ost, Average& average)
 {
  if (average._values != 0)

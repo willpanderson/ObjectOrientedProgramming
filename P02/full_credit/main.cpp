@@ -6,15 +6,15 @@
 
 int main (){
 int i;
-Average average;
-Average average2;
+Average average{};
+Average temp{};
 while (i != 0)
 {
 	std::cout<<"\t=========================\n";
 	std::cout<<"\tMerely Average Calculator\n";
 	std::cout<<"\t=========================\n";
 
-	std::cout<<"The current value is " <<std::setprecision(4) <<std::fixed << average ;
+	std::cout<<"The current value is " <<std::setprecision(4) <<std::fixed << average;
 
 	std::cout<<"\n\n1 - Enter a new value";
 	std::cout<<"\n2 - Auto enter a random value";
@@ -28,6 +28,7 @@ if (i ==1)
 {
 	std::cout<<"Value? ";
 	std::cin >>average;
+	std::cout <<"\n";
 }
 
 else if (i ==2)
@@ -40,7 +41,7 @@ else if (i ==2)
 
 else if (i ==9)
 {
-	//average2;
+	average = temp;
 }
 
 else if (i == 0)
