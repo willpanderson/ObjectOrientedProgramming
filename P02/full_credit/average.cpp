@@ -1,4 +1,3 @@
-
 #include "average.h"
 #include <iostream>
 

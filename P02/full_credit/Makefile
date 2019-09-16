@@ -12,3 +12,4 @@ average.o: average.cpp
 
 clean:
 	rm -f *.o *.gch ~* a.out average
+

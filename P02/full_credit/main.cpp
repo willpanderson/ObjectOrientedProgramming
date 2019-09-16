@@ -1,11 +1,10 @@
-//FINAL REVISION. READY FOR GRADING -William Anderson.
 #include "average.h"
 #include <iostream>
 #include <iomanip>
 #include <random>
 
 int main (){
-int i;
+int i = 21;
 Average average{};
 Average temp{};
 while (i != 0)
