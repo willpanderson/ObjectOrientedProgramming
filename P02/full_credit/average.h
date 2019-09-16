@@ -3,7 +3,6 @@
 
 #include <iostream>
 
-//FINAL REVISION. READY FOR GRADING -William Anderson.
 
 class Average {
 public:
