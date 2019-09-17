@@ -1,7 +1,6 @@
 #include "average.h"
 #include <iostream>
 
-
 Average::Average()
 {
   _values=0.0;

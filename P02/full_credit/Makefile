@@ -1,7 +1,6 @@
 
 CXXFLAGS = --std=c++17
 
-
 average: main.o average.o
 	$(CXX) $(CXXFLAGS) main.o average.o -o average
 

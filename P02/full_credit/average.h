@@ -17,4 +17,5 @@ private:
 	int _values;
 };
 
+
 #endif
