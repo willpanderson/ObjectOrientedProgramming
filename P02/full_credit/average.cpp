@@ -30,6 +30,7 @@ std::istream& operator >>(std::istream& ist, Average& average)
   average._values++;
   return ist;
  }
+
 Average& Average::operator+=(double value)
 {
   this->_sum += value;

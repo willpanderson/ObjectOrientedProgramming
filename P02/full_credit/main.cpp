@@ -4,9 +4,11 @@
 #include <random>
 
 int main (){
+
 int i = 21;
 Average average{};
 Average temp{};
+
 while (i != 0)
 {
 	std::cout<<"\t=========================\n";
