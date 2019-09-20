@@ -3,7 +3,7 @@
 
 #include <vector>
 #include "Locomotive.h"
-#include "Coach"
+#include "Coach.h"
 
 class Train{
 
@@ -21,5 +21,3 @@ private:
 }
 
 #endif
-
-
