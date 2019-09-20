@@ -3,13 +3,30 @@
 #include "Coach.h"
 #include <vector>
 
-add_locomotive(Locomotive& locomotive): _locomotives
+Locomotive::add_locomotive(Locomotive& locomotive): _locomotives
 {
    _locomotives.push_back(&locomotive);  I
 };
 
-add_coach(Coach& coach){};
+Coach::add_coach(Coach& coach){
+   _coaches.push_back(&Coach);
+};
 
 double speed(double minutes){};
 
-std::string to_art(){};
+std::string to_art()
+{
+    "      * # @  ",
+    "     . ______",
+    "   _()_||__||",
+    "  ( cse1325 |",
+    " /-OO----OO''",
+    "#############",
+
+    "               ",
+    " ______________",
+    " | [] [] [] []|",
+    " |            |",
+    "='OO--------OO'",
+    "###############",
+};
