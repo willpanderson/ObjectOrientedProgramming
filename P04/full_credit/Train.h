@@ -1,5 +1,7 @@
-#ifndef __TRAIN_H
-#define __TRAIN_H
+#ifndef __TRAIN_H
+#define __TRAIN_H
+
+#include <vector>
 
 class Train{
 
@@ -16,6 +18,6 @@ private:
    vector <Coach*> _coaches;
 }
 
-#end
+#endif
 
 
