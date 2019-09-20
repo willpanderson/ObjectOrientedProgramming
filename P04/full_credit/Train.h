@@ -2,6 +2,8 @@
 #define __TRAIN_H
 
 #include <vector>
+#include "Locomotive.h"
+#include "Coach"
 
 class Train{
 
