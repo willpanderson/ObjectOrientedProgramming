@@ -4,10 +4,9 @@
 class Coach{
 
 public:
-
-Coach (double weight = 28000);
+   Coach (double weight = 28000);
    add_passengers(int passengers);
-   double weight override;
+   double weight;
 
 private:
    int _passengers;
