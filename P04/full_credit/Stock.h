@@ -14,7 +14,10 @@ public:
 
 private:
    double _weight;
-   vector <string> _art;
+   
+
+protected:
+   std::vector <string> _art;
 }
 
 #endif

@@ -16,8 +16,8 @@ public:
 
 private:
 
-   vector <Locomotive*> _locomotives;
-   vector <Coach*> _coaches;
+   std::vector <Locomotive*> _locomotives;
+   std::vector <Coach*> _coaches;
 }
 
 #endif

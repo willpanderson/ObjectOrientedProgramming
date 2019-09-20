@@ -8,7 +8,8 @@
 
 int main (){
 
-int selection;
+int selection = 21;
+
 while (selection != 0)
 {
    std::cout<<"\n\t===================\n";
@@ -17,9 +18,7 @@ while (selection != 0)
 
    //std::cout<<train.to_art()<<"\n";
    
-   std::cout<<" Minutes  |    1    |    5    |    15   |    30   |    60   \n";
-   std::cout<<" ---------|---------|---------|---------|---------|---------\n";
-   std::cout<<"   m/s    |         |         |         |         |         \n\n";
+   //std::cout<<Stock::to_art,,"\n";
    
    std::cout<<"1 - Add a locomotive\n";
    std::cout<<"2 - Add an empty coach\n";
@@ -30,6 +29,30 @@ while (selection != 0)
    std::cin >> selection;
    std::cout <<"\n";
 
-   }
+if (selection ==1)
+{
+	
+}
+
+else if (selection ==2)
+{
+
+ }
+
+else if (selection ==9)
+{
+	
+}
+
+else if (selection == 0)
+{
+	std::exit(0); 
+}
+
+else
+	std::cout<<"\n##Invalid Selection##\n\n";
+}
+}
+}
 }
 
