@@ -18,7 +18,11 @@ while (selection != 0)
 
    //std::cout<<train.to_art()<<"\n";
    
-   //std::cout<<Stock::to_art,,"\n";
+  std::cout<<" Minutes  |    1    |    5    |    15   |    30   |    60   \n";
+  std::cout<<" ---------|---------|---------|---------|---------|---------\n";
+  std::cout<<"   m/s    |         |         |         |         |         \n\n";
+   
+//std::cout<<Stock::to_art,,"\n";
    
    std::cout<<"1 - Add a locomotive\n";
    std::cout<<"2 - Add an empty coach\n";
