@@ -4,8 +4,8 @@
 #include "Stock.h"
 #include <iostream>
 
-Train::Locomotive locomotive{};
-Train::Coach mcoach{};
+Locomotive locomotive{};
+Coach mcoach{};
 int main (){
 
 int selection = 21;
