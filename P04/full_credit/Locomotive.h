@@ -1,7 +1,7 @@
 #ifndef __LOCOMOTIVE_H
 #define __LOCOMOTIVE_H
 
-#include "stock.h"
+#include "Stock.h"
 
 class Locomotive : public Stock
 {
