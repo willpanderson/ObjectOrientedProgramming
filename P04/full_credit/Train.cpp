@@ -1,32 +1,34 @@
-#include "Train.h"
-#include "Locomotive.h"
-#include "Coach.h"
+#include <iostream>
+#include <cstring>
 #include <vector>
+#include <cmath>
+#include "stock.h"
+#include "train.h"
+#include "locomotive.h"
+#include "coach.h"
 
-Locomotive::add_locomotive(Locomotive& locomotive): _locomotives
+void Train::add_locomotive(Locomotive & locomotive)
 {
-   _locomotives.push_back(&locomotive);  I
+  _locomotives.push_back(&locomotive);
 };
 
-Coach::add_coach(Coach& coach){
-   _coaches.push_back(&Coach);
-};
-
-double speed(double minutes){};
-
-std::string to_art()
+void Train::add_coach(Coach & coach)
 {
-    "      * # @  ",
-    "     . ______",
-    "   _()_||__||",
-    "  ( cse1325 |",
-    " /-OO----OO''",
-    "#############",
-
-    "               ",
-    " ______________",
-    " | [] [] [] []|",
-    " |            |",
-    "='OO--------OO'",
-    "###############",
+  _coaches.push_back(&coach);
 };
+
+double Train::speed(double minutes)
+{
+
+  double power{ 0 };
+  double weight{ 0 };
+
+  for (auto i : _locomotives)
+    power += i->power();
+
+  double seconds{minutes * 60};
+
+  return std::sqrt(2 * power * seconds / weight);
+};
+
+std::string Train::to_art(){};

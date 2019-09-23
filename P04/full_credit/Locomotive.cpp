@@ -1,5 +1,6 @@
-#include "Locomotive.h"
+#include "locomotive.h"
 
-Locomotive(double weight = 80000,double power = 135000){};
+Locomotive::Locomotive (double weight, double power) :
+                       _power(power), Stock(weight){ };
 
-double power(): _power{} {};
+double Locomotive::power() {return _power;};

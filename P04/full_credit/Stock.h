@@ -1,23 +1,23 @@
 #ifndef __STOCK_H
 #define __STOCK_H
 
-#include <string>
 #include <vector>
+#include <string>
 
-class Stock {
-  
-public:
-   Stock();
-   Stock(double weight);
-   virtual double weight();
-   string ascii_art (int row);
-
+class Stock
+{
 private:
-   double _weight;
-   
+  double _weight;
 
 protected:
-   std::vector <string> _art;
-}
+  std::vector<std::string> _art;
+
+
+public:
+  virtual double weight() {return _weight;};
+  Stock();
+  Stock(double weight);
+  std::string ascii_art(int row);
+};
 
 #endif
