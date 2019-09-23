@@ -1,11 +1,11 @@
-//#include "Locomotive.h"
-//#include "Train.h"
-//#include "Coach.h"
-//#include "Stock.h"
+#include "Locomotive.h"
+#include "Train.h"
+#include "Coach.h"
+#include "Stock.h"
 #include <iostream>
 
-//include other stuff i dont know of as yet
-
+Train::Locomotive locomotive{};
+Train::Coach mcoach{};
 int main (){
 
 int selection = 21;
@@ -31,12 +31,12 @@ while (selection != 0)
 
 if (selection ==1)
 {
-	
+  locomotive.push_back(&locomotive);
 }
 
 else if (selection ==2)
 {
-
+  mcoach.push_back(&coach);
  }
 
 else if (selection ==9)

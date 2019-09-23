@@ -1,10 +1,30 @@
-#include "Stock.h"
-#include <virtal>
+#include "stock.h"
+#include <cmath>
+#include <iostream>
 
-Stock(): _weight{-nan} {};
+Stock::Stock () : _weight(NAN){ };
+Stock::Stock (double weight) : _weight(weight){ };
+std::string Stock::ascii_art(int row) {/*yet to be added*/};
 
-Stock(double weight): _weight{0}{};
 
-<<virtual>> double weight(){};
+// art = { // Locomotive     "      * # @  ",
+//     "     . ______",
+//     "   _()_||__||",
+//     "  ( cse1325 |",
+//     " /-OO----OO''",
+//     "#############", };
 
-ascii_art(int row){}
+// art = { // Autocar     "     , * o @ ~ ",
+//     "   .  _________",
+//     "  ()_|[] [] []|",
+//     " |            |",
+//     " 'OO--------OO'",
+//     "###############", };
+
+// art = { // Coalcar     "         ",
+//     "   .ggg.  ",
+//     " _@@@@@@_",
+//     " |      |",
+//     "='OO--OO'",
+//     "#########",
+// };
