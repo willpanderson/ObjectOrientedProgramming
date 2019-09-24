@@ -2,6 +2,7 @@
 #include <cmath>
 #include <iostream>
 
+
 Stock::Stock () : _weight(NAN){ };
 
 Stock::Stock (double weight) : _weight(weight){ };

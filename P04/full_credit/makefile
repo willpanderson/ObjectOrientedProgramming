@@ -1,5 +1,6 @@
 CXXFLAGS = --std=c++17
 
+
 train : main.o stock.o coach.o locomotive.o train.o
 	$(CXX) $(CXXFLAGS) -g main.o stock.o coach.o locomotive.o train.o -o train
 	$(info )

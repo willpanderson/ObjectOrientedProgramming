@@ -1,6 +1,8 @@
 #include <iostream>
 #include "coach.h"
 
+
+
 Coach::Coach(double weight) : Stock(weight)
 {
   _art = { // Coach

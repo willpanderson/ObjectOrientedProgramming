@@ -2,6 +2,7 @@
 #define __LOCOMOTIVE_H
 #include "stock.h"
 
+
 class Locomotive : public Stock
 {
 

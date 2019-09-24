@@ -2,6 +2,7 @@
 #define __COACH_H
 #include "stock.h"
 
+
 class Coach : public Stock
 {
 

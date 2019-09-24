@@ -1,8 +1,8 @@
 #ifndef __STOCK_H
 #define __STOCK_H
-
 #include <vector>
 #include <string>
+
 
 class Stock
 
