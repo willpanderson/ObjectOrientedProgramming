@@ -1,11 +1,5 @@
-// #include <iostream>
-// #include <cstring>
-// #include <vector>
 #include <cmath>
-// #include "stock.h"
 #include "train.h"
-// #include "locomotive.h"
-// #include "coach.h"
 
 void Train::add_locomotive(Locomotive & locomotive)
 {
@@ -32,24 +26,23 @@ double Train::speed(double minutes)
 
   double seconds{minutes * 60};
 
-  return std::sqrt(2 * power * seconds / weight);
+  return std::sqrt(2 * power * seconds / weight); //m/s mode 
 };
 
 std::string Train::to_art()
 {
-  std::string temp = "";
+  std::string tempo = "";
   int i = 0;
 
   for (int i = 0; i < 6; i++ )
   {
     for (auto k : _locomotives){
-      temp += k->Stock::ascii_art(i);
+      tempo += k->Stock::ascii_art(i);
     }
     for (auto l : _coaches){
-      temp += l->Stock::ascii_art(i);
-    }// for(int m = 0; )
-    temp += "\n";
+      tempo += l->Stock::ascii_art(i);
+    }
+    tempo += "\n";
   }
-
-return temp;
+return tempo;
 };

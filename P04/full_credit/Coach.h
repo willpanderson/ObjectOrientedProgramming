@@ -1,10 +1,13 @@
-#ifndef COACH_H
-#define COACH_H
+#ifndef __COACH_H
+#define __COACH_H
 #include "stock.h"
+
 class Coach : public Stock
 {
+
 private:
   int _passengers = 0;
+
 public:
   Coach(double weight=28.000);
   void add_passengers(int passengers);
