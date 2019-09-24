@@ -52,7 +52,7 @@ int main(){
       
     if(command == 0) 
     {
-      std::exit(0);
+      std::exit(0); //I prefer to exit the program rather than break
     } 
 
     else if (command == 1) 
