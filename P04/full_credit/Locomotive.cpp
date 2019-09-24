@@ -14,4 +14,5 @@ Locomotive::Locomotive (double weight, double power) : _power(power), Stock(weig
   };
 
 };
+
 double Locomotive::power() {return _power;};
