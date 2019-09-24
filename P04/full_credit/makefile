@@ -4,7 +4,7 @@ CXXFLAGS = --std=c++17
 train : main.o stock.o coach.o locomotive.o train.o
 	$(CXX) $(CXXFLAGS) -g main.o stock.o coach.o locomotive.o train.o -o train
 	$(info )
-	$(info Linking object files to train.exe\n...)
+	$(info Linking object files to train.exe...)
 	$(info )
 
 main.o: main.cpp
