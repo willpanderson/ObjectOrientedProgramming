@@ -1,4 +1,4 @@
-CXXFLAGS += --std=c++17
+CXXFLAGS = --std=c++17
 
 
 train : main.o stock.o coach.o locomotive.o train.o
