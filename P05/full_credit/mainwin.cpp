@@ -6,19 +6,20 @@ Mainwin::Mainwin(Store& store) : _store{&store} {
     // /////////////////
     // G U I   S E T U P
     // /////////////////
-
-    // Set up a vertical box to hold the main window elements
-
+    set_default_size (768,768);
+    newbox = Gtk::manage(new Gtk::Box(Gtk::ORIENTATION_VERTICAL, 0));
+    add(*newbox);
 
     // ///////
     // M E N U
-    // Add and configure a menu bar as the top item in the vertical box
- 
+    Gtk::MenuBar *menubar = Gtk::manage(new Gtk::MenuBar());
+    newbox->pack_start(*menubar, Gtk::PACK_SHRINK, 0);
+    
 
     // /////////////
     // T O O L B A R
-    // Add a toolbar to the vertical box just below the menu (bonus level)
-
+    Gtk::Toolbar *toptoolbar = Gtk::manage(new Gtk::Toolbar);   
+    newbox->add(*toptoolbar);
 
 
     // ///////////////////////
@@ -41,6 +42,10 @@ Mainwin::~Mainwin() { }
 // /////////////////
 // C A L L B A C K S
 // /////////////////
+void Main_window::on_quit_click() 
+{
+    hide();
+}
 
 
 
