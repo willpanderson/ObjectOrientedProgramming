@@ -21,26 +21,26 @@ Mainwin::Mainwin(Store& store) : _store{&store} {
     menuitem_file->set_submenu(*filemenu);
 
     Gtk::MenuItem *menuitem_new = Gtk::manage(new Gtk::MenuItem("_New Store", true));
-    //menuitem_new->signal_activate().connect([this] {this->on_new_store_click();});
+    menuitem_new->signal_activate().connect([this] {this->on_new_store_click();});
     filemenu->append(*menuitem_new);
 
     Gtk::MenuItem *menuitem_add = Gtk::manage(new Gtk::MenuItem("_Add Sweets", true));
-    //menuitem_add->signal_activate().connect([this] {this->on_add_sweet_click();});
+    menuitem_add->signal_activate().connect([this] {this->on_add_sweet_click();});
     filemenu->append(*menuitem_add);
 
     Gtk::MenuItem *menuitem_lists = Gtk::manage(new Gtk::MenuItem("_List Sweets", true));
-    //menuitem_lists->signal_activate().connect([this] {this->on_list_sweets_click();});
+    menuitem_lists->signal_activate().connect([this] {this->on_list_sweets_click();});
     filemenu->append(*menuitem_lists);
 
     Gtk::MenuItem *menuitem_order = Gtk::manage(new Gtk::MenuItem("_Place Order", true));
-    //menuitem_order->signal_activate().connect([this] {this->on_new_game_click();});
+    menuitem_order->signal_activate().connect([this] {this->on_place_order_click();});
     filemenu->append(*menuitem_order);
 
     Gtk::MenuItem *menuitem_listo = Gtk::manage(new Gtk::MenuItem("_List Orders", true));
-    //menuitem_listo->signal_activate().connect([this] {this->on_new_game_click();});
+    menuitem_listo->signal_activate().connect([this] {this->on_list_orders_click();});
     filemenu->append(*menuitem_listo);
 
-    
+
     //         Q U I T
     // Append Quit to the File menu
     Gtk::MenuItem *menuitem_quit = Gtk::manage(new Gtk::MenuItem("_Quit", true));
@@ -57,7 +57,7 @@ Mainwin::Mainwin(Store& store) : _store{&store} {
     //           A B O U T
     // Append About to the Help menu
     Gtk::MenuItem *menuitem_about = Gtk::manage(new Gtk::MenuItem("About", true));
-    //menuitem_about->signal_activate().connect([this] {this->on_about_click();});
+    menuitem_about->signal_activate().connect([this] {this->on_about_click();});
     helpmenu->append(*menuitem_about);
 
 
@@ -95,6 +95,31 @@ Mainwin::~Mainwin() { }
 // /////////////////
 // C A L L B A C K S
 // /////////////////
+
+void Mainwin::on_new_store_click()
+{
+  close();//temp
+}
+void Mainwin::on_add_sweet_click()
+{
+  close();//temp
+}
+void Mainwin::on_list_sweets_click()
+{
+  close();//temp
+}
+void Mainwin::on_place_order_click()
+{
+  close();//temp
+}
+void Mainwin::on_list_orders_click()
+{
+  close();//temp
+}
+void Mainwin::on_about_click()
+{
+  close();//temp
+}
 void Mainwin::on_quit_click()
 {
   close();
