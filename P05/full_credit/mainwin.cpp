@@ -66,6 +66,42 @@ Mainwin::Mainwin(Store& store) : _store{&store} {
     Gtk::Toolbar *toolbar = Gtk::manage(new Gtk::Toolbar);
     vbox->add(*toolbar);
 
+
+    Gtk::ToolButton *new_store_button = Gtk::manage(new Gtk::ToolButton(Gtk::Stock::QUIT));
+    new_store_button->set_tooltip_markup("New Store");
+    new_store_button->signal_clicked().connect([this] {this->on_new_store_click();});
+    Gtk::SeparatorToolItem *sep6 = Gtk::manage(new Gtk::SeparatorToolItem());
+    toolbar->append(*sep6);
+    toolbar->append(*new_store_button);
+
+    Gtk::ToolButton *add_sweet_button = Gtk::manage(new Gtk::ToolButton(Gtk::Stock::QUIT));
+    add_sweet_button->set_tooltip_markup("Add Sweet");
+    add_sweet_button->signal_clicked().connect([this] {this->on_add_sweet_click();});
+    Gtk::SeparatorToolItem *sep5 = Gtk::manage(new Gtk::SeparatorToolItem());
+    toolbar->append(*sep5);
+    toolbar->append(*add_sweet_button);
+
+    Gtk::ToolButton *list_sweets_button = Gtk::manage(new Gtk::ToolButton(Gtk::Stock::QUIT));
+    list_sweets_button->set_tooltip_markup("List Sweets");
+    list_sweets_button->signal_clicked().connect([this] {this->on_list_sweets_click();});
+    Gtk::SeparatorToolItem *sep4 = Gtk::manage(new Gtk::SeparatorToolItem());
+    toolbar->append(*sep4);
+    toolbar->append(*list_sweets_button);
+
+    Gtk::ToolButton *place_order_button = Gtk::manage(new Gtk::ToolButton(Gtk::Stock::QUIT));
+    place_order_button->set_tooltip_markup("Place Order");
+    place_order_button->signal_clicked().connect([this] {this->on_place_order_click();});
+    Gtk::SeparatorToolItem *sep3 = Gtk::manage(new Gtk::SeparatorToolItem());
+    toolbar->append(*sep3);
+    toolbar->append(*place_order_button);
+
+    Gtk::ToolButton *list_order_button = Gtk::manage(new Gtk::ToolButton(Gtk::Stock::QUIT));
+    list_order_button->set_tooltip_markup("List Orders");
+    list_order_button->signal_clicked().connect([this] {this->on_list_orders_click();});
+    Gtk::SeparatorToolItem *sep2 = Gtk::manage(new Gtk::SeparatorToolItem());
+    toolbar->append(*sep2);
+    toolbar->append(*list_order_button);
+
     Gtk::ToolButton *quit_button = Gtk::manage(new Gtk::ToolButton(Gtk::Stock::QUIT));
     quit_button->set_tooltip_markup("Exit Shop");
     quit_button->signal_clicked().connect([this] {this->on_quit_click();});
@@ -73,6 +109,7 @@ Mainwin::Mainwin(Store& store) : _store{&store} {
     sep->set_expand(true);
     toolbar->append(*sep);
     toolbar->append(*quit_button);
+
 
     // ///////////////////////
     // D A T A   D I S P L A Y

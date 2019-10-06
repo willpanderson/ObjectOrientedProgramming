@@ -19,7 +19,7 @@ class Mainwin : public Gtk::Window {
         void on_about_click();
         void on_quit_click();
         //void ~reset_sensitivity();
-        
+
     private:
         Store *_store;
         Gtk::MenuItem *menuitem_add_sweet;
@@ -32,7 +32,6 @@ class Mainwin : public Gtk::Window {
         Gtk::ToolButton *list_orders_button;
         Gtk::Label *data;
         Gtk::Label *msg;
-    
-};
-#endif 
 
+};
+#endif
