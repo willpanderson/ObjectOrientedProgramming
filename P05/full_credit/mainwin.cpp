@@ -67,7 +67,7 @@ Mainwin::Mainwin(Store& store) : _store{&store} {
     vbox->add(*toolbar);
 
     Gtk::ToolButton *quit_button = Gtk::manage(new Gtk::ToolButton(Gtk::Stock::QUIT));
-    quit_button->set_tooltip_markup("Exit game");
+    quit_button->set_tooltip_markup("Exit Shop");
     quit_button->signal_clicked().connect([this] {this->on_quit_click();});
     Gtk::SeparatorToolItem *sep = Gtk::manage(new Gtk::SeparatorToolItem());
     sep->set_expand(true);
@@ -118,7 +118,14 @@ void Mainwin::on_list_orders_click()
 }
 void Mainwin::on_about_click()
 {
-  close();//temp
+  Glib::ustring s = R"(
+  <span size='24000' weight='bold'>Mav's Ultimate Sweet Shop</span>
+  <span size='large'>Copyright 2017, 2019 by William Anderson</span>
+  <span size='small'>Licensed under Creative Commons Attribution 4.0 International
+  Icon created by someone on the internet, used under free attribution license</span>
+)";
+  Gtk::MessageDialog dlg(*this, s, true, Gtk::MESSAGE_INFO, Gtk::BUTTONS_OK, true);
+  dlg.run();
 }
 void Mainwin::on_quit_click()
 {
