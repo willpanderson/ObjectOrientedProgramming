@@ -18,7 +18,7 @@ class Mainwin : public Gtk::Window {
         void on_list_orders_click();
         void on_about_click();
         void on_quit_click();
-        void ~reset_sensitivity();
+        //void ~reset_sensitivity();
         
     private:
         Store *_store;
