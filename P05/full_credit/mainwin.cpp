@@ -67,35 +67,35 @@ Mainwin::Mainwin(Store& store) : _store{&store} {
     vbox->add(*toolbar);
 
 
-    Gtk::ToolButton *new_store_button = Gtk::manage(new Gtk::ToolButton(Gtk::Stock::QUIT));
+    Gtk::ToolButton *new_store_button = Gtk::manage(new Gtk::ToolButton(Gtk::Stock::HOME));
     new_store_button->set_tooltip_markup("New Store");
     new_store_button->signal_clicked().connect([this] {this->on_new_store_click();});
     Gtk::SeparatorToolItem *sep6 = Gtk::manage(new Gtk::SeparatorToolItem());
     toolbar->append(*sep6);
     toolbar->append(*new_store_button);
 
-    Gtk::ToolButton *add_sweet_button = Gtk::manage(new Gtk::ToolButton(Gtk::Stock::QUIT));
+    Gtk::ToolButton *add_sweet_button = Gtk::manage(new Gtk::ToolButton(Gtk::Stock::ADD));
     add_sweet_button->set_tooltip_markup("Add Sweet");
     add_sweet_button->signal_clicked().connect([this] {this->on_add_sweet_click();});
     Gtk::SeparatorToolItem *sep5 = Gtk::manage(new Gtk::SeparatorToolItem());
     toolbar->append(*sep5);
     toolbar->append(*add_sweet_button);
 
-    Gtk::ToolButton *list_sweets_button = Gtk::manage(new Gtk::ToolButton(Gtk::Stock::QUIT));
+    Gtk::ToolButton *list_sweets_button = Gtk::manage(new Gtk::ToolButton(Gtk::Stock::FIND));
     list_sweets_button->set_tooltip_markup("List Sweets");
     list_sweets_button->signal_clicked().connect([this] {this->on_list_sweets_click();});
     Gtk::SeparatorToolItem *sep4 = Gtk::manage(new Gtk::SeparatorToolItem());
     toolbar->append(*sep4);
     toolbar->append(*list_sweets_button);
 
-    Gtk::ToolButton *place_order_button = Gtk::manage(new Gtk::ToolButton(Gtk::Stock::QUIT));
+    Gtk::ToolButton *place_order_button = Gtk::manage(new Gtk::ToolButton(Gtk::Stock::NEW));
     place_order_button->set_tooltip_markup("Place Order");
     place_order_button->signal_clicked().connect([this] {this->on_place_order_click();});
     Gtk::SeparatorToolItem *sep3 = Gtk::manage(new Gtk::SeparatorToolItem());
     toolbar->append(*sep3);
     toolbar->append(*place_order_button);
 
-    Gtk::ToolButton *list_order_button = Gtk::manage(new Gtk::ToolButton(Gtk::Stock::QUIT));
+    Gtk::ToolButton *list_order_button = Gtk::manage(new Gtk::ToolButton(Gtk::Stock::PRINT));
     list_order_button->set_tooltip_markup("List Orders");
     list_order_button->signal_clicked().connect([this] {this->on_list_orders_click();});
     Gtk::SeparatorToolItem *sep2 = Gtk::manage(new Gtk::SeparatorToolItem());
@@ -157,7 +157,7 @@ void Mainwin::on_about_click()
 {
   Glib::ustring s = R"(
   <span size='24000' weight='bold'>Mav's Ultimate Sweet Shop</span>
-  <span size='large'>Copyright 2017, 2019 by William Anderson</span>
+  <span size='large'>Copyright 2019 by William Anderson</span>
   <span size='small'>Licensed under Creative Commons Attribution 4.0 International
   Icon created by someone on the internet, used under free attribution license</span>
 )";
