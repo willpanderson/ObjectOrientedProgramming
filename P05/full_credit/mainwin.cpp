@@ -74,7 +74,7 @@ Mainwin::Mainwin(Store& store) : _store{&store} {
     toolbar->append(*sep6);
     toolbar->append(*new_store_button);
 
-    Gtk::ToolButton *add_sweet_button = Gtk::manage(new Gtk::ToolButton(Gtk::Stock::ADD));
+    Gtk::ToolButton *add_sweet_button = Gtk::manage(new Gtk::ToolButton(Gtk::Stock::NEW));
     add_sweet_button->set_tooltip_markup("Add Sweet");
     add_sweet_button->signal_clicked().connect([this] {this->on_add_sweet_click();});
     Gtk::SeparatorToolItem *sep5 = Gtk::manage(new Gtk::SeparatorToolItem());
@@ -88,7 +88,7 @@ Mainwin::Mainwin(Store& store) : _store{&store} {
     toolbar->append(*sep4);
     toolbar->append(*list_sweets_button);
 
-    Gtk::ToolButton *place_order_button = Gtk::manage(new Gtk::ToolButton(Gtk::Stock::NEW));
+    Gtk::ToolButton *place_order_button = Gtk::manage(new Gtk::ToolButton(Gtk::Stock::ADD));
     place_order_button->set_tooltip_markup("Place Order");
     place_order_button->signal_clicked().connect([this] {this->on_place_order_click();});
     Gtk::SeparatorToolItem *sep3 = Gtk::manage(new Gtk::SeparatorToolItem());
@@ -114,8 +114,10 @@ Mainwin::Mainwin(Store& store) : _store{&store} {
     // ///////////////////////
     // D A T A   D I S P L A Y
     // Provide a text entry box to show the sweets and orders
-
-
+    data = Gtk::manage(new Gtk::Label());
+    data->set_hexpand(true);
+    data->set_vexpand(true);
+    vbox->add(*data);
 
     // ///////////////////////////////////
     // S T A T U S   B A R   D I S P L A Y
@@ -135,23 +137,32 @@ Mainwin::~Mainwin() { }
 
 void Mainwin::on_new_store_click()
 {
-  close();//temp
+  //Store store; //Not entirely sure what this does....yet
+  Gtk::MessageDialog{*this, "New Store added"}.run();
 }
 void Mainwin::on_add_sweet_click()
 {
-  close();//temp
+  //entry dialog will pop up and allow user to enter name and price
+  //The name of the item and the price will be added to the vector _sweets
+
 }
 void Mainwin::on_list_sweets_click()
 {
-  close();//temp
+  close();
+  //List sweets in a dialog
 }
 void Mainwin::on_place_order_click()
 {
-  close();//temp
+  ///Entry Dialog to select the name of the MenuItem
+  //The name of the item will be added to the vector _order
+  //The price will be added to the current price of the order with the
+  //price of the selected item.
+
 }
 void Mainwin::on_list_orders_click()
 {
-  close();//temp
+  close();
+  //List Orders in a dialog
 }
 void Mainwin::on_about_click()
 {
