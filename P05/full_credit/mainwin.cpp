@@ -1,5 +1,6 @@
 #include "mainwin.h"
-
+#include "entrydialog.h"
+#include <iostream>
 Mainwin::Mainwin() : Mainwin{*(new Store)} { }
 Mainwin::Mainwin(Store& store) : _store{&store} {
 
@@ -142,9 +143,11 @@ void Mainwin::on_new_store_click()
 }
 void Mainwin::on_add_sweet_click()
 {
-  //entry dialog will pop up and allow user to enter name and price
-  //The name of the item and the price will be added to the vector _sweets
-
+  EntryDialog edialog{*this, "What sweet would you like to add?"};
+    edialog.run();
+    edialog.set_text("Nothing to report...");
+    Gtk::MessageDialog mdialog{*this, edialog.get_text()};
+    mdialog.run();
 }
 void Mainwin::on_list_sweets_click()
 {

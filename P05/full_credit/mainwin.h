@@ -18,7 +18,6 @@ class Mainwin : public Gtk::Window {
         void on_list_orders_click();
         void on_about_click();
         void on_quit_click();
-        //virtual ~reset_sensitivity();
 
     private:
         Store *_store;
@@ -32,6 +31,6 @@ class Mainwin : public Gtk::Window {
         Gtk::ToolButton *list_orders_button;
         Gtk::Label *data;
         Gtk::Label *msg;
-
+        auto reset_sensitivity();
 };
 #endif
