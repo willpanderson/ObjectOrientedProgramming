@@ -130,6 +130,26 @@ Mainwin::Mainwin(Store& store) : _store{&store} {
     vbox->show_all();
 }
 
+
+EntryDialog::EntryDialog(Gtk::Window& parent,
+			const Glib::ustring& message, 
+			bool use_markup, 
+			Gtk::MessageType type, 
+			Gtk::ButtonsType buttons, 
+			bool modal)
+	: MessageDialog(parent, message, use_markup, type, buttons, modal), entry{new
+    Gtk::Entry{}} {
+	get_content_area()->pack_start(*entry);  // Add the entry to the MessageDialog
+	entry->show();                           // Make the Entry visible
+}
+// Reflect the next two methods to their equivalents in the Entry widget
+
+void EntryDialog::set_text (const Glib::ustring& text) {entry->set_text(text);}
+Glib::ustring EntryDialog::get_text () const {return entry->get_text();}
+
+
+
+
 Mainwin::~Mainwin() { }
 
 // /////////////////
@@ -142,16 +162,17 @@ void Mainwin::on_new_store_click()
   Gtk::MessageDialog{*this, "New Store added"}.run();
 
 }
+
 void Mainwin::on_add_sweet_click()
 {
-  //EntryDialog edialog{*this, "What sweet would you like to add?"};
-    //edialog.run();
-    //edialog.set_text("Nothing to report...");
-    //Gtk::MessageDialog mdialog{*this, edialog.get_text()};
-    //mdialog.run();
-    //_store.add(Sweet& Sweet);
-
+  EntryDialog ed{*this, "What to display?"};
+  ed.set_text("Nothing to report...");
+  ed.run();
+  Gtk::MessageDialog md{*this, id.get_text()};
+  md.run();
 }
+
+
 void Mainwin::on_list_sweets_click()
 {
   close();
