@@ -138,16 +138,19 @@ Mainwin::~Mainwin() { }
 
 void Mainwin::on_new_store_click()
 {
-  //Store store; //Not entirely sure what this does....yet
+  Store store;
   Gtk::MessageDialog{*this, "New Store added"}.run();
+
 }
 void Mainwin::on_add_sweet_click()
 {
-  EntryDialog edialog{*this, "What sweet would you like to add?"};
-    edialog.run();
-    edialog.set_text("Nothing to report...");
-    Gtk::MessageDialog mdialog{*this, edialog.get_text()};
-    mdialog.run();
+  //EntryDialog edialog{*this, "What sweet would you like to add?"};
+    //edialog.run();
+    //edialog.set_text("Nothing to report...");
+    //Gtk::MessageDialog mdialog{*this, edialog.get_text()};
+    //mdialog.run();
+    //_store.add(Sweet& Sweet);
+
 }
 void Mainwin::on_list_sweets_click()
 {
@@ -160,6 +163,7 @@ void Mainwin::on_place_order_click()
   //The name of the item will be added to the vector _order
   //The price will be added to the current price of the order with the
   //price of the selected item.
+ //Store::add(Order& order) : _orders{order};
 
 }
 void Mainwin::on_list_orders_click()
