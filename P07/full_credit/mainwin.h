@@ -7,11 +7,13 @@ class Mainwin : public Gtk::Window {
 
   protected:
     void on_scale_value_changed();
-    void oncomboboxtext_activate();
+    void on_button_click(int button);
   private:
-    
+
     Gtk::Scale* scale;
-    Gtk::ComboBoxText* comboboxtext;
+    Gtk::Button* button;
+    Gtk::Button* button2;
+    Gtk::Button* button3;
     Gtk::Label* label;
     double *s2;
 };

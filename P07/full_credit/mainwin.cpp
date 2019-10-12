@@ -2,14 +2,17 @@
 #include <cmath>
 
 
-Mainwin::Mainwin():
-comboboxtext{Gtk::manage(new Gtk::ComboBoxText{true})},
+Mainwin::Mainwin()
+:
+button{Gtk::manage(new Gtk::Button{"Square Root"})},
+button2{Gtk::manage(new Gtk::Button{"Trignometric Cosine"})},
+button3{Gtk::manage(new Gtk::Button{"Natural Log"})},
 scale{Gtk::manage(new Gtk::Scale)},
-label{Gtk::manage(new Gtk::Label{"0"})}
+label{Gtk::manage(new Gtk::Label{"-nan"})}
 {
 	Gtk::VBox *vbox = Gtk::manage(new Gtk::VBox);
 	add (*vbox);
-	set_title("Functions");
+	set_title("William Anderson 1");
 	set_default_size(200, 100);
 
 	vbox->pack_start(*scale);
@@ -17,13 +20,17 @@ label{Gtk::manage(new Gtk::Label{"0"})}
 	scale->set_increments(1.0, 1.0);
 	scale->signal_value_changed().connect([this] {this->on_scale_value_changed();});
 
-	vbox->pack_start(*comboboxtext);
-	comboboxtext->append("Select A Function");
-	comboboxtext->append("Trignometric Cosine");
-	comboboxtext->append("Square Root");
-	comboboxtext->append("Natural Log");
-	comboboxtext->set_active(0);
-	comboboxtext->signal_changed().connect([this] {this->oncomboboxtext_activate();});
+	vbox->pack_start(*button);
+	button->set_tooltip_markup("This will take the square of the selected number");
+	button->signal_clicked().connect([this] {this->on_button_click(1);});
+
+	vbox->pack_start(*button2);
+	button2->set_tooltip_markup("This will thake the cosine the selected number");
+	button2->signal_clicked().connect([this] {this->on_button_click(2);});
+
+	vbox->pack_start(*button3);
+	button3->set_tooltip_markup("This will natural log the selected number");
+	button3->signal_clicked().connect([this] {this->on_button_click(3);});
 
 	vbox->pack_start(*label);
 	vbox->show_all();
@@ -34,27 +41,26 @@ Mainwin::~Mainwin() { }
 void Mainwin::on_scale_value_changed()
 {
     *s2 = scale->get_value();
-
 }
 
-void Mainwin::oncomboboxtext_activate()
-{
-	if (comboboxtext->get_active_row_number() == 1)
+void Mainwin::on_button_click(int button) {
+
+	if (button == 1)
 	{
 		label->set_text(std::to_string(cos (*s2)));
 	}
 
-	else if (comboboxtext->get_active_row_number() == 2)
+	else if (button == 2)
 	{
 		label->set_text(std::to_string(sqrt (*s2)));
 	}
 
-	else if (comboboxtext->get_active_row_number() == 3)
+	else if (button == 3)
 	{
+		*s2 = scale->get_value();//needed if scale dosent change when button is pressed
 		if (*s2 == 0.0)
 		{
-			std::string text = "Negative Infinity";
-			label->set_text(text);
+			label->set_text("Negative Infinity");
 		}
 		else
 		{

@@ -1,5 +1,5 @@
 #include "mainwin.h"
-#include "entrydialog.h"
+
 #include <iostream>
 Mainwin::Mainwin() : Mainwin{*(new Store)} { }
 Mainwin::Mainwin(Store& store) : _store{&store} {
@@ -132,10 +132,10 @@ Mainwin::Mainwin(Store& store) : _store{&store} {
 
 
 EntryDialog::EntryDialog(Gtk::Window& parent,
-			const Glib::ustring& message, 
-			bool use_markup, 
-			Gtk::MessageType type, 
-			Gtk::ButtonsType buttons, 
+			const Glib::ustring& message,
+			bool use_markup,
+			Gtk::MessageType type,
+			Gtk::ButtonsType buttons,
 			bool modal)
 	: MessageDialog(parent, message, use_markup, type, buttons, modal), entry{new
     Gtk::Entry{}} {
@@ -165,11 +165,12 @@ void Mainwin::on_new_store_click()
 
 void Mainwin::on_add_sweet_click()
 {
-  EntryDialog ed{*this, "What to display?"};
-  ed.set_text("Nothing to report...");
+  EntryDialog ed{*this, "Enter a sweet"};
+  ed.set_text("Enter the sweet here");
   ed.run();
-  Gtk::MessageDialog md{*this, id.get_text()};
+  Gtk::MessageDialog md{*this, ed.get_text()};
   md.run();
+
 }
 
 
