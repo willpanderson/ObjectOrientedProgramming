@@ -25,11 +25,11 @@ label{Gtk::manage(new Gtk::Label{"-nan"})}
 	button->signal_clicked().connect([this] {this->on_button_click(1);});
 
 	vbox->pack_start(*button2);
-	button2->set_tooltip_markup("This will thake the cosine the selected number");
+	button2->set_tooltip_markup("This will take the cosine the selected number");
 	button2->signal_clicked().connect([this] {this->on_button_click(2);});
 
 	vbox->pack_start(*button3);
-	button3->set_tooltip_markup("This will natural log the selected number");
+	button3->set_tooltip_markup("This will take natural log the selected number");
 	button3->signal_clicked().connect([this] {this->on_button_click(3);});
 
 	vbox->pack_start(*label);
@@ -44,23 +44,23 @@ void Mainwin::on_scale_value_changed()
 }
 
 void Mainwin::on_button_click(int button) {
-
+	*s2 = scale->get_value();//needed if scale dosent change when button is pressed
 	if (button == 1)
 	{
-		label->set_text(std::to_string(cos (*s2)));
+
+		label->set_text(std::to_string(sqrt (*s2)));
 	}
 
 	else if (button == 2)
 	{
-		label->set_text(std::to_string(sqrt (*s2)));
+		label->set_text(std::to_string(cos (*s2)));
 	}
 
 	else if (button == 3)
 	{
-		*s2 = scale->get_value();//needed if scale dosent change when button is pressed
 		if (*s2 == 0.0)
 		{
-			label->set_text("Negative Infinity");
+			label->set_text("Undefined");
 		}
 		else
 		{

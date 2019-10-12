@@ -131,24 +131,6 @@ Mainwin::Mainwin(Store& store) : _store{&store} {
 }
 
 
-EntryDialog::EntryDialog(Gtk::Window& parent,
-			const Glib::ustring& message,
-			bool use_markup,
-			Gtk::MessageType type,
-			Gtk::ButtonsType buttons,
-			bool modal)
-	: MessageDialog(parent, message, use_markup, type, buttons, modal), entry{new
-    Gtk::Entry{}} {
-	get_content_area()->pack_start(*entry);  // Add the entry to the MessageDialog
-	entry->show();                           // Make the Entry visible
-}
-// Reflect the next two methods to their equivalents in the Entry widget
-
-void EntryDialog::set_text (const Glib::ustring& text) {entry->set_text(text);}
-Glib::ustring EntryDialog::get_text () const {return entry->get_text();}
-
-
-
 
 Mainwin::~Mainwin() { }
 
@@ -165,12 +147,10 @@ void Mainwin::on_new_store_click()
 
 void Mainwin::on_add_sweet_click()
 {
-  EntryDialog ed{*this, "Enter a sweet"};
-  ed.set_text("Enter the sweet here");
-  ed.run();
-  Gtk::MessageDialog md{*this, ed.get_text()};
-  md.run();
-
+  Gtk::MessageDialog() getname;
+  Gtk::Entry *entry;
+  getname.get_vbox->pack_start(*entry);
+  std::string text = entry->get_text();
 }
 
 
