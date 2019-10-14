@@ -25,4 +25,3 @@ view.o: view.cpp *.h
 	$(CXX) $(CXXFLAGS) -c view.cpp -o view.o
 clean:
 	rm -f *.o *.gch a.out sweets sweets-cli
-
