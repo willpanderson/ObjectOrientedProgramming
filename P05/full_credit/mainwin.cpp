@@ -47,90 +47,22 @@ Mainwin::Mainwin(Store& store) : _store{&store} {
     menuitem_list_sweets->signal_activate().connect([this] {this->on_list_sweets_click();});
     sweetsmenu->append(*menuitem_list_sweets);
     menuitem_list_sweets->set_sensitive(false);
-///////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////
 
-    /*Gtk::MenuItem *menuitem_orders = Gtk::manage(new Gtk::MenuItem("_Orders", true));
-    menubar->append(*menuitem_orders);
-    Gtk::Menu *ordermenu = Gtk::manage(new Gtk::Menu());
-    menuitem_orders->set_submenu(*ordermenu);
+//     H E L P
+// Create a Help menu and add to the menu bar
+Gtk::MenuItem *menuitem_help = Gtk::manage(new Gtk::MenuItem("_Help", true));
+menubar->append(*menuitem_help);
+Gtk::Menu *helpmenu = Gtk::manage(new Gtk::Menu());
+menuitem_help->set_submenu(*helpmenu);
 
-    Gtk::MenuItem *menuitem_order = Gtk::manage(new Gtk::MenuItem("_Place Order", true));
-    menuitem_order->signal_activate().connect([this] {this->on_place_order_click();});
-    ordermenu->append(*menuitem_order);
+//           A B O U T
+// Append About to the Help menu
+Gtk::MenuItem *menuitem_about = Gtk::manage(new Gtk::MenuItem("About", true));
+menuitem_about->signal_activate().connect([this] {this->on_about_click();});
+helpmenu->append(*menuitem_about);
 
-    Gtk::MenuItem *menuitem_listo = Gtk::manage(new Gtk::MenuItem("_List Orders", true));
-    menuitem_listo->signal_activate().connect([this] {this->on_list_orders_click();});
-    ordermenu->append(*menuitem_listo);*/
-
-//////////////////////////////////////////////////////////////////////////////////////////////
-
-    //     H E L P
-    // Create a Help menu and add to the menu bar
-    Gtk::MenuItem *menuitem_help = Gtk::manage(new Gtk::MenuItem("_Help", true));
-    menubar->append(*menuitem_help);
-    Gtk::Menu *helpmenu = Gtk::manage(new Gtk::Menu());
-    menuitem_help->set_submenu(*helpmenu);
-
-    //           A B O U T
-    // Append About to the Help menu
-    Gtk::MenuItem *menuitem_about = Gtk::manage(new Gtk::MenuItem("About", true));
-    menuitem_about->signal_activate().connect([this] {this->on_about_click();});
-    helpmenu->append(*menuitem_about);
-
-/////////////////////////////////////////////////////////////////////////////////////////
-/*
-    // /////////////
-    // T O O L B A R
-    Gtk::Toolbar *toolbar = Gtk::manage(new Gtk::Toolbar);
-    vbox->add(*toolbar);
-
-
-    Gtk::ToolButton *new_store_button = Gtk::manage(new Gtk::ToolButton(Gtk::Stock::HOME));
-    new_store_button->set_tooltip_markup("New Store");
-    new_store_button->signal_clicked().connect([this] {this->on_new_store_click();});
-    Gtk::SeparatorToolItem *sep6 = Gtk::manage(new Gtk::SeparatorToolItem());
-    toolbar->append(*sep6);
-    toolbar->append(*new_store_button);
-
-    add_sweet_button = Gtk::manage(new Gtk::ToolButton(Gtk::Stock::NEW));
-    add_sweet_button->set_tooltip_markup("Add Sweet");
-    add_sweet_button->signal_clicked().connect([this] {this->on_add_sweet_click();});
-    Gtk::SeparatorToolItem *sep5 = Gtk::manage(new Gtk::SeparatorToolItem());
-    toolbar->append(*sep5);
-    toolbar->append(*add_sweet_button);
-
-    list_sweets_button = Gtk::manage(new Gtk::ToolButton(Gtk::Stock::FIND));
-    list_sweets_button->set_tooltip_markup("List Sweets");
-    list_sweets_button->signal_clicked().connect([this] {this->on_list_sweets_click();});
-    Gtk::SeparatorToolItem *sep4 = Gtk::manage(new Gtk::SeparatorToolItem());
-    toolbar->append(*sep4);
-    toolbar->append(*list_sweets_button);
-    list_sweets_button->set_sensitive(false);
-/*
-    *place_order_button = Gtk::manage(new Gtk::ToolButton(Gtk::Stock::ADD));
-    place_order_button->set_tooltip_markup("Place Order");
-    place_order_button->signal_clicked().connect([this] {this->on_place_order_click();});
-    Gtk::SeparatorToolItem *sep3 = Gtk::manage(new Gtk::SeparatorToolItem());
-    toolbar->append(*sep3);
-    toolbar->append(*place_order_button);
-
-    list_orders_button = Gtk::manage(new Gtk::ToolButton(Gtk::Stock::PRINT));
-    list_orders_button->set_tooltip_markup("List Orders");
-    list_orders_button->signal_clicked().connect([this] {this->on_list_orders_click();});
-    Gtk::SeparatorToolItem *sep2 = Gtk::manage(new Gtk::SeparatorToolItem());
-    toolbar->append(*sep2);
-    toolbar->append(*list_orders_button);
-    list_orders_button->set_sensitive(false);
-
-    Gtk::ToolButton *quit_button = Gtk::manage(new Gtk::ToolButton(Gtk::Stock::QUIT));
-    quit_button->set_tooltip_markup("Exit Shop");
-    quit_button->signal_clicked().connect([this] {this->on_quit_click();});
-    Gtk::SeparatorToolItem *sep = Gtk::manage(new Gtk::SeparatorToolItem());
-    sep->set_expand(true);
-    toolbar->append(*sep);
-    toolbar->append(*quit_button);
-*/
-//////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////
 
     // ///////////////////////
     // D A T A   D I S P L A Y
@@ -140,13 +72,6 @@ Mainwin::Mainwin(Store& store) : _store{&store} {
     data->set_vexpand(true);
     vbox->add(*data);
     data->set_text("\t\tWelcome to Mav's Ultimate Sweet Shop!\n\n   Please click on the Store icon in order to get started");
-
-    // ///////////////////////////////////
-    // S T A T U S   B A R   D I S P L A Y
-    // Provide a status bar for transient messages
-    //msg = Gtk::manage(new Gtk::Label());
-    //msg->set_hexpand(true);
-    //vbox->add(*msg);
 
     vbox->show_all();
 }
@@ -172,6 +97,7 @@ void EntryDialog::set_text (const Glib::ustring& text) {entry->set_text(text);}
 Glib::ustring EntryDialog::get_text () const {return entry->get_text();}
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 // /////////////////
 // C A L L B A C K S
 // /////////////////
@@ -181,7 +107,6 @@ void Mainwin::on_new_store_click()
   free(_store);
   _store = new Store();
   Gtk::MessageDialog{*this, "New Store added"}.run();
-//  msg->set_text("New Store !");
   data->set_text("You currently have " + std::to_string(this->_store->num_sweets()) + " sweets");
 
 }
@@ -211,9 +136,7 @@ void Mainwin::on_add_sweet_click()
 newprice = stof(price);
 Sweet *candy = new Sweet(name,newprice);
   this->_store->add(*candy);
-  //msg->set_text("New Sweet added!");
   data->set_text("You currently have " + std::to_string(this->_store->num_sweets()) + " sweets");
-  //list_sweets_button->set_sensitive(true);
   menuitem_list_sweets->set_sensitive(true);
 }
 
@@ -231,31 +154,17 @@ void Mainwin::on_list_sweets_click()
    name += t + ")" + "\n";
   }
   data->set_text(name);
-//  msg->set_text("Listed Sweets");
-}
-/*
-void Mainwin::on_place_order_click()
-{
-  //Entry Dialog to select the name of the MenuItem
-  //The name of the item will be added to the vector _order
-  //The price will be added to the current price of the order with the
-  //price oGtk::MessageDialog mdialog{*this, edialog.get_text()};f the selected item.
- //Store::add(Order& order) : _orders{order};
- msg->set_text("Order Placed!");
 }
 
-void Mainwin::on_list_orders_click()
-{
-  close();
-}
-*/
 void Mainwin::on_about_click()
 {
   Glib::ustring s = R"(
   <span size='24000' weight='bold'>Mav's Ultimate Sweet Shop</span>
   <span size='large'>Copyright 2019 by William Anderson</span>
   <span size='small'>Licensed under Creative Commons Attribution 4.0 International
-  Icon created by someone on the internet, used under free attribution license</span>
+  Icon created by the GNOME Project and XCF, used under free attribution license</span>
+
+The user creates a new store by clicking File>New Store or adding a sweet. The user can create a sweet and enter its name and price by clicking Sweets>Add Sweet. The user may view their current sweets by clicking Sweets>List Sweet.
 )";
 
   Gtk::MessageDialog dlg(*this, s, true, Gtk::MESSAGE_INFO, Gtk::BUTTONS_OK, true);
@@ -267,7 +176,3 @@ void Mainwin::on_quit_click()
   free (_store);
   close();
 }
-
-// /////////////////
-// U T I L I T I E S
-// /////////////////
