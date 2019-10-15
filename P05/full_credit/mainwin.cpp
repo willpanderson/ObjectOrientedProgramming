@@ -162,7 +162,7 @@ EntryDialog::EntryDialog(Gtk::Window& parent,
                          Gtk::MessageType type,
                          Gtk::ButtonsType buttons,
                          bool modal)
-  : MessageDialog(parent, message, use_markup, type, buttons, modal), entry{new Gtk::Entry{}} {
+  : MessageDialog(parent, message, use_markup, type,buttons, modal), entry{new Gtk::Entry{}} {
     get_content_area()->pack_start(*entry);  // Add the entry to the MessageDialog
     entry->show();                           // Make the Entry visible
 }
@@ -191,27 +191,22 @@ void Mainwin::on_add_sweet_click()
   std::string name = "";
   std::string price = "";
   double newprice;
+  EntryDialog edialog{*this, "Please enter the name of a sweet"};
+  EntryDialog qedialog{*this, "Please enter the " + name +" price" };
   while (name == "")
   {
-  EntryDialog edialog{*this, "Please enter the name of a sweet"};
+  edialog.set_text("Enter the sweet name here or type exit to quit");
   edialog.run();
   name = edialog.get_text();
- }
-try{
+
  while(price == "")
   {
-  EntryDialog qedialog{*this, "Please enter the " + name +" price" };
   qedialog.run();
   price = qedialog.get_text();
 }
+
 newprice = stof(price);
-}
-catch (std::invalid_argument e)
-{
-  free(_store);
-  close();
-}
-  Sweet *candy = new Sweet(name,newprice);
+Sweet *candy = new Sweet(name,newprice);
   this->_store->add(*candy);
   msg->set_text("New Sweet added!");
   data->set_text("You currently have " + std::to_string(this->_store->num_sweets()) + " sweets");
@@ -267,6 +262,7 @@ void Mainwin::on_about_click()
 
 void Mainwin::on_quit_click()
 {
+  free (_store);
   close();
 }
 
