@@ -12,7 +12,7 @@ class EntryDialog : public Gtk::MessageDialog {
                 const Glib::ustring& message,
                 bool use_markup=false,
                 Gtk::MessageType type=Gtk::MESSAGE_OTHER,
-                Gtk::ButtonsType buttons=Gtk::BUTTONS_OK,
+                Gtk::ButtonsType buttons=Gtk::BUTTONS_OK_CANCEL //CANCEL DOES NOT WORK,
                 bool modal=false);
 
     // These methods are identical to those of the same name in Gtk::Entry
