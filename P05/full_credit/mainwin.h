@@ -34,8 +34,8 @@ class Mainwin : public Gtk::Window {
         void on_new_store_click();
         void on_add_sweet_click();
         void on_list_sweets_click();
-        void on_place_order_click();
-        void on_list_orders_click();
+        //void on_place_order_click();
+        //void on_list_orders_click();
         void on_about_click();
         void on_quit_click();
 
@@ -47,8 +47,8 @@ class Mainwin : public Gtk::Window {
         Gtk::MenuItem *menuitem_list_orders;
         Gtk::ToolButton *add_sweet_button;
         Gtk::ToolButton *list_sweets_button;
-        Gtk::ToolButton *place_order_button;
-        Gtk::ToolButton *list_orders_button;
+        //Gtk::ToolButton *place_order_button;
+        //Gtk::ToolButton *list_orders_button;
         Gtk::Label *data;
         Gtk::Label *msg;
         void reset_sensitivity();

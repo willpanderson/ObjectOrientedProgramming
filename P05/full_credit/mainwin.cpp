@@ -38,12 +38,12 @@ Mainwin::Mainwin(Store& store) : _store{&store} {
     Gtk::Menu *sweetsmenu = Gtk::manage(new Gtk::Menu());
     menuitem_sweets->set_submenu(*sweetsmenu);
 
-    Gtk::MenuItem *menuitem_add_sweet = Gtk::manage(new Gtk::MenuItem("_Add Sweets", true));
+    menuitem_add_sweet = Gtk::manage(new Gtk::MenuItem("_Add Sweets", true));
     menuitem_add_sweet->signal_activate().connect([this] {this->on_add_sweet_click();});
     sweetsmenu->append(*menuitem_add_sweet);
 
 
-    Gtk::MenuItem *menuitem_list_sweets = Gtk::manage(new Gtk::MenuItem("_List Sweets", true));
+    menuitem_list_sweets = Gtk::manage(new Gtk::MenuItem("_List Sweets", true));
     menuitem_list_sweets->signal_activate().connect([this] {this->on_list_sweets_click();});
     sweetsmenu->append(*menuitem_list_sweets);
     menuitem_list_sweets->set_sensitive(false);
@@ -78,7 +78,7 @@ Mainwin::Mainwin(Store& store) : _store{&store} {
     helpmenu->append(*menuitem_about);
 
 /////////////////////////////////////////////////////////////////////////////////////////
-
+/*
     // /////////////
     // T O O L B A R
     Gtk::Toolbar *toolbar = Gtk::manage(new Gtk::Toolbar);
@@ -92,14 +92,14 @@ Mainwin::Mainwin(Store& store) : _store{&store} {
     toolbar->append(*sep6);
     toolbar->append(*new_store_button);
 
-    Gtk::ToolButton *add_sweet_button = Gtk::manage(new Gtk::ToolButton(Gtk::Stock::NEW));
+    add_sweet_button = Gtk::manage(new Gtk::ToolButton(Gtk::Stock::NEW));
     add_sweet_button->set_tooltip_markup("Add Sweet");
     add_sweet_button->signal_clicked().connect([this] {this->on_add_sweet_click();});
     Gtk::SeparatorToolItem *sep5 = Gtk::manage(new Gtk::SeparatorToolItem());
     toolbar->append(*sep5);
     toolbar->append(*add_sweet_button);
 
-    Gtk::ToolButton *list_sweets_button = Gtk::manage(new Gtk::ToolButton(Gtk::Stock::FIND));
+    list_sweets_button = Gtk::manage(new Gtk::ToolButton(Gtk::Stock::FIND));
     list_sweets_button->set_tooltip_markup("List Sweets");
     list_sweets_button->signal_clicked().connect([this] {this->on_list_sweets_click();});
     Gtk::SeparatorToolItem *sep4 = Gtk::manage(new Gtk::SeparatorToolItem());
@@ -107,20 +107,20 @@ Mainwin::Mainwin(Store& store) : _store{&store} {
     toolbar->append(*list_sweets_button);
     list_sweets_button->set_sensitive(false);
 /*
-    Gtk::ToolButton *place_order_button = Gtk::manage(new Gtk::ToolButton(Gtk::Stock::ADD));
+    *place_order_button = Gtk::manage(new Gtk::ToolButton(Gtk::Stock::ADD));
     place_order_button->set_tooltip_markup("Place Order");
     place_order_button->signal_clicked().connect([this] {this->on_place_order_click();});
     Gtk::SeparatorToolItem *sep3 = Gtk::manage(new Gtk::SeparatorToolItem());
     toolbar->append(*sep3);
     toolbar->append(*place_order_button);
-*/
-    Gtk::ToolButton *list_order_button = Gtk::manage(new Gtk::ToolButton(Gtk::Stock::PRINT));
-    list_order_button->set_tooltip_markup("List Orders");
-    list_order_button->signal_clicked().connect([this] {this->on_list_orders_click();});
+
+    list_orders_button = Gtk::manage(new Gtk::ToolButton(Gtk::Stock::PRINT));
+    list_orders_button->set_tooltip_markup("List Orders");
+    list_orders_button->signal_clicked().connect([this] {this->on_list_orders_click();});
     Gtk::SeparatorToolItem *sep2 = Gtk::manage(new Gtk::SeparatorToolItem());
     toolbar->append(*sep2);
-    toolbar->append(*list_order_button);
-    list_order_button->set_sensitive(false);
+    toolbar->append(*list_orders_button);
+    list_orders_button->set_sensitive(false);
 
     Gtk::ToolButton *quit_button = Gtk::manage(new Gtk::ToolButton(Gtk::Stock::QUIT));
     quit_button->set_tooltip_markup("Exit Shop");
@@ -129,7 +129,7 @@ Mainwin::Mainwin(Store& store) : _store{&store} {
     sep->set_expand(true);
     toolbar->append(*sep);
     toolbar->append(*quit_button);
-
+*/
 //////////////////////////////////////////////////////////////////////////////////////////////////
 
     // ///////////////////////
@@ -144,9 +144,9 @@ Mainwin::Mainwin(Store& store) : _store{&store} {
     // ///////////////////////////////////
     // S T A T U S   B A R   D I S P L A Y
     // Provide a status bar for transient messages
-    msg = Gtk::manage(new Gtk::Label());
-    msg->set_hexpand(true);
-    vbox->add(*msg);
+    //msg = Gtk::manage(new Gtk::Label());
+    //msg->set_hexpand(true);
+    //vbox->add(*msg);
 
     vbox->show_all();
 }
@@ -181,26 +181,29 @@ void Mainwin::on_new_store_click()
   free(_store);
   _store = new Store();
   Gtk::MessageDialog{*this, "New Store added"}.run();
-  msg->set_text("New Store !");
+//  msg->set_text("New Store !");
   data->set_text("You currently have " + std::to_string(this->_store->num_sweets()) + " sweets");
 
 }
+
 
 void Mainwin::on_add_sweet_click()
 {
   std::string name = "";
   std::string price = "";
   double newprice;
-  EntryDialog edialog{*this, "Please enter the name of a sweet"};
-  EntryDialog qedialog{*this, "Please enter the " + name +" price" };
+
+
   while (name == "")
   {
-  edialog.set_text("Enter the sweet name here or type exit to quit");
+  EntryDialog edialog{*this, "Please enter the name of a sweet"};
+  edialog.set_text("Enter the sweet name here");
   edialog.run();
   name = edialog.get_text();
-
+}
  while(price == "")
   {
+  EntryDialog qedialog{*this, "Please enter the " + name + " price" };
   qedialog.run();
   price = qedialog.get_text();
 }
@@ -208,11 +211,10 @@ void Mainwin::on_add_sweet_click()
 newprice = stof(price);
 Sweet *candy = new Sweet(name,newprice);
   this->_store->add(*candy);
-  msg->set_text("New Sweet added!");
+  //msg->set_text("New Sweet added!");
   data->set_text("You currently have " + std::to_string(this->_store->num_sweets()) + " sweets");
-  list_sweets_button->set_sensitive(true);
+  //list_sweets_button->set_sensitive(true);
   menuitem_list_sweets->set_sensitive(true);
-
 }
 
 
@@ -229,9 +231,9 @@ void Mainwin::on_list_sweets_click()
    name += t + ")" + "\n";
   }
   data->set_text(name);
-  msg->set_text("Listed Sweets");
+//  msg->set_text("Listed Sweets");
 }
-
+/*
 void Mainwin::on_place_order_click()
 {
   //Entry Dialog to select the name of the MenuItem
@@ -246,7 +248,7 @@ void Mainwin::on_list_orders_click()
 {
   close();
 }
-
+*/
 void Mainwin::on_about_click()
 {
   Glib::ustring s = R"(
