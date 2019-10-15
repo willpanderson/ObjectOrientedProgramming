@@ -258,17 +258,19 @@ void Mainwin::on_list_orders_click()
 */
 void Mainwin::on_about_click()
 {
-  Glib::ustring s = R"(
-  <span size='24000' weight='bold'>Mav's Ultimate Sweet Shop</span>
-  <span size='large'>Copyright 2019 by William Anderson</span>
-  <span size='small'>Licensed under Creative Commons Attribution 4.0 International
-  Icon created by the GNOME Project and XCF, used under free attribution license</span>
-
-The user creates a new store by clicking File>New Store or adding a sweet. The user can create a sweet and enter its name and price by clicking Sweets>Add Sweet. The user may view their current sweets by clicking Sweets>List Sweet.
-)";
-
-  Gtk::MessageDialog dlg(*this, s, true, Gtk::MESSAGE_INFO, Gtk::BUTTONS_OK, true);
-  dlg.run();
+  Gtk::AboutDialog dialog{};   
+	dialog.set_transient_for(*this); // Avoid the discouraging warning   
+	dialog.set_program_name("Mav's Ultimate Sweet Shop");   
+	auto logo = Gdk::Pixbuf::create_from_file("128px-Pyramidal_matches.png");  
+	dialog.set_logo(logo);    
+	dialog.set_version("Version 1.0.0");   
+	dialog.set_copyright("Copyright 2019");   
+	dialog.set_license_type(Gtk::License::LICENSE_GPL_3_0);
+	std::vector< Glib::ustring > authors = {"william Anderson"};    
+	dialog.set_authors(authors);    
+	std::vector< Glib::ustring > artists = {        "Logo by GNOME and XCF, licensed under CC BY-SA 3.0              https://commons.wikimedia.org/wiki/GTK"};    
+	dialog.set_comments();   
+	dialog.set_artists(artists); 
 }
 
 void Mainwin::on_quit_click()
