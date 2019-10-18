@@ -68,11 +68,11 @@ Mainwin::Mainwin(Store& store) : _store{&store} {
     Gtk::Menu *ordermenu = Gtk::manage(new Gtk::Menu());
     menuitem_orders->set_submenu(*ordermenu);
 
-    *menuitem_place_order = Gtk::manage(new Gtk::MenuItem("_Place Order", true));
+    menuitem_place_order = Gtk::manage(new Gtk::MenuItem("_Place Order", true));
     menuitem_place_order->signal_activate().connect([this] {this->on_place_order_click();});
     ordermenu->append(*menuitem_place_order);
 
-    *menuitem_list_orders = Gtk::manage(new Gtk::MenuItem("_List Orders", true));
+    menuitem_list_orders = Gtk::manage(new Gtk::MenuItem("_List Orders", true));
     menuitem_list_orders->signal_activate().connect([this] {this->on_list_orders_click();});
     ordermenu->append(*menuitem_list_orders);
 
@@ -120,12 +120,12 @@ Mainwin::Mainwin(Store& store) : _store{&store} {
     list_sweets_button->signal_clicked().connect([this] {this->on_list_sweets_click();});
     toolbar->append(*list_sweets_button);
 
-    *place_order_button = Gtk::manage(new Gtk::ToolButton(Gtk::Stock::ADD));
+    place_order_button = Gtk::manage(new Gtk::ToolButton(Gtk::Stock::ADD));
     place_order_button->set_tooltip_markup("Place Order");
     place_order_button->signal_clicked().connect([this] {this->on_place_order_click();});
     toolbar->append(*place_order_button);
 
-    *list_orders_button = Gtk::manage(new Gtk::ToolButton(Gtk::Stock::PRINT));
+    list_orders_button = Gtk::manage(new Gtk::ToolButton(Gtk::Stock::PRINT));
     list_orders_button->set_tooltip_markup("List Orders");
     list_orders_button->signal_clicked().connect([this] {this->on_list_orders_click();});
     toolbar->append(*list_orders_button);
@@ -315,19 +315,37 @@ void Mainwin::on_place_order_click()
 
 void Mainwin::on_list_orders_click()
 {
-  close();
+  if (_store->num_orders() == 0) {
+        data->set_markup("<span size='large' weight='bold'>No orders have been defined yet</span>");
+#ifdef __STATUSBAR
+        msg->set_text("");
+#endif
+        return;
+    }
+
+    // The string manipulation way
+    std::string t = "<span size='large' weight='bold'>";
+    for(int i=0; i<_store->num_orders(); ++i)
+        t += std::to_string(_store->num_orders()) + std::to_string(_store->order(i).size()) + "\n";
+    t += "</span>";
+    data->set_markup(t);
+#ifdef __STATUSBAR
+    msg->set_text("");
+#endif
 }
+
+
 void Mainwin::on_about_click() {
 #ifdef __RICHTEXT
     Glib::ustring s = "<span size='36000' weight='bold'>Mav's Ultimate Sweet Shop " + VERSION + "</span>\n"
-        + "<span size='large'>Copyright 2019 by George F. Rice</span>\n\n"
+        + "<span size='large'>Copyright 2019 by William Anderson</span>\n\n"
         + "<span size='small'>Licensed under the Gnu General Public License 3.0\n    https://www.gnu.org/licenses/gpl-3.0.en.html\n\n</span>"
         + "<span size='small'>Candy photo created by Biscanski and donated to the public domain\n    https://pixnio.com/food-and-drink/desserts-cakes/sweet-color-sugar-gelatin-confectionery-delicious-food-candy\n\n</span>"
         + "<span size='small'>Lollipop icon derived from http://pngimg.com/download/13817, used under Creative Commons 4.0 BY-NC\n\n</span>"
         + "<span size='small'>Lollipops in Jar icon derived from https://www.pngfind.com/mpng/hxbTbow_jar-clipart-lollipop-lollipops-in-a-jar-hd/ under Personal Use Only license\n\n</span>";
 #else
     Glib::ustring s = "Mav's Ultimate Sweet Shop " + VERSION
-        + "\nCopyright 2019 by George F. Rice\n\n"
+        + "\nCopyright 2019 by william Anderson\n\n"
         + "Licensed under the Gnu General Public License 3.0\n    https://www.gnu.org/licenses/gpl-3.0.en.html\n\n"
         + "Candy photo created by Biscanski and donated to the public domain\n    https://pixnio.com/food-and-drink/desserts-cakes/sweet-color-sugar-gelatin-confectionery-delicious-food-candy\n\n"
         + "Lollipop icon derived from http://pngimg.com/download/13817, used under Creative Commons 4.0 BY-NC\n\n"
