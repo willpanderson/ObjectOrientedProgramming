@@ -326,7 +326,11 @@ void Mainwin::on_list_orders_click()
     // The string manipulation way
     std::string t = "<span size='large' weight='bold'>";
     for(int i=0; i<_store->num_orders(); ++i)
-        t += std::to_string(_store->num_orders()) + std::to_string(_store->order(i).size()) + "\n";
+        t += std::to_string(_store->num_orders()) + std::to_string(_store->order(i).size())
+                            + std::to_string(_store->order(i).quantity(_quantities))
+                             + std::to_string(_store->order(i).sweet(_sweets))
+                              + "$ " + std::to_string(_store->order(i).price()) 
+                               + "\n";
     t += "</span>";
     data->set_markup(t);
 #ifdef __STATUSBAR
