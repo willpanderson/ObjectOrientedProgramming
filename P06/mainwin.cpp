@@ -305,7 +305,7 @@ void Mainwin::on_list_sweets_click() {
 
 void Mainwin::on_place_order_click()
 {
-  dialog_button->signal_clicked().connect([this] {this->dialog();});
+  menuitem_place_order->signal_clicked().connect([this] {this->dialog();});
 #ifdef __STATUSBAR
   msg->set_text("Added new order");
 #endif
