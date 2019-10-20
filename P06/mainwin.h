@@ -21,6 +21,8 @@ class Mainwin : public Gtk::Window
         void on_list_orders_click();          // Select an order to list
         void on_about_click();                // Display About dialog
         void on_quit_click();                 // Exit the program
+        void on_comboboxtext_activate();
+        void on_spinbutton_value_changed();
     private:
         Store *_store;
 #ifdef __SENSITIVITY1
@@ -31,6 +33,8 @@ class Mainwin : public Gtk::Window
         Gtk::MenuItem *menuitem_list_sweets;  // Sweets > List
         Gtk::MenuItem *menuitem_place_order;  // Orders > Place
         Gtk::MenuItem *menuitem_list_orders;  // Orders > List
+        Gtk::SpinButton* spinbutton;
+        Gtk::ComboBoxText* comboboxtext;
 
 #ifdef __TOOLBAR
         // Tool bar buttons
@@ -41,9 +45,32 @@ class Mainwin : public Gtk::Window
 #endif
 
         // Display widgets
-        Gtk::Label *data;                     // Information display
+        Gtk::Label *data;
+        void dialog();                    // Information display
 #ifdef __STATUSBAR
         Gtk::Label *msg;                      // Status message display
 #endif
 };
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 #endif
