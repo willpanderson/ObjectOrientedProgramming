@@ -22,7 +22,7 @@ class Mainwin : public Gtk::Window
         void on_about_click();                // Display About dialog
         void on_quit_click();                 // Exit the program
     private:
-        Store *_store;                        // Current model
+        Store *_store;
 #ifdef __SENSITIVITY1
         void reset_sensitivity();             // Reset command sensitivity based on data
 #endif

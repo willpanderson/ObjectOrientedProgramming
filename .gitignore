@@ -30,3 +30,5 @@
 *.exe
 *.out
 *.app
+P06/mainwin-dialog.cpp
+P06/mainwin.h

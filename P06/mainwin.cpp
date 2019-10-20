@@ -112,8 +112,8 @@ Mainwin::Mainwin(Store& store) : _store{&store} {
     add_sweet_button->signal_clicked().connect([this] {this->on_add_sweet_click();});
     toolbar->append(*add_sweet_button);
 
-    //     L I S T   S W E E T S
-    // Add a icon for listing sweets
+    //     L I S T   S W E E T S AND ORDERS
+    // Add a icon for listing sweets and orders
     Gtk::Image* list_sweets_image = Gtk::manage(new Gtk::Image{"lollipop-32.png"});
     list_sweets_button = Gtk::manage(new Gtk::ToolButton(*list_sweets_image));
     list_sweets_button->set_tooltip_markup("List an sweet");
@@ -305,54 +305,98 @@ void Mainwin::on_list_sweets_click() {
 
 void Mainwin::on_place_order_click()
 {
-    int price = -1;
-    Gtk::Dialog *dialog = new Gtk::Dialog{"Select a Sweet to Order", *this};
-    Gtk::HBox b_order;
+  std::string name = "";
+  double price = -1;
 
-    Gtk::Label l_price{"Quantity:"};
-    l_price.set_width_chars(15);
-    b_order.pack_start(l_price, Gtk::PACK_SHRINK);
-
-    Gtk::Entry e_price;
-    e_price.set_max_length(50);
-    b_order.pack_start(e_price, Gtk::PACK_SHRINK);
-    dialog->get_vbox()->pack_start(b_order, Gtk::PACK_SHRINK);
-
-    // Show dialog
-    dialog->add_button("Cancel", 0);
-    dialog->add_button("Create", 1);
-    dialog->show_all();
-
-    int result; // of the dialog (1 = OK)
-    bool fail = true;  // set to true if any data is invalid
-
-    while (fail) {
-        fail = false;  // optimist!
-        result = dialog->run();
-        if (result != 1) {
+#ifndef __SWEETSADDDLG
+  EntryDialog dialog{*this, "Select a sweet to order?"};
+  dialog.run();
+  name = dialog.get_text();
+  if(name.size() == 0) {
 #ifdef __STATUSBAR
-            msg->set_text("New sweet cancelled");
+      msg->set_text("New order cancelled");
 #endif
-            delete dialog;
-            return;}
-        try {
-            price = std::stoi(e_price.get_text());
-        } catch(std::exception e) {
-            e_price.set_text("### Invalid ###");
-            fail = true;
-        }  
-int ordernumber = 1;
-Order order{sweet,quantity};
-_store->add(order);
+      return;
+  }
 
+  std::string prompt = "How many sweets would you like to order?";
+  while (price < 0) {
+      EntryDialog dialog{*this, prompt};
+      dialog.run();
+      try {
+          price = std::stoi(dialog.get_text());
+      } catch(std::exception e) {
+          prompt = "Invalid Quantity! Quantity?";
+          price = -1;
+      }
+  }
+
+#else
+  Gtk::Dialog *dialog = new Gtk::Dialog{"Place an Order", *this};
+
+  // Name
+  Gtk::HBox b_name;
+
+  Gtk::Label l_name{"Sweet:"};
+  l_name.set_width_chars(15);
+  b_name.pack_start(l_name, Gtk::PACK_SHRINK);
+
+  Gtk::Entry e_name;
+  e_name.set_max_length(50);
+  b_name.pack_start(e_name, Gtk::PACK_SHRINK);
+  dialog->get_vbox()->pack_start(b_name, Gtk::PACK_SHRINK);
+
+  // Price
+  Gtk::HBox b_price;
+
+  Gtk::Label l_price{"Quantity:"};
+  l_price.set_width_chars(15);
+  b_price.pack_start(l_price, Gtk::PACK_SHRINK);
+
+  Gtk::Entry e_price;
+  e_price.set_max_length(50);
+  b_price.pack_start(e_price, Gtk::PACK_SHRINK);
+  dialog->get_vbox()->pack_start(b_price, Gtk::PACK_SHRINK);
+
+  // Show dialog
+  dialog->add_button("Cancel", 0);
+  dialog->add_button("Enter", 1);
+  dialog->show_all();
+
+  int result; // of the dialog (1 = OK)
+  bool fail = true;  // set to true if any data is invalid
+
+  while (fail) {
+      fail = false;  // optimist!
+      result = dialog->run();
+      if (result != 1) {
 #ifdef __STATUSBAR
-    msg->set_text("Added Order");
+          msg->set_text("New sweet cancelled");
+#endif
+          delete dialog;
+          return;}
+      try {
+          price = std::stod(e_price.get_text());
+      } catch(std::exception e) {
+          e_price.set_text("### Invalid ###");
+          fail = true;
+      }
+      name = e_name.get_text();
+      if (name.size() == 0) {
+          e_name.set_text("### Invalid ###");
+          fail = true;
+      }
+  }
+  delete dialog;
+#endif
+_store->
+#ifdef __STATUSBAR
+  msg->set_text("Added new order");
 #endif
 
 #ifdef __SENSITIVITY1
-    reset_sensitivity();
+  reset_sensitivity();
 #endif
-}
 }
 
 void Mainwin::on_list_orders_click()
@@ -371,11 +415,11 @@ void Mainwin::on_list_orders_click()
     {
         for (int j = 0; j < _store->order(i).size(); j++)
         {
-        t += _store->order(i).sweet(j).name() + 
+        t += _store->order(i).sweet(j).name() +
             std::to_string(_store->order(i).quantity(j));
        }
     t+=_store->order(i).price();
-    }                                                                           
+    }
     t += "</span>";
     data->set_markup(t);
 #ifdef __STATUSBAR
