@@ -394,15 +394,50 @@ void Mainwin::on_list_orders_click()
 
     // The string manipulation way
     std::string t = "<span size='large' weight='bold'>";
-    for(int i=0; i<_store->num_orders(); ++i)
-    {
+    int i = 0;
+    Gtk::HBox b_price;
+
+    Gtk::Label l_price{"Enter an order number to list:"};
+    l_price.set_width_chars(15);
+    b_price.pack_start(l_price, Gtk::PACK_SHRINK);
+
+    Gtk::Entry e_price;
+    e_price.set_max_length(50);
+    b_price.pack_start(e_price, Gtk::PACK_SHRINK);
+    dialog->get_vbox()->pack_start(b_price, Gtk::PACK_SHRINK);
+
+    // Show dialog
+    dialog->add_button("Cancel", 0);
+    dialog->add_button("Create", 1);
+    dialog->show_all();
+
+    int result; // of the dialog (1 = OK)
+    bool fail = true;  // set to true if any data is invalid
+
+    while (fail) {
+        fail = false;  // optimist!
+        result = dialog->run();
+        if (result != 1) {
+    #ifdef __STATUSBAR
+            msg->set_text("List orders cancelled");
+    #endif
+            delete dialog;
+            return;}
+
+        try {
+            i = std::stoi(e_price.get_text());
+        } catch(std::exception e) {
+            e_price.set_text("### Invalid ###");
+            fail = true;
+        }
+
+
         for (int j = 0; j < _store->order(i).size(); j++)
         {
-        t += _store->order(i).sweet(j).name() +
+        t += _store->order(i).sweet(j).name() + " " +
             std::to_string(_store->order(i).quantity(j)) + "\n";
-       }
-    t+=_store->order(i).price();
-    }
+        }
+    t+= "\n\n\n"_store->order(i).price();
     t += "</span>";
     data->set_markup(t);
 #ifdef __STATUSBAR
