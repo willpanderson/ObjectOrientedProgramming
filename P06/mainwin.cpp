@@ -384,6 +384,7 @@ void Mainwin::on_place_order_click()
 
 void Mainwin::on_list_orders_click()
 {
+  Gtk::Dialog *dialog = new Gtk::Dialog{"List yours Order", *this};
   if (_store->num_orders() == 0) {
         data->set_markup("<span size='large' weight='bold'>No orders have been defined yet</span>");
 #ifdef __STATUSBAR
