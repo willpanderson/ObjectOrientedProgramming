@@ -441,7 +441,7 @@ void Mainwin::on_list_orders_click()
     msg->set_text("");
 #endif
 }
-
+}
 
 void Mainwin::on_about_click() {
 #ifdef __RICHTEXT
