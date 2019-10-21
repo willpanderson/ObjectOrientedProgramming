@@ -294,7 +294,7 @@ void Mainwin::on_list_sweets_click() {
     // The string manipulation way
     std::string s = "<span size='large' weight='bold'>";
     for(int i=0; i<_store->num_sweets(); ++i)
-        s += std::to_string(i) + ". " + _store->sweet(i).name() + "  $" + std::to_string(_store->sweet(i).price()) + "\n";
+        s += std::to_string(i+1) + ". " + _store->sweet(i).name() + "  $" + std::to_string(_store->sweet(i).price()) + "\n";
     s += "</span>";
     data->set_markup(s);
 #ifdef __STATUSBAR
@@ -340,8 +340,7 @@ void Mainwin::on_place_order_click()
 
   int result; // of the dialog (1 = OK)
   bool fail = true;  // set to true if any data is invalid
-while (result != 0)
-{
+
   while (fail) {
       fail = false;  // optimist!
       result = dialog->run();
@@ -368,7 +367,7 @@ while (result != 0)
   }
 
   delete dialog;
-}
+
   if (quantity > 0) {
     order.add(quantity, _store->sweet(sweet));
   }
