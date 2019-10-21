@@ -340,7 +340,8 @@ void Mainwin::on_place_order_click()
 
   int result; // of the dialog (1 = OK)
   bool fail = true;  // set to true if any data is invalid
-
+while (result != 0)
+{
   while (fail) {
       fail = false;  // optimist!
       result = dialog->run();
@@ -365,6 +366,7 @@ void Mainwin::on_place_order_click()
       }
 
   }
+}
   delete dialog;
   if (quantity > 0) {
     order.add(quantity, _store->sweet(sweet));
@@ -405,7 +407,7 @@ void Mainwin::on_list_orders_click()
 
     // Show dialog
     dialog->add_button("Cancel", 0);
-    dialog->add_button("Create", 1);
+    dialog->add_button("List Order", 1);
     dialog->show_all();
 
     int result; // of the dialog (1 = OK)
@@ -431,7 +433,7 @@ void Mainwin::on_list_orders_click()
         delete dialog;
         for (int j = 0; j < _store->order(i).size(); j++)
         {
-        t += _store->order(i).sweet(j).name() + " " +
+        t += _store->order(i).sweet(j).name() + "\t " +
             std::to_string(_store->order(i).quantity(j)) + "\n";
         }
     t+= "\n\n\n" + total + "\t" + std::to_string(_store->order(i).price());
