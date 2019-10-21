@@ -1,4 +1,4 @@
-CXXFLAGS += --std=c++17
+CXXFLAGS += --std=c++17 -g
 GTKFLAGS = `/usr/bin/pkg-config gtkmm-3.0 --cflags --libs`
 
 all: sweets sweets-cli

@@ -310,8 +310,7 @@ void Mainwin::on_place_order_click()
   bool flag = true;
   bool order_placed = false;
     
-  while (flag) 
-  {
+ 
       Gtk::Dialog *dialog = new Gtk::Dialog{"Add an Order",this};
       Gtk::HBox b_options;
       
@@ -321,7 +320,7 @@ void Mainwin::on_place_order_click()
       
       Gtk::ComboBoxText options;
       int i;
-      options.append("Choose a sweet");
+      //options.append("Choose a sweet");
       options.set_active(0);
       for (i = 0; i < _store->num_sweets(); i++)
       {
@@ -346,43 +345,41 @@ void Mainwin::on_place_order_click()
      dialog->add_button("+ Sweet",1);
      dialog->add_button("Place Order",2);
       
-     dialog->show_all();
+    dialog->show_all();
+    while (flag)
+    {
     int result = dialog->run();
     if (result == 0)
     {
+        flag = false;
         delete dialog;
         #ifdef __STATUSBAR
             msg->set_text("");
         #endif        
-        break;
-        flag = false;
     }
     if (result == 1)    
     {
+        
         if(options.get_active_row_number() != 0 || spinbutton.get_value_as_int() != 0)
         {
-            Sweet sweet = _store->sweet(options.get_active_row_number()-1);
+            Sweet sweet = _store->sweet(options.get_active_row_number());
             int sel = spinbutton.get_value_as_int();
             order.add(sel, sweet);
-            msg->set_text("Your sweet has been added to your order");
+            
+            msg->set_text(sweet.name()+ " has been added to Order: " + std::to_string(_store->num_orders()));
+            
         }
           }
      if (result == 2)  
      {
-         if(order.size() != 0)
-         {
+             _store->add(order);
+             flag = false;
              delete dialog;
-             msg->set_text("Order Complete!");
-             break;
-         }
-         else
-         {
-             msg->set_text("Order Incomplete!");
-         }
-         delete dialog;
-         result = 0;
+             msg->set_text("Order " + std::to_string(_store->num_orders()) +" Complete!");
+             
+     
      }
-  }
+    }
     reset_sensitivity();
 }
     
@@ -402,7 +399,7 @@ void Mainwin::on_list_orders_click()
     int i = 0;
     Gtk::HBox b_price;
 
-    Gtk::Label l_price{"Enter an order number to list:"};
+    Gtk::Label l_price{"Enter an order number to list\n Orders start with #1:"};
     l_price.set_width_chars(15);
     b_price.pack_start(l_price, Gtk::PACK_SHRINK);
 
@@ -430,25 +427,27 @@ void Mainwin::on_list_orders_click()
             return;}
 
         try {
-            i = std::stoi(e_price.get_text());
+            int xi = std::stoi(e_price.get_text());
+            i = xi-1;
         } catch(std::exception e) {
             e_price.set_text("### Invalid ###");
             fail = true;
           }
         }
         delete dialog;
-        for (int j = 0; j < _store->order(i).size(); j++)
+    Order o = _store->order(i);
+        for (int j = 0; j < o.size(); j++)
         {
-        t += _store->order(i).sweet(j).name() + "\t " +
-            std::to_string(_store->order(i).quantity(j)) + "\n";
+        t += "ORDER #"+ xi + o.size(j) + ". " o.sweet(j).name() + "\t " +
+            std::to_string(o.quantity(j)) + "\n";
         }
-    t+= "\n\n\n" + total + "\t" + std::to_string(_store->order(i).price());
+
+    t += "\n\n\n" + total + "\t" + std::to_string(o.price());
     t += "</span>";
     data->set_markup(t);
 #ifdef __STATUSBAR
     msg->set_text("");
 #endif
-
 }
 
 void Mainwin::on_about_click()
@@ -479,8 +478,10 @@ void Mainwin::on_about_click()
 
 void Mainwin::reset_sensitivity() {
     menuitem_list_sweets->set_sensitive(_store->num_sweets() > 0);
+    menuitem_place_order->set_sensitive(_store->num_sweets() > 0);
 #ifdef __TOOLBAR
     list_sweets_button->set_sensitive(_store->num_sweets() > 0);
+    place_order_button->set_sensitive(_store->num_sweets() > 0);
 #endif
 }
 
