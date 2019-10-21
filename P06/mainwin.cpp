@@ -335,7 +335,7 @@ void Mainwin::on_place_order_click()
 
   // Show dialog
   dialog->add_button("Cancel", 0);
-  dialog->add_button("Add More", 2)
+  dialog->add_button("Add More", 2);
   dialog->add_button("Place Order", 1);
   dialog->show_all();
 
@@ -367,7 +367,6 @@ void Mainwin::on_place_order_click()
           e_name.set_text("### Invalid ###");
           fail = true;
       }
-  }
   if (quantity > 0) {
     order.add(quantity, _store->sweet(sweet));}
   if (order.size() > 0) {
