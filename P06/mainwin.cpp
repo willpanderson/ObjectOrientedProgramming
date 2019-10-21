@@ -335,6 +335,7 @@ void Mainwin::on_place_order_click()
 
   // Show dialog
   dialog->add_button("Cancel", 0);
+  dialog->add_button("Add More", 2)
   dialog->add_button("Place Order", 1);
   dialog->show_all();
 
@@ -346,11 +347,14 @@ void Mainwin::on_place_order_click()
       result = dialog->run();
       if (result != 1) {
   #ifdef __STATUSBAR
-          msg->set_text("New order cancelled");
+          msg->set_text("Your order has been cancelled");
   #endif
           delete dialog;
-          return;}
-
+          return;
+        }
+  else if (result == 2)
+  {
+    while (result != 1 || result != 0)
       try {
           quantity = std::stoi(e_price.get_text());
       } catch(std::exception e) {
@@ -363,9 +367,27 @@ void Mainwin::on_place_order_click()
           e_name.set_text("### Invalid ###");
           fail = true;
       }
-
   }
-
+  if (quantity > 0) {
+    order.add(quantity, _store->sweet(sweet));}
+  if (order.size() > 0) {
+      _store->add(order);}
+}
+else
+{
+  try {
+      quantity = std::stoi(e_price.get_text());
+  } catch(std::exception e) {
+      e_price.set_text("### Invalid ###");
+      fail = true;
+  }
+  try {
+      sweet = std::stoi(e_name.get_text());
+  } catch(std::exception e) {
+      e_name.set_text("### Invalid ###");
+      fail = true;
+  }
+}
   delete dialog;
 
   if (quantity > 0) {
