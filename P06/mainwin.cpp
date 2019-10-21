@@ -426,15 +426,15 @@ void Mainwin::on_list_orders_click()
         } catch(std::exception e) {
             e_price.set_text("### Invalid ###");
             fail = true;
+          }
         }
-}
-
+        delete dialog;
         for (int j = 0; j < _store->order(i).size(); j++)
         {
         t += _store->order(i).sweet(j).name() + " " +
             std::to_string(_store->order(i).quantity(j)) + "\n";
         }
-    t+= "\n\n\n" + std::to_string(_store->order(i).price());
+    t+= "\n\n\n" + "Total Price on this Order\t" + std::to_string(_store->order(i).price());
     t += "</span>";
     data->set_markup(t);
 #ifdef __STATUSBAR
