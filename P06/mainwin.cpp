@@ -475,5 +475,5 @@ void Mainwin::reset_sensitivity() {
     list_sweets_button->set_sensitive(_store->num_sweets() > 0);
 #endif
 }
-}
+
 #endif
