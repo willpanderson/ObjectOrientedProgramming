@@ -404,7 +404,7 @@ else
   reset_sensitivity();
 #endif
 }
-
+}
 void Mainwin::on_list_orders_click()
 {
   Gtk::Dialog *dialog = new Gtk::Dialog{"List yours Order", *this};
