@@ -6,7 +6,7 @@
 #endif
 
 Mainwin::Mainwin() : Mainwin{*(new Store)} { }
-Mainwin::Mainwin(Store& store) : _store{&store} {
+Mainwin::Mainwin(Store& store) : _store{&store}{
 
     // /////////////////
     // G U I   S E T U P
@@ -305,7 +305,75 @@ void Mainwin::on_list_sweets_click() {
 
 void Mainwin::on_place_order_click()
 {
-  menuitem_place_order->signal_clicked().connect([this] {this->dialog();});
+
+  Order order;
+  int quantity;
+  int sweet = 0;
+  Gtk::Dialog *dialog = new Gtk::Dialog{"Place an Order", *this};
+  Gtk::HBox b_name;
+
+  Gtk::Label l_name{"Order #:"};
+  l_name.set_width_chars(15);
+  b_name.pack_start(l_name, Gtk::PACK_SHRINK);
+
+  Gtk::Entry e_name;
+  e_name.set_max_length(50);
+  b_name.pack_start(e_name, Gtk::PACK_SHRINK);
+  dialog->get_vbox()->pack_start(b_name, Gtk::PACK_SHRINK);
+
+  // Price
+  Gtk::HBox b_price;
+
+  Gtk::Label l_price{"Quantity:"};
+  l_price.set_width_chars(15);
+  b_price.pack_start(l_price, Gtk::PACK_SHRINK);
+
+  Gtk::Entry e_price;
+  e_price.set_max_length(50);
+  b_price.pack_start(e_price, Gtk::PACK_SHRINK);
+  dialog->get_vbox()->pack_start(b_price, Gtk::PACK_SHRINK);
+
+  // Show dialog
+  dialog->add_button("Cancel", 0);
+  dialog->add_button("Create", 1);
+  dialog->show_all();
+
+  int result; // of the dialog (1 = OK)
+  bool fail = true;  // set to true if any data is invalid
+
+  while (fail) {
+      fail = false;  // optimist!
+      result = dialog->run();
+      if (result != 1) {
+  #ifdef __STATUSBAR
+          msg->set_text("New order cancelled");
+  #endif
+          delete dialog;
+          return;}
+      try {
+          quantity = std::stoi(e_price.get_text());
+      } catch(std::exception e) {
+          e_price.set_text("### Invalid ###");
+          fail = true;
+      }
+      try {
+          sweet = std::stoi(e_name.get_text());
+      } catch(std::exception e) {
+          e_name.set_text("### Invalid ###");
+          fail = true;
+      }
+
+  }
+  delete dialog;
+  #endif
+  sweet = _store.num_sweets());
+  if (quantity > 0) {
+    order.add(quantity, _store.sweet(sweet));
+  }
+  if (order.size() > 0) {
+      _store.add(order);
+  }
+
 #ifdef __STATUSBAR
   msg->set_text("Added new order");
 #endif
