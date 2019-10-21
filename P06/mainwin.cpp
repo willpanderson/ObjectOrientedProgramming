@@ -368,13 +368,14 @@ while (result != 0)
   }
 
   delete dialog;
+}
   if (quantity > 0) {
     order.add(quantity, _store->sweet(sweet));
   }
   if (order.size() > 0) {
       _store->add(order);
   }
-}
+
 #ifdef __STATUSBAR
   msg->set_text("Added new order");
 #endif
