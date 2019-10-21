@@ -366,7 +366,6 @@ void Mainwin::on_place_order_click()
 
   }
   delete dialog;
-  sweet = _store->num_sweets();
   if (quantity > 0) {
     order.add(quantity, _store->sweet(sweet));
   }
