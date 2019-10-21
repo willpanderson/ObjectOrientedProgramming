@@ -350,6 +350,7 @@ void Mainwin::on_place_order_click()
   #endif
           delete dialog;
           return;}
+
       try {
           quantity = std::stoi(e_price.get_text());
       } catch(std::exception e) {
@@ -365,13 +366,12 @@ void Mainwin::on_place_order_click()
 
   }
   delete dialog;
-  #endif
-  sweet = _store.num_sweets());
+  sweet = _store->num_sweets());
   if (quantity > 0) {
-    order.add(quantity, _store.sweet(sweet));
+    order.add(quantity, _store->sweet(sweet));
   }
   if (order.size() > 0) {
-      _store.add(order);
+      _store->add(order);
   }
 
 #ifdef __STATUSBAR
