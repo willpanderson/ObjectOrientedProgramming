@@ -410,7 +410,7 @@ void Mainwin::on_list_orders_click()
 
     int result; // of the dialog (1 = OK)
     bool fail = true;  // set to true if any data is invalid
-
+    std::string total = "Total Price on this Order";
     while (fail) {
         fail = false;  // optimist!
         result = dialog->run();
@@ -434,7 +434,7 @@ void Mainwin::on_list_orders_click()
         t += _store->order(i).sweet(j).name() + " " +
             std::to_string(_store->order(i).quantity(j)) + "\n";
         }
-    t+= "\n\n\n" + "Total Price on this Order\t" + std::to_string(_store->order(i).price());
+    t+= "\n\n\n" + total + "\t" + std::to_string(_store->order(i).price());
     t += "</span>";
     data->set_markup(t);
 #ifdef __STATUSBAR
