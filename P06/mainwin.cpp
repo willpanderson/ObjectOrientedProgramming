@@ -294,7 +294,7 @@ void Mainwin::on_list_sweets_click() {
     // The string manipulation way
     std::string s = "<span size='large' weight='bold'>";
     for(int i=0; i<_store->num_sweets(); ++i)
-        s += i + ". " + _store->sweet(i).name() + "  $" + std::to_string(_store->sweet(i).price()) + "\n";
+        s += std::to_string(i) + ". " + _store->sweet(i).name() + "  $" + std::to_string(_store->sweet(i).price()) + "\n";
     s += "</span>";
     data->set_markup(s);
 #ifdef __STATUSBAR
