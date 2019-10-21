@@ -387,10 +387,6 @@ void Mainwin::on_list_orders_click()
   Gtk::Dialog *dialog = new Gtk::Dialog{"List yours Order", *this};
   if (_store->num_orders() == 0) {
         data->set_markup("<span size='large' weight='bold'>No orders have been defined yet</span>");
-#ifdef __STATUSBAR
-        msg->set_text("");
-#endif
-        return;
     }
 
     // The string manipulation way
@@ -438,7 +434,7 @@ void Mainwin::on_list_orders_click()
         t += _store->order(i).sweet(j).name() + " " +
             std::to_string(_store->order(i).quantity(j)) + "\n";
         }
-    t+= "\n\n\n"_store->order(i).price();
+    t+= "\n\n\n" +_store->order(i).price();
     t += "</span>";
     data->set_markup(t);
 #ifdef __STATUSBAR
