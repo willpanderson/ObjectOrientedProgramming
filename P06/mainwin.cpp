@@ -312,7 +312,7 @@ void Mainwin::on_place_order_click()
   Gtk::Dialog *dialog = new Gtk::Dialog{"Place an Order", *this};
   Gtk::HBox b_name;
 
-  Gtk::Label l_name{"Order #:"};
+  Gtk::Label l_name{"Enter the sweet #:"};
   l_name.set_width_chars(15);
   b_name.pack_start(l_name, Gtk::PACK_SHRINK);
 
@@ -335,7 +335,7 @@ void Mainwin::on_place_order_click()
 
   // Show dialog
   dialog->add_button("Cancel", 0);
-  dialog->add_button("Create", 1);
+  dialog->add_button("Place Order", 1);
   dialog->show_all();
 
   int result; // of the dialog (1 = OK)
@@ -366,7 +366,7 @@ while (result != 0)
       }
 
   }
-}
+
   delete dialog;
   if (quantity > 0) {
     order.add(quantity, _store->sweet(sweet));
@@ -374,7 +374,7 @@ while (result != 0)
   if (order.size() > 0) {
       _store->add(order);
   }
-
+}
 #ifdef __STATUSBAR
   msg->set_text("Added new order");
 #endif
