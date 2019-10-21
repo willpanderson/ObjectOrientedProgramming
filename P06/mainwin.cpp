@@ -399,7 +399,7 @@ void Mainwin::on_list_orders_click()
         for (int j = 0; j < _store->order(i).size(); j++)
         {
         t += _store->order(i).sweet(j).name() +
-            std::to_string(_store->order(i).quantity(j));
+            std::to_string(_store->order(i).quantity(j)) + "\n";
        }
     t+=_store->order(i).price();
     }
