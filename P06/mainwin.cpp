@@ -305,113 +305,98 @@ void Mainwin::on_list_sweets_click() {
 
 void Mainwin::on_place_order_click()
 {
-
+   
   Order order;
-  int quantity;
-  int sweet = 0;
-  Gtk::Dialog *dialog = new Gtk::Dialog{"Place an Order", *this};
-  Gtk::HBox b_name;
-
-  Gtk::Label l_name{"Enter the sweet #:"};
-  l_name.set_width_chars(15);
-  b_name.pack_start(l_name, Gtk::PACK_SHRINK);
-
-  Gtk::Entry e_name;
-  e_name.set_max_length(50);
-  b_name.pack_start(e_name, Gtk::PACK_SHRINK);
-  dialog->get_vbox()->pack_start(b_name, Gtk::PACK_SHRINK);
-
-  // Price
-  Gtk::HBox b_price;
-
-  Gtk::Label l_price{"Quantity:"};
-  l_price.set_width_chars(15);
-  b_price.pack_start(l_price, Gtk::PACK_SHRINK);
-
-  Gtk::Entry e_price;
-  e_price.set_max_length(50);
-  b_price.pack_start(e_price, Gtk::PACK_SHRINK);
-  dialog->get_vbox()->pack_start(b_price, Gtk::PACK_SHRINK);
-
-  // Show dialog
-  dialog->add_button("Cancel", 0);
-  dialog->add_button("Add More", 2);
-  dialog->add_button("Place Order", 1);
-  dialog->show_all();
-
-  int result; // of the dialog (1 = OK)
-  bool fail = true;  // set to true if any data is invalid
-
-  while (fail) {
-      fail = false;  // optimist!
-      result = dialog->run();
-      if (result != 1) {
-  #ifdef __STATUSBAR
-          msg->set_text("Your order has been cancelled");
-  #endif
-          delete dialog;
-          return;
-        }
-  else if (result == 2)
+  bool flag = true;
+  bool order_placed = false;
+    
+  while (flag) 
   {
-    while (result != 1 || result != 0)
-      try {
-          quantity = std::stoi(e_price.get_text());
-      } catch(std::exception e) {
-          e_price.set_text("### Invalid ###");
-          fail = true;
+      Gtk::Dialog *dialog = new Gtk::Dialog{"Add an Order",this};
+      Gtk::HBox b_options;
+      
+      Gtk::Label l_options{"Sweet: "};
+      l_options.set_width_chars(15);
+      b_options.pack_start(l_options);
+      
+      Gtk::ComboBoxText options;
+      int i;
+      options.append("Choose a sweet");
+      options.set_active(0);
+      for (i = 0; i < _store->num_sweets(); i++)
+      {
+          options.append(_store->sweet(i).name());
       }
-      try {
-          sweet = std::stoi(e_name.get_text());
-      } catch(std::exception e) {
-          e_name.set_text("### Invalid ###");
-          fail = true;
-      }
-  if (quantity > 0) {
-    order.add(quantity, _store->sweet(sweet));}
-  if (order.size() > 0) {
-      _store->add(order);}
-}
-else
-{
-  try {
-      quantity = std::stoi(e_price.get_text());
-  } catch(std::exception e) {
-      e_price.set_text("### Invalid ###");
-      fail = true;
+      b_options.pack_start(options, Gtk::PACK_SHRINK);
+      dialog->get_vbox()->pack_start(b_options);
+      
+     Gtk::HBox b_spinbutton;
+     Gtk::Label l_spinbutton{"Quantity: "};
+     l_spinbutton.set_width_chars(15);
+     b_spinbutton.pack_start(l_spinbutton, Gtk::PACK_SHRINK);
+     
+     Gtk::SpinButton spinbutton;
+     spinbutton.set_max_length(50);
+     spinbutton.set_range(0.0,1000.0);
+     spinbutton.set_increments(1.0,1.0);
+     
+     b_spinbutton.pack_start(spinbutton,Gtk::PACK_SHRINK);
+     dialog->get_vbox()->pack_start(b_spinbutton,Gtk::PACK_SHRINK);
+     dialog->add_button("Cancel",0);
+     dialog->add_button("+ Sweet",1);
+     dialog->add_button("Place Order",2);
+      
+     dialog->show_all();
+    int result = dialog->run();
+    if (result == 0)
+    {
+        delete dialog;
+        #ifdef __STATUSBAR
+            msg->set_text("");
+        #endif        
+        break;
+        flag = false;
+    }
+    if (result == 1)    
+    {
+        if(options.get_active_row_number() != 0 || spinbutton.get_value_as_int() != 0)
+        {
+            Sweet sweet = _store->sweet(options.get_active_row_number()-1);
+            int sel = spinbutton.get_value_as_int();
+            order.add(sel, sweet);
+            msg->set_text("Your sweet has been added to your order");
+        }
+          }
+     if (result == 2)  
+     {
+         if(order.size() != 0)
+         {
+             delete dialog;
+             msg->set_text("Order Complete!");
+             break;
+         }
+         else
+         {
+             msg->set_text("Order Incomplete!");
+         }
+         delete dialog;
+         result = 0;
+     }
   }
-  try {
-      sweet = std::stoi(e_name.get_text());
-  } catch(std::exception e) {
-      e_name.set_text("### Invalid ###");
-      fail = true;
-  }
+    reset_sensitivity();
 }
-  delete dialog;
+    
 
-  if (quantity > 0) {
-    order.add(quantity, _store->sweet(sweet));
-  }
-  if (order.size() > 0) {
-      _store->add(order);
-  }
-
-#ifdef __STATUSBAR
-  msg->set_text("Added new order");
-#endif
-
-#ifdef __SENSITIVITY1
-  reset_sensitivity();
-#endif
-}
-}
 void Mainwin::on_list_orders_click()
 {
-  Gtk::Dialog *dialog = new Gtk::Dialog{"List yours Order", *this};
-  if (_store->num_orders() == 0) {
-        data->set_markup("<span size='large' weight='bold'>No orders have been defined yet</span>");
-    }
-
+  Gtk::Dialog *dialog = new Gtk::Dialog{"List of your orders", *this};
+  if (_store->num_sweets() == 0) {
+        data->set_markup("<span size='large' weight='bold'>No orders have been placed yet</span>");
+#ifdef __STATUSBAR
+        msg->set_text("");
+#endif
+        return;
+  }
     // The string manipulation way
     std::string t = "<span size='large' weight='bold'>";
     int i = 0;
