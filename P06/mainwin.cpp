@@ -308,9 +308,6 @@ void Mainwin::on_place_order_click()
    
   Order order;
   bool flag = true;
-  bool order_placed = false;
-    
- 
       Gtk::Dialog *dialog = new Gtk::Dialog{"Add an Order",this};
       Gtk::HBox b_options;
       
@@ -360,7 +357,7 @@ void Mainwin::on_place_order_click()
     if (result == 1)    
     {
         
-        if(options.get_active_row_number() != 0 || spinbutton.get_value_as_int() != 0)
+        if(spinbutton.get_value_as_int() != 0)
         {
             Sweet sweet = _store->sweet(options.get_active_row_number());
             int sel = spinbutton.get_value_as_int();
@@ -394,19 +391,24 @@ void Mainwin::on_list_orders_click()
 #endif
         return;
   }
-    // The string manipulation way
-    std::string t = "<span size='large' weight='bold'>";
-    int i = 0;
-    Gtk::HBox b_price;
-
-    Gtk::Label l_price{"Enter an order number to list\n Orders start with #1:"};
-    l_price.set_width_chars(15);
-    b_price.pack_start(l_price, Gtk::PACK_SHRINK);
-
-    Gtk::Entry e_price;
-    e_price.set_max_length(50);
-    b_price.pack_start(e_price, Gtk::PACK_SHRINK);
-    dialog->get_vbox()->pack_start(b_price, Gtk::PACK_SHRINK);
+      Gtk::HBox b_options;
+      
+      Gtk::Label l_options{"Sweet: "};
+      l_options.set_width_chars(15);
+      b_options.pack_start(l_options);
+      
+      Gtk::ComboBoxText options;
+      int i;
+      int k;
+      options.set_active(0);
+      for (k = 0; k < _store->num_orders(); k++)
+      {
+          options.append(_store->num_orders(k));
+      }
+      b_options.pack_start(options, Gtk::PACK_SHRINK);
+      dialog->get_vbox()->pack_start(b_options);
+      
+    
 
     // Show dialog
     dialog->add_button("Cancel", 0);
@@ -425,16 +427,9 @@ void Mainwin::on_list_orders_click()
     #endif
             delete dialog;
             return;}
-
-        try {
-            int xi = std::stoi(e_price.get_text());
-            i = xi-1;
-        } catch(std::exception e) {
-            e_price.set_text("### Invalid ###");
-            fail = true;
-          }
-        }
-        delete dialog;
+       else{
+     i= stoi(_store->sweet(options.get_active_row_number()));     
+        
     Order o = _store->order(i);
         for (int j = 0; j < o.size(); j++)
         {
@@ -448,6 +443,7 @@ void Mainwin::on_list_orders_click()
 #ifdef __STATUSBAR
     msg->set_text("");
 #endif
+       }
 }
 
 void Mainwin::on_about_click()
