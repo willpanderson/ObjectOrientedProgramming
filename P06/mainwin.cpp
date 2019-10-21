@@ -427,23 +427,24 @@ void Mainwin::on_list_orders_click()
             e_price.set_text("### Invalid ###");
             fail = true;
         }
-
+}
 
         for (int j = 0; j < _store->order(i).size(); j++)
         {
         t += _store->order(i).sweet(j).name() + " " +
             std::to_string(_store->order(i).quantity(j)) + "\n";
         }
-    t+= "\n\n\n" +_store->order(i).price();
+    t+= "\n\n\n" + std::to_string(_store->order(i).price());
     t += "</span>";
     data->set_markup(t);
 #ifdef __STATUSBAR
     msg->set_text("");
 #endif
-}
+
 }
 
-void Mainwin::on_about_click() {
+void Mainwin::on_about_click()
+ {
 #ifdef __RICHTEXT
     Glib::ustring s = "<span size='36000' weight='bold'>Mav's Ultimate Sweet Shop " + VERSION + "</span>\n"
         + "<span size='large'>Copyright 2019 by William Anderson</span>\n\n"
@@ -453,7 +454,7 @@ void Mainwin::on_about_click() {
         + "<span size='small'>Lollipops in Jar icon derived from https://www.pngfind.com/mpng/hxbTbow_jar-clipart-lollipop-lollipops-in-a-jar-hd/ under Personal Use Only license\n\n</span>";
 #else
     Glib::ustring s = "Mav's Ultimate Sweet Shop " + VERSION
-        + "\nCopyright 2019 by william Anderson\n\n"
+        + "\nCopyright 2019 by William Anderson\n\n"
         + "Licensed under the Gnu General Public License 3.0\n    https://www.gnu.org/licenses/gpl-3.0.en.html\n\n"
         + "Candy photo created by Biscanski and donated to the public domain\n    https://pixnio.com/food-and-drink/desserts-cakes/sweet-color-sugar-gelatin-confectionery-delicious-food-candy\n\n"
         + "Lollipop icon derived from http://pngimg.com/download/13817, used under Creative Commons 4.0 BY-NC\n\n"
@@ -473,5 +474,6 @@ void Mainwin::reset_sensitivity() {
 #ifdef __TOOLBAR
     list_sweets_button->set_sensitive(_store->num_sweets() > 0);
 #endif
+}
 }
 #endif
