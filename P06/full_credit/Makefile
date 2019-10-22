@@ -6,7 +6,7 @@ all: sweets sweets-cli
 bonus: CXXFLAGS += -D__SENSITIVITY1 -D__TOOLBAR -D__RICHTEXT
 bonus: sweets
 
-xbonus: CXXFLAGS += -D__SENSITIVITY1 -D__TOOLBAR -D__RICHTEXT -D__SWEETSADDDLG -D__STATUSBAR -ABOUTDIALOG
+xbonus: CXXFLAGS += -D__SENSITIVITY1 -D__TOOLBAR -D__RICHTEXT -D__SWEETSADDDLG -D__STATUSBAR -D__ABOUTDIALOG
 xbonus: sweets
 
 sweets: main-gui.o mainwin.o entrydialog.o order.o store.o sweet.o view.o *.h
