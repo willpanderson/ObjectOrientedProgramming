@@ -346,6 +346,7 @@ void Mainwin::on_place_order_click()
     while (flag)
     {
     int result = dialog->run();
+        int xi;
     if (result == 0)
     {
         flag = false;
@@ -383,6 +384,7 @@ void Mainwin::on_place_order_click()
 
 void Mainwin::on_list_orders_click()
 {
+    std::string t;
   Gtk::Dialog *dialog = new Gtk::Dialog{"List of your orders", *this};
   if (_store->num_sweets() == 0) {
         data->set_markup("<span size='large' weight='bold'>No orders have been placed yet</span>");
