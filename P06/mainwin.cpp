@@ -427,10 +427,10 @@ void Mainwin::on_list_orders_click()
     #endif
             delete dialog;
             return;}
-       else{
-     i= stoi(_store->sweet(options.get_active_row_number()));     
-        
-    Order o = _store->order(i);
+        if (result == 1)    
+    {
+        i = stoi(_store->sweet(options.get_active_row_number()));     
+        Order o = _store->order(i);
         for (int j = 0; j < o.size(); j++)
         {
         t += "ORDER #"+ xi + o.size(j) + ". " o.sweet(j).name() + "\t " +
@@ -444,6 +444,7 @@ void Mainwin::on_list_orders_click()
     msg->set_text("");
 #endif
        }
+}
 }
 
 void Mainwin::on_about_click()
