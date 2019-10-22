@@ -384,6 +384,7 @@ void Mainwin::on_place_order_click()
 
 void Mainwin::on_list_orders_click()
 {
+    int xi;
     std::string t;
   Gtk::Dialog *dialog = new Gtk::Dialog{"List of your orders", *this};
   if (_store->num_sweets() == 0) {
