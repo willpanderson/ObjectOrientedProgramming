@@ -12,7 +12,6 @@
 // -------------
 //    __SWEETSADDDLG - Use a single dialog box for Add Sweets (EXTREME BONUS)
 //    __STATUSBAR - Add a status bar (EXTREME BONUS)
-//    __ABOUTDIALOG -Changes about dialog to Gtk::AboutDialog(EXTREME BONUS)
 
 int main (int argc, char *argv[]) {
     auto app = Gtk::Application::create(argc, argv, APP_NAME);

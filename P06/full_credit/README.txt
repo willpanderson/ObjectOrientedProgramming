@@ -20,7 +20,7 @@ The preprocessor variables are shown in main-gui.cpp, and replicated here for co
 // -----
 //    __SENSITIVITY1 - Manage menu sensitivity for first sprint
 //    __TOOLBAR - Add a toolbar (FileNewBtn, FileQuitBtn, SweetsAddBtn, and SweetsListBtn)
-//    __RICHTEXT - Use Pango for the About dialog
+//    __ABOUTDIALOG - Use Gtk::AboutDialog for the About dialog
 //
 // EXTREME BONUS
 // -------------

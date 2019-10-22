@@ -6,7 +6,7 @@
 #endif
 
 Mainwin::Mainwin() : Mainwin{*(new Store)} { }
-Mainwin::Mainwin(Store& store) : _store{&store} {
+Mainwin::Mainwin(Store& store) : _store{&store}{
 
     // /////////////////
     // G U I   S E T U P
@@ -68,11 +68,11 @@ Mainwin::Mainwin(Store& store) : _store{&store} {
     Gtk::Menu *ordermenu = Gtk::manage(new Gtk::Menu());
     menuitem_orders->set_submenu(*ordermenu);
 
-    *menuitem_place_order = Gtk::manage(new Gtk::MenuItem("_Place Order", true));
+    menuitem_place_order = Gtk::manage(new Gtk::MenuItem("_Place Order", true));
     menuitem_place_order->signal_activate().connect([this] {this->on_place_order_click();});
     ordermenu->append(*menuitem_place_order);
 
-    *menuitem_list_orders = Gtk::manage(new Gtk::MenuItem("_List Orders", true));
+    menuitem_list_orders = Gtk::manage(new Gtk::MenuItem("_List Orders", true));
     menuitem_list_orders->signal_activate().connect([this] {this->on_list_orders_click();});
     ordermenu->append(*menuitem_list_orders);
 
@@ -112,20 +112,20 @@ Mainwin::Mainwin(Store& store) : _store{&store} {
     add_sweet_button->signal_clicked().connect([this] {this->on_add_sweet_click();});
     toolbar->append(*add_sweet_button);
 
-    //     L I S T   S W E E T S
-    // Add a icon for listing sweets
+    //     L I S T   S W E E T S AND ORDERS
+    // Add a icon for listing sweets and orders
     Gtk::Image* list_sweets_image = Gtk::manage(new Gtk::Image{"lollipop-32.png"});
     list_sweets_button = Gtk::manage(new Gtk::ToolButton(*list_sweets_image));
     list_sweets_button->set_tooltip_markup("List an sweet");
     list_sweets_button->signal_clicked().connect([this] {this->on_list_sweets_click();});
     toolbar->append(*list_sweets_button);
 
-    *place_order_button = Gtk::manage(new Gtk::ToolButton(Gtk::Stock::ADD));
+    place_order_button = Gtk::manage(new Gtk::ToolButton(Gtk::Stock::ADD));
     place_order_button->set_tooltip_markup("Place Order");
     place_order_button->signal_clicked().connect([this] {this->on_place_order_click();});
     toolbar->append(*place_order_button);
 
-    *list_orders_button = Gtk::manage(new Gtk::ToolButton(Gtk::Stock::PRINT));
+    list_orders_button = Gtk::manage(new Gtk::ToolButton(Gtk::Stock::PRINT));
     list_orders_button->set_tooltip_markup("List Orders");
     list_orders_button->signal_clicked().connect([this] {this->on_list_orders_click();});
     toolbar->append(*list_orders_button);
@@ -180,11 +180,11 @@ void Mainwin::on_new_store_click() {
     msg->set_text("New Mav's Ultimate Sweet Shop created");
 #endif
 }
-////////////////////////////////////////////////////
+
 void Mainwin::on_quit_click() {
     close();
 }
-////////////////////////////////////////////////////
+
 void Mainwin::on_add_sweet_click() {
     std::string name = "";
     double price = -1;
@@ -281,7 +281,7 @@ void Mainwin::on_add_sweet_click() {
     reset_sensitivity();
 #endif
 }
-///////////////////////////////////////////////////////////////////////////////////////
+
 void Mainwin::on_list_sweets_click() {
     if (_store->num_sweets() == 0) {
         data->set_markup("<span size='large' weight='bold'>No sweets have been defined yet</span>");
@@ -294,14 +294,15 @@ void Mainwin::on_list_sweets_click() {
     // The string manipulation way
     std::string s = "<span size='large' weight='bold'>";
     for(int i=0; i<_store->num_sweets(); ++i)
-        s += _store->sweet(i).name() + "  $" + std::to_string(_store->sweet(i).price()) + "\n";
+        s += std::to_string(i+1) + ". " + _store->sweet(i).name() + "  $" + std::to_string(_store->sweet(i).price()) + "\n";
     s += "</span>";
     data->set_markup(s);
 #ifdef __STATUSBAR
     msg->set_text("");
 #endif
 }
-///////////////////////////////////////////////////////////////////
+
+
 void Mainwin::on_place_order_click()
 {
    
@@ -372,7 +373,7 @@ void Mainwin::on_place_order_click()
              _store->add(order);
              flag = false;
              delete dialog;
-             msg->set_text("Order " + std::to_string(_store->num_orders()) +" Complete!");
+             msg->set_text("Order Complete!");
              
      
      }
@@ -380,7 +381,7 @@ void Mainwin::on_place_order_click()
     reset_sensitivity();
 }
     
-/////////////////////////////////////////////////////
+
 void Mainwin::on_list_orders_click()
 {
     std::string t;
@@ -394,7 +395,7 @@ void Mainwin::on_list_orders_click()
   }
       Gtk::HBox b_options;
       
-      Gtk::Label l_options{"Sweet: "};
+      Gtk::Label l_options{"Order #: "};
       l_options.set_width_chars(15);
       b_options.pack_start(l_options);
       
@@ -432,51 +433,54 @@ void Mainwin::on_list_orders_click()
     {
         k = options.get_active_row_number();     
         Order o = _store->order(k);
+        delete dialog;
         for (int j = 0; j < o.size(); j++)
         {
         t += o.sweet(j).name() + "\t " +
             std::to_string(o.quantity(j)) + "\n";
         }
-
-    t += "\n\n\n" + total + "\t" + std::to_string(o.price());
-    data->set_markup(t);
+            
+    t += "\n\n\n" + total + "\t" + "$" +std::to_string(o.price());
+    data->set_text(t);
 #ifdef __STATUSBAR
     msg->set_text("");
 #endif
        }
 }
 }
-//////////////////////////////////////////////////////////////////////////////////////////////////
-void Mainwin::on_about_click() {
-#ifdef __RICHTEXT
+
+void Mainwin::on_about_click()
+ {
+#ifdef __ABOUTDIALOG
+    Gtk::AboutDialog dialog{};
+    dialog.set_transient_for(*this); // Avoid the discouraging warning
+    dialog.set_program_name("Mav's Ultimate Sweet Shop");
+    dialog.set_version("Version 0.1.0");
+    dialog.set_copyright("Copyright 2019");
+    dialog.set_license_type(Gtk::License::LICENSE_GPL_3_0);
+    std::vector< Glib::ustring > authors = {"William Anderson"};
+    dialog.set_authors(authors);
+    std::vector< Glib::ustring > artists = {
+						"Candy photo created by Biscanski and donated to the public domain." , 
+                                                "https://pixnio.com/food-and-drink/desserts-cakes/sweet-color-sugar-gelatin-confectionery-delicious-food-candy" ,
+					        "Lollipop icon derived from http://pngimg.com/download/13817, used under Creative Commons 4.0 BY-NC." ,
+ 						"Lollipops in Jar icon derived from https://www.pngfind.com/mpng/hxbTbow_jar-clipart-lollipop-lollipops-in-a-jar-hd/ under Personal Use Only license"};
+    dialog.set_artists(artists); 
+    
+#else   
     Glib::ustring s = "<span size='36000' weight='bold'>Mav's Ultimate Sweet Shop " + VERSION + "</span>\n"
         + "<span size='large'>Copyright 2019 by William Anderson</span>\n\n"
         + "<span size='small'>Licensed under the Gnu General Public License 3.0\n    https://www.gnu.org/licenses/gpl-3.0.en.html\n\n</span>"
         + "<span size='small'>Candy photo created by Biscanski and donated to the public domain\n    https://pixnio.com/food-and-drink/desserts-cakes/sweet-color-sugar-gelatin-confectionery-delicious-food-candy\n\n</span>"
         + "<span size='small'>Lollipop icon derived from http://pngimg.com/download/13817, used under Creative Commons 4.0 BY-NC\n\n</span>"
         + "<span size='small'>Lollipops in Jar icon derived from https://www.pngfind.com/mpng/hxbTbow_jar-clipart-lollipop-lollipops-in-a-jar-hd/ under Personal Use Only license\n\n</span>";
-#else
-    Glib::ustring s = "Mav's Ultimate Sweet Shop " + VERSION
-        + "\nCopyright 2019 by William Anderson\n\n"
-        + "Licensed under the Gnu General Public License 3.0\n    https://www.gnu.org/licenses/gpl-3.0.en.html\n\n"
-        + "Candy photo created by Biscanski and donated to the public domain\n    https://pixnio.com/food-and-drink/desserts-cakes/sweet-color-sugar-gelatin-confectionery-delicious-food-candy\n\n"
-        + "Lollipop icon derived from http://pngimg.com/download/13817, used under Creative Commons 4.0 BY-NC\n\n"
-        + "Lollipops in Jar icon derived from https://www.pngfind.com/mpng/hxbTbow_jar-clipart-lollipop-lollipops-in-a-jar-hd/ under Personal Use Only license";
+	Gtk::MessageDialog dialog(*this, s, true);
+    	
 #endif
-#ifdef __ABOUTDIALOG
-    Gtk::AboutDialog dialog{};
-    dialog.set_transient_for(*this); // Avoid the discouraging warning
-    dialog.set_program_name("Mav's Ultimate Sweet Shop");
-    dialog.set_version("Version 1.0.1");
-    dialog.set_copyright("Copyright 2017, 2019");
-    dialog.set_license_type(Gtk::License::LICENSE_GPL_3_0);
-    std::vector< Glib::ustring > authors = {"William Anderson"};
-    dialog.set_authors(authors);
-    std::vector< Glib::ustring > artists = {"Candy photo created by Biscanski and donated to the public domain    https://pixnio.com/food-and-drink/desserts-cakes/sweet-color-sugar-gelatin-confectionery-delicious-food-candy  Lollipop icon derived from http://pngimg.com/download/13817, used under Creative Commons 4.0 BY-NC. Lollipops in Jar icon derived from https://www.pngfind.com/mpng/hxbTbow_jar-clipart-lollipop-lollipops-in-a-jar-hd/ under Personal Use Only license"};
-    dialog.set_artists(artists);    
-#endif
-    Gtk::MessageDialog dlg(*this, s, true);
-    dlg.run();
+	dialog.run();
+
+
+    
 }
 
 #ifdef __SENSITIVITY1
@@ -486,8 +490,11 @@ void Mainwin::on_about_click() {
 
 void Mainwin::reset_sensitivity() {
     menuitem_list_sweets->set_sensitive(_store->num_sweets() > 0);
+    menuitem_place_order->set_sensitive(_store->num_sweets() > 0);
 #ifdef __TOOLBAR
     list_sweets_button->set_sensitive(_store->num_sweets() > 0);
+    place_order_button->set_sensitive(_store->num_sweets() > 0);
 #endif
 }
+
 #endif

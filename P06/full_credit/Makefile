@@ -3,7 +3,7 @@ GTKFLAGS = `/usr/bin/pkg-config gtkmm-3.0 --cflags --libs`
 
 all: sweets sweets-cli
 
-bonus: CXXFLAGS += -D__SENSITIVITY1 -D__TOOLBAR -D__RICHTEXT
+bonus: CXXFLAGS += -D__SENSITIVITY1 -D__TOOLBAR -D__ABOUTDIALOG
 bonus: sweets
 
 xbonus: CXXFLAGS += -D__SENSITIVITY1 -D__TOOLBAR -D__SWEETSADDDLG -D__STATUSBAR -D__ABOUTDIALOG
@@ -33,4 +33,3 @@ view.o: view.cpp *.h
 	$(CXX) $(CXXFLAGS) -c view.cpp -o view.o
 clean:
 	rm -f *.o *.gch *.ii *.s a.out sweets sweets-cli
-
