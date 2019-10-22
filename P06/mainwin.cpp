@@ -435,9 +435,10 @@ void Mainwin::on_list_orders_click()
         k = options.get_active_row_number();     
         Order o = _store->order(k);
         int xi = k+1;
+        int x2 = "ORDER #";
         for (int j = 0; j < o.size(); j++)
         {
-        t += "ORDER #" + xi + ". " + o.sweet(j).name() + "\t " +
+        t += x2 + xi + ". " + o.sweet(j).name() + "\t " +
             std::to_string(o.quantity(j)) + "\n";
         }
 
