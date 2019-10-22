@@ -384,7 +384,6 @@ void Mainwin::on_place_order_click()
 
 void Mainwin::on_list_orders_click()
 {
-    int xi;
     std::string t;
   Gtk::Dialog *dialog = new Gtk::Dialog{"List of your orders", *this};
   if (_store->num_sweets() == 0) {
@@ -434,17 +433,15 @@ void Mainwin::on_list_orders_click()
     {
         k = options.get_active_row_number();     
         Order o = _store->order(k);
-        int xi = k+1;
-        std::string x2 = "ORDER #";
+        delete dialog;
         for (int j = 0; j < o.size(); j++)
         {
-        t += x2 + std::to_string(xi) + ". " + o.sweet(j).name() + "\t " +
+        t += o.sweet(j).name() + "\t " +
             std::to_string(o.quantity(j)) + "\n";
         }
-
-    t += "\n\n\n" + total + "\t" + std::to_string(o.price());
-    t += "</span>";
-    data->set_markup(t);
+            
+    t += "\n\n\n" + total + "\t" + "$" +std::to_string(o.price());
+    data->set_text(t);
 #ifdef __STATUSBAR
     msg->set_text("");
 #endif
