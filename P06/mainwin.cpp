@@ -434,7 +434,7 @@ void Mainwin::on_list_orders_click()
     {
         k = options.get_active_row_number();     
         Order o = _store->order(k);
-        t += "ORDER #\n";
+        t = "ORDER #\n";
         for (int j = 0; j < o.size(); j++)
         {
         t += xi + o.sweet(j).name() + "\t " +
