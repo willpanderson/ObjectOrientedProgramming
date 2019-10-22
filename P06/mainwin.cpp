@@ -406,7 +406,7 @@ void Mainwin::on_list_orders_click()
       options.set_active(0);
       for (i = 0; i < _store->num_orders(); i++)
       {
-          options.append(_store->num_orders(i));
+          options.append("Order " + std::to_string(i));
       }
       b_options.pack_start(options, Gtk::PACK_SHRINK);
       dialog->get_vbox()->pack_start(b_options);
