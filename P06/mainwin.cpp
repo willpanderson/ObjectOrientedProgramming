@@ -438,7 +438,7 @@ void Mainwin::on_list_orders_click()
         std::string x2 = "ORDER #";
         for (int j = 0; j < o.size(); j++)
         {
-        t += x2 + xi + ". " + o.sweet(j).name() + "\t " +
+        t += x2 + std::to_string(xi) + ". " + o.sweet(j).name() + "\t " +
             std::to_string(o.quantity(j)) + "\n";
         }
 
