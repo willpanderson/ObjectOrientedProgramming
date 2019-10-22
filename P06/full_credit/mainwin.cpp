@@ -363,9 +363,9 @@ void Mainwin::on_place_order_click()
             Sweet sweet = _store->sweet(options.get_active_row_number());
             int sel = spinbutton.get_value_as_int();
             order.add(sel, sweet);
-            
+            #ifdef __STATUSBAR
             msg->set_text(sweet.name()+ " has been added to Order: " + std::to_string(_store->num_orders()));
-            
+            #endif
         }
           }
      if (result == 2)  
@@ -373,12 +373,12 @@ void Mainwin::on_place_order_click()
              _store->add(order);
              flag = false;
              delete dialog;
+	     #ifdef __STATUSBAR
              msg->set_text("Order Complete!");
-             
+             #endif
      
      }
     }
-    reset_sensitivity();
 }
     
 
