@@ -404,9 +404,9 @@ void Mainwin::on_list_orders_click()
       int i;
       int k;
       options.set_active(0);
-      for (i = 0; i < _store->order->num_orders(); i++)
+      for (i = 0; i < _store->order.num_orders(); i++)
       {
-          options.append(_store->order->num_orders(i));
+          options.append(_store->order.num_orders(i));
       }
       b_options.pack_start(options, Gtk::PACK_SHRINK);
       dialog->get_vbox()->pack_start(b_options);
