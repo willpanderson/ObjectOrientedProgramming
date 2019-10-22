@@ -180,11 +180,11 @@ void Mainwin::on_new_store_click() {
     msg->set_text("New Mav's Ultimate Sweet Shop created");
 #endif
 }
-
+////////////////////////////////////////////////////
 void Mainwin::on_quit_click() {
     close();
 }
-
+////////////////////////////////////////////////////
 void Mainwin::on_add_sweet_click() {
     std::string name = "";
     double price = -1;
@@ -281,7 +281,7 @@ void Mainwin::on_add_sweet_click() {
     reset_sensitivity();
 #endif
 }
-
+///////////////////////////////////////////////////////////////////////////////////////
 void Mainwin::on_list_sweets_click() {
     if (_store->num_sweets() == 0) {
         data->set_markup("<span size='large' weight='bold'>No sweets have been defined yet</span>");
@@ -301,37 +301,179 @@ void Mainwin::on_list_sweets_click() {
     msg->set_text("");
 #endif
 }
-
-
+///////////////////////////////////////////////////////////////////
 void Mainwin::on_place_order_click()
 {
-  //Entry Dialog to select the name of the MenuItem
-  //The name of the item will be added to the vector _order
-  //The price will be added to the current price of the order with the
-  //price oGtk::MessageDialog mdialog{*this, edialog.get_text()};f the selected item.
- //Store::add(Order& order) : _orders{order};
-
+   
+  Order order;
+  bool flag = true;
+      Gtk::Dialog *dialog = new Gtk::Dialog{"Add an Order",this};
+      Gtk::HBox b_options;
+      
+      Gtk::Label l_options{"Sweet: "};
+      l_options.set_width_chars(15);
+      b_options.pack_start(l_options);
+      
+      Gtk::ComboBoxText options;
+      int i;
+      //options.append("Choose a sweet");
+      options.set_active(0);
+      for (i = 0; i < _store->num_sweets(); i++)
+      {
+          options.append(_store->sweet(i).name());
+      }
+      b_options.pack_start(options, Gtk::PACK_SHRINK);
+      dialog->get_vbox()->pack_start(b_options);
+      
+     Gtk::HBox b_spinbutton;
+     Gtk::Label l_spinbutton{"Quantity: "};
+     l_spinbutton.set_width_chars(15);
+     b_spinbutton.pack_start(l_spinbutton, Gtk::PACK_SHRINK);
+     
+     Gtk::SpinButton spinbutton;
+     spinbutton.set_max_length(50);
+     spinbutton.set_range(0.0,1000.0);
+     spinbutton.set_increments(1.0,1.0);
+     
+     b_spinbutton.pack_start(spinbutton,Gtk::PACK_SHRINK);
+     dialog->get_vbox()->pack_start(b_spinbutton,Gtk::PACK_SHRINK);
+     dialog->add_button("Cancel",0);
+     dialog->add_button("+ Sweet",1);
+     dialog->add_button("Place Order",2);
+      
+    dialog->show_all();
+    while (flag)
+    {
+    int result = dialog->run();
+        int xi;
+    if (result == 0)
+    {
+        flag = false;
+        delete dialog;
+        #ifdef __STATUSBAR
+            msg->set_text("");
+        #endif        
+    }
+    if (result == 1)    
+    {
+        
+        if(spinbutton.get_value_as_int() != 0)
+        {
+            Sweet sweet = _store->sweet(options.get_active_row_number());
+            int sel = spinbutton.get_value_as_int();
+            order.add(sel, sweet);
+            
+            msg->set_text(sweet.name()+ " has been added to Order: " + std::to_string(_store->num_orders()));
+            
+        }
+          }
+     if (result == 2)  
+     {
+             _store->add(order);
+             flag = false;
+             delete dialog;
+             msg->set_text("Order " + std::to_string(_store->num_orders()) +" Complete!");
+             
+     
+     }
+    }
+    reset_sensitivity();
 }
-
+    
+/////////////////////////////////////////////////////
 void Mainwin::on_list_orders_click()
 {
-  close();
+    std::string t;
+  Gtk::Dialog *dialog = new Gtk::Dialog{"List of your orders", *this};
+  if (_store->num_sweets() == 0) {
+        data->set_markup("<span size='large' weight='bold'>No orders have been placed yet</span>");
+#ifdef __STATUSBAR
+        msg->set_text("");
+#endif
+        return;
+  }
+      Gtk::HBox b_options;
+      
+      Gtk::Label l_options{"Sweet: "};
+      l_options.set_width_chars(15);
+      b_options.pack_start(l_options);
+      
+      Gtk::ComboBoxText options;
+      int i;
+      int k;
+      options.set_active(0);
+      for (i = 0; i < _store->num_orders(); i++)
+      {
+          options.append("Order " + std::to_string(i));
+      }
+      b_options.pack_start(options, Gtk::PACK_SHRINK);
+      dialog->get_vbox()->pack_start(b_options);
+      
+    
+
+    // Show dialog
+    dialog->add_button("Cancel", 0);
+    dialog->add_button("List Order", 1);
+    dialog->show_all();
+
+    int result; // of the dialog (1 = OK)
+    bool fail = true;  // set to true if any data is invalid
+    std::string total = "Total Price on this Order";
+    while (fail) {
+        fail = false;  // optimist!
+        result = dialog->run();
+        if (result != 1) {
+    #ifdef __STATUSBAR
+            msg->set_text("List orders cancelled");
+    #endif
+            delete dialog;
+            return;}
+        if (result == 1)    
+    {
+        k = options.get_active_row_number();     
+        Order o = _store->order(k);
+        for (int j = 0; j < o.size(); j++)
+        {
+        t += o.sweet(j).name() + "\t " +
+            std::to_string(o.quantity(j)) + "\n";
+        }
+
+    t += "\n\n\n" + total + "\t" + std::to_string(o.price());
+    data->set_markup(t);
+#ifdef __STATUSBAR
+    msg->set_text("");
+#endif
+       }
 }
+}
+//////////////////////////////////////////////////////////////////////////////////////////////////
 void Mainwin::on_about_click() {
 #ifdef __RICHTEXT
     Glib::ustring s = "<span size='36000' weight='bold'>Mav's Ultimate Sweet Shop " + VERSION + "</span>\n"
-        + "<span size='large'>Copyright 2019 by George F. Rice</span>\n\n"
+        + "<span size='large'>Copyright 2019 by William Anderson</span>\n\n"
         + "<span size='small'>Licensed under the Gnu General Public License 3.0\n    https://www.gnu.org/licenses/gpl-3.0.en.html\n\n</span>"
         + "<span size='small'>Candy photo created by Biscanski and donated to the public domain\n    https://pixnio.com/food-and-drink/desserts-cakes/sweet-color-sugar-gelatin-confectionery-delicious-food-candy\n\n</span>"
         + "<span size='small'>Lollipop icon derived from http://pngimg.com/download/13817, used under Creative Commons 4.0 BY-NC\n\n</span>"
         + "<span size='small'>Lollipops in Jar icon derived from https://www.pngfind.com/mpng/hxbTbow_jar-clipart-lollipop-lollipops-in-a-jar-hd/ under Personal Use Only license\n\n</span>";
 #else
     Glib::ustring s = "Mav's Ultimate Sweet Shop " + VERSION
-        + "\nCopyright 2019 by George F. Rice\n\n"
+        + "\nCopyright 2019 by William Anderson\n\n"
         + "Licensed under the Gnu General Public License 3.0\n    https://www.gnu.org/licenses/gpl-3.0.en.html\n\n"
         + "Candy photo created by Biscanski and donated to the public domain\n    https://pixnio.com/food-and-drink/desserts-cakes/sweet-color-sugar-gelatin-confectionery-delicious-food-candy\n\n"
         + "Lollipop icon derived from http://pngimg.com/download/13817, used under Creative Commons 4.0 BY-NC\n\n"
         + "Lollipops in Jar icon derived from https://www.pngfind.com/mpng/hxbTbow_jar-clipart-lollipop-lollipops-in-a-jar-hd/ under Personal Use Only license";
+#endif
+#ifdef __ABOUTDIALOG
+    Gtk::AboutDialog dialog{};
+    dialog.set_transient_for(*this); // Avoid the discouraging warning
+    dialog.set_program_name("Mav's Ultimate Sweet Shop");
+    dialog.set_version("Version 1.0.1");
+    dialog.set_copyright("Copyright 2017, 2019");
+    dialog.set_license_type(Gtk::License::LICENSE_GPL_3_0);
+    std::vector< Glib::ustring > authors = {"William Anderson"};
+    dialog.set_authors(authors);
+    std::vector< Glib::ustring > artists = {"Candy photo created by Biscanski and donated to the public domain    https://pixnio.com/food-and-drink/desserts-cakes/sweet-color-sugar-gelatin-confectionery-delicious-food-candy  Lollipop icon derived from http://pngimg.com/download/13817, used under Creative Commons 4.0 BY-NC. Lollipops in Jar icon derived from https://www.pngfind.com/mpng/hxbTbow_jar-clipart-lollipop-lollipops-in-a-jar-hd/ under Personal Use Only license"};
+    dialog.set_artists(artists);    
 #endif
     Gtk::MessageDialog dlg(*this, s, true);
     dlg.run();
