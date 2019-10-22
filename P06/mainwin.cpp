@@ -406,7 +406,7 @@ void Mainwin::on_list_orders_click()
       options.set_active(0);
       for (k = 0; k < _store->num_orders(); k++)
       {
-          options.append(_store->num_orders(k));
+          options.append(_store->num_orders());
       }
       b_options.pack_start(options, Gtk::PACK_SHRINK);
       dialog->get_vbox()->pack_start(b_options);
@@ -432,7 +432,7 @@ void Mainwin::on_list_orders_click()
             return;}
         if (result == 1)    
     {
-        i = stoi(_store->sweet(options.get_active_row_number()));     
+        i = _store->sweet(options.get_active_row_number());     
         Order o = _store->order(i);
         for (int j = 0; j < o.size(); j++)
         {
