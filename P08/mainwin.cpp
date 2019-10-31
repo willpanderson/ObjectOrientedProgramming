@@ -2,7 +2,7 @@
 
 
 
-Mainwin::Mainwin(Store& store) : _store{&store} {
+Main_window::Main_window() {
 
     // /////////////////
     // G U I   S E T U P
