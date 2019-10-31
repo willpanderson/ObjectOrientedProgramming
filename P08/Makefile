@@ -3,23 +3,23 @@ GTKFLAGS = `/usr/bin/pkg-config gtkmm-3.0 --cflags --libs`
 
 all: massanimal
 
-massanimal: main.cpp mainwin.cpp *.h
-	$(CXX) $(CXXFLAGS) main.cpp mainwin.cpp $(GTKFLAGS) -o math
+massanimal: main.o mainwin.o animal.o shelter.o *.h
+	$(CXX) $(CXXFLAGS) main.o mainwin.o animal.o shelter.o dog.o $(GTKFLAGS) -o massanimal
 
-main: main.cpp mainwin.cpp *.h
-	$(CXX) $(CXXFLAGS) main.cpp mainwin.cpp $(GTKFLAGS) -o math
+main.o: main.cpp *.h
+	$(CXX) $(CXXFLAGS) -c main.cpp $(GTKFLAGS) -o main.o
 
-mainwin: main.cpp mainwin.cpp *.h
-	$(CXX) $(CXXFLAGS) main.cpp mainwin.cpp $(GTKFLAGS) -o math
+mainwin.o: mainwin.cpp *.h
+	$(CXX) $(CXXFLAGS) -c mainwin.o $(GTKFLAGS) -o mainwin.o
 
-animal: main.cpp mainwin.cpp *.h
-	$(CXX) $(CXXFLAGS) main.cpp mainwin.cpp $(GTKFLAGS) -o math
+animal.o: main.cpp mainwin.cpp *.h
+	$(CXX) $(CXXFLAGS) -c animal.o -o animal.o
   
-dog: main.cpp mainwin.cpp *.h
-	$(CXX) $(CXXFLAGS) main.cpp mainwin.cpp $(GTKFLAGS) -o math
+dog.o: dog.cpp *.h
+	$(CXX) $(CXXFLAGS) -c dog.o -o dog.o
 
-shelter: main.cpp mainwin.cpp *.h
-	$(CXX) $(CXXFLAGS) main.cpp mainwin.cpp $(GTKFLAGS) -o math
-  
+shelter.o: shelter.cpp *.h
+	$(CXX) $(CXXFLAGS) -c shelter.o -o shelter.o
+	
 clean:
-	rm -f *.o *.gch math
+	rm -f *.o *.gch *.ii *.s a.out massanimal
