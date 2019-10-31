@@ -1,7 +1,13 @@
-#ifndef __MAINWIN_H_
-#define __MAINWIN_H_
+#ifndef MAINWIN_H
+#define MAINWIN_H
 
-class Mainwin
+#include <gtkmm.h>
+#include "shelter.h"
+
+const std::string VERSION{"0.0.1"};
+const std::string APP_NAME{"edu.uta.cse1325.MASS.v0_1_0"};
+
+class Mainwin : public Gtk::Window
 {
 
 public:
