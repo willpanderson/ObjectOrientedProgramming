@@ -12,7 +12,7 @@ class Mainwin : public Gtk::Window
 
 public:
   void Mainwin();
-  void ~Mainwin();
+  virtual ~Mainwin();
 
 protected:
 void on_quit_click();
