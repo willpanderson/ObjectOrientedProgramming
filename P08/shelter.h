@@ -6,7 +6,7 @@ class Shelter
 
 public:
   void Shelter(std::string name);
-  void ~Animal();;
+  void ~Animal();
   std::string name();
   void add_animal (Animal& animal);
   int num_animals();
@@ -14,7 +14,7 @@ public:
 
 private:
   std::string _name;
-  std::vector <Animal *> _avalible;
+  std::vector <Animal*> _avalible;
 
 };
 
