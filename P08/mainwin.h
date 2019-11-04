@@ -13,7 +13,6 @@ class Mainwin : public Gtk::Window
 
 public:
   Mainwin();
-  Mainwin(Shelter& shelter);
   virtual ~Mainwin();
 
 protected:

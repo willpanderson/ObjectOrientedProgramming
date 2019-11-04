@@ -1,8 +1,8 @@
 #include "mainwin.h"
 
 
-Mainwin::Mainwin() : Mainwin{*(new Shelter("Mav's Animal Shelter Software"))} {}
-Mainwin::Mainwin(Shelter& shelter) : shelter{&shelter} {
+Mainwin::Mainwin()
+{
 
     // ///////////////// //
     // G U I   S E T U P //

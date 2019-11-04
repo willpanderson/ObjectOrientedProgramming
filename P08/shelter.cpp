@@ -22,5 +22,5 @@ int Shelter::num_animals()
 
 Animal& Shelter::animal(int index)
 {
- return _avalible[index];
+ //return _avalible[index];
 }
