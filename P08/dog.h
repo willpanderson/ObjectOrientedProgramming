@@ -1,17 +1,21 @@
 #ifndef __DOG_H_
 #define __DOG_H_
 
-class Dog
+#include "animal.h"
+
+
+class Dog : public Animal
 {
 
 public:
-  void Dog(std::string name, Gender gender, Gender age,int age);
-  void ~Dog();
-  void family();
-  void breed();
+  void Dog(std::string name, Gender gender, int age);
+  virtual ~Dog();
+  std::string family(); override
+  std::string breed(); override
 
 private:
   int _breed;
+
 };
 
 

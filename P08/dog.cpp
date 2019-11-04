@@ -1,21 +1,21 @@
-#include dog.h"
+#include "dog.h"
+#
 
-void Dog(std::string name, Gender gender, Gender age,int age)
+Dog::Dog(dog_breed breed, std::string name, Gender gender, int age) : _breed{breed}, Animal(name,gender,age); 
 {
-
 }
 
 void ~Dog()
 {
-
 }
 
-void family()
+Dog::family()
 {
-
+ std::string dog = "Dog";
+ return std::to_string(dog);
 }
 
-void breed() : breed{_breed}
+Dog::breed() : _breed{breed}
 {
-
+ //switch case
 }

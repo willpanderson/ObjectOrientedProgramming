@@ -1,31 +1,38 @@
-void Animal(std::string name, Gender gender, Gender age,int age)
+#include "animal.h"
+
+Animal::Animal(std::string name, Gender gender,int age): _name{name},_gender{gender},_age{age}
+{
+
+}
+
+Animal::~Animal()
 {
 }
 
-void ~Animal()
+Animal::family()
 {
 }
 
-std::string family()
+Animal::breed()
 {
 }
 
-std::string breed()
+Animal::name()
 {
+ return _name;
 }
 
-std::string name()
+Animal::gender()
 {
+ return _gender;
 }
 
-Gender gender()
+Animal::age() 
 {
+ return _age;
 }
 
-int age()
+std::string Animal::to_string()
 {
-}
-
-std::string to_string()
-{
+ return _name + "\n" + std::to_string(_gender) + "\n" + std::string(_age) + "\n"
 }

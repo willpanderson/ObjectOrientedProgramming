@@ -1,7 +1,7 @@
 #include "shelter.cpp"
 
 
-void Shelter(std::string name)
+void Shelter(std::string name) :_name{name} 
 {
 }
 
@@ -9,17 +9,22 @@ void ~Animal()
 {
 }
 
-std::string name()
+std::string Shelter::name() :_name
 {
-}
-void add_animal (Animal& animal)
-{
+ return _name;
 }
 
-int num_animals()
+Shelter::add_animal (Animal& animal)
 {
+ return _avalible.push_back(animal);
 }
 
-Animal& animal(int index)
+int Shelter::num_animals()
 {
+return _avalible.size();
+}
+
+Animal& Shelter::animal(int index)
+{
+ return _avalible[index];
 }
