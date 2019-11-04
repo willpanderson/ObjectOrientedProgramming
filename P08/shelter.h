@@ -4,7 +4,7 @@
 #include "animal.h"
 #include <vector>
 
-class Shelter : public Animal
+class Shelter
 {
 
 public:

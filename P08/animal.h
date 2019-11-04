@@ -1,8 +1,10 @@
 #ifndef __ANIMAL_H_
 #define __ANIMAL_H_
 
-#include "gender.h"
 #include <string>
+
+
+enum class Gender{Male, Female};
 
 class Animal
 {
@@ -10,8 +12,8 @@ class Animal
 public:
   Animal(std::string name, Gender gender, int age);
   ~Animal();
-  std::string family();
-  std::string breed();
+  virtual std::string family() = 0;
+  virtual std::string breed() = 0;
   std::string name();
   Gender gender();
   int age();

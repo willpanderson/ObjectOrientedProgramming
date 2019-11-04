@@ -9,6 +9,7 @@ Animal::~Animal()
 {
 }
 
+/*
 std::string Animal::family()
 {
 }
@@ -16,6 +17,7 @@ std::string Animal::family()
 std::string Animal::breed()
 {
 }
+*/
 
 std::string Animal::name()
 {
@@ -34,5 +36,6 @@ int Animal::age()
 
 std::string Animal::to_string()
 {
- return _name + "\n" + std::to_string(_gender) + "\n" + std::to_string(_age) + "\n";
+ //return _name + "\n" + std::to_string(_gender) + "\n" + std::to_string(_age) + "\n";
+return "";
 }

@@ -12,7 +12,7 @@ main.o: main.cpp *.h
 mainwin.o: mainwin.cpp *.h
 	$(CXX) $(CXXFLAGS) -c mainwin.cpp $(GTKFLAGS) -o mainwin.o
 
-animal.o: main.cpp mainwin.cpp *.h
+animal.o: animal.cpp *.h
 	$(CXX) $(CXXFLAGS) -c animal.cpp -o animal.o
   
 dog.o: dog.cpp *.h

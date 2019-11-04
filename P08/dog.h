@@ -2,8 +2,8 @@
 #define __DOG_H_
 
 #include "animal.h"
-#include "dog_breed.h"
-#include <string>
+
+enum class Breed {Bloodhound, Rotwiler, Beagle, Pitbull, Bulldog, Chihuahua, Samoyed, Poodle};
 
 class Dog : public Animal
 {
@@ -11,11 +11,11 @@ class Dog : public Animal
 public:
   Dog(Breed breed, std::string name, Gender gender, int age);
   ~Dog();
-  std::string family(); 
-  std::string breed(); 
+  std::string family() override;
+  std::string breed()  override;
 
 private:
-  int _breed;
+  Breed _breed;
 
 };
 

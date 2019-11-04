@@ -99,7 +99,7 @@ void Mainwin::on_new_animal_click()
    
     // Show dialog
   dialog->add_button("Cancel", 0);
-  dialog->add_button("Create", 1);
+  dialog->add_button("Enter", 1);
   dialog->show_all();
   int result; // of the dialog (1 = OK)
 
@@ -117,7 +117,7 @@ void Mainwin::on_list_animals_click()
  //{
   //s += shelter->_avalible[i] + "\n";
  //}
- //data->set_text(s);
+ //label->set_text(s);
  msg->set_text("List of Animals in the Shelter");
 }
 
