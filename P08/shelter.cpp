@@ -5,7 +5,7 @@ void Shelter(std::string name)
 {
 }
 
-std::string Shelter::name() 
+std::string Shelter::name()
 {
  return _name;
 }
