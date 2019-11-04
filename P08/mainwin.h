@@ -4,6 +4,7 @@
 #include <gtkmm.h>
 #include "shelter.h"
 
+
 const std::string VERSION{"0.0.1"};
 const std::string APP_NAME{"edu.uta.cse1325.MASS.v0_0_1"};
 

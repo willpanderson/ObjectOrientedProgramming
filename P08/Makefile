@@ -3,7 +3,7 @@ GTKFLAGS = `/usr/bin/pkg-config gtkmm-3.0 --cflags --libs`
 
 all: testmonkey
 
-testmonkey: main.o mainwin.o animal.o dog .o shelter.o *.h
+testmonkey: main.o mainwin.o animal.o dog.o shelter.o *.h
 	$(CXX) $(CXXFLAGS) main.o mainwin.o animal.o shelter.o dog.o $(GTKFLAGS) -o testmonkey
 
 main.o: main.cpp *.h
