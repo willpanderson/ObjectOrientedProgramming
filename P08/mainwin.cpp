@@ -1,7 +1,7 @@
 #include "mainwin.h"
 
 
-Mainwin::Mainwin() : Mainwin{*(new Shelter("Mav's Animal Shelter Software"))}; ()
+Mainwin::Mainwin() : Mainwin{*(new Shelter("Mav's Animal Shelter Software"))} {}
 Mainwin::Mainwin(Shelter& shelter) : shelter{&shelter} {
 
     // ///////////////// //
@@ -80,7 +80,7 @@ Mainwin::Mainwin(Shelter& shelter) : shelter{&shelter} {
     vbox->add(*msg);
 
     // Set the sensitivity of menu and tool bar items to match what data is available
-    reset_sensitivity();
+    //reset_sensitivity();
 
     // Make the box and everything in it visible
     vbox->show_all();
@@ -95,14 +95,7 @@ Mainwin::~Mainwin() { }
 void Mainwin::on_new_animal_click()
 {
   Gtk::Dialog *dialog = new Gtk::Dialog{"Add A New Animal", *this};
-  Gtk::Label l_name{"Name:"};
-  l_name.set_width_chars(15);
-  b_name.pack_start(l_name, Gtk::PACK_SHRINK);
 
-  Gtk::Entry e_name;
-  e_name.set_max_length(50);
-  b_name.pack_start(e_name, Gtk::PACK_SHRINK);
-  dialog->get_vbox()->pack_start(b_name, Gtk::PACK_SHRINK);
    
     // Show dialog
   dialog->add_button("Cancel", 0);
@@ -112,7 +105,7 @@ void Mainwin::on_new_animal_click()
 
   bool fail = true;  // set to true if any data is invalid
 
-  shelter->add_animal;
+  //shelter->add_animal;
   msg->set_text("New Animal Added");
 }
 
@@ -120,11 +113,11 @@ void Mainwin::on_list_animals_click()
 {
  int i;
  std::string s; //add text formating
- for (int i = 0; i < shelter->_avalible.size(); i++)
- {
-  s += shelter->_avalible[i] + "\n";
- }
- data->set_text(s);
+ //for (int i = 0; i < shelter->_avalible.size(); i++)
+ //{
+  //s += shelter->_avalible[i] + "\n";
+ //}
+ //data->set_text(s);
  msg->set_text("List of Animals in the Shelter");
 }
 

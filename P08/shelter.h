@@ -2,12 +2,13 @@
 #define __SHELTER_H_
 
 #include "animal.h"
+#include <vector>
 
 class Shelter : public Animal
 {
 
 public:
-  void Shelter(std::string name);
+  Shelter(std::string name);
   std::string name();
   void add_animal (Animal& animal);
   int num_animals();

@@ -1,6 +1,6 @@
 #include "animal.h"
 
-Animal::Animal(std::string name, Gender gender,int age): _name{name},_gender{gender},_age{age}
+Animal::Animal(std::string name, Gender gender, int age): _name{name},_gender{gender},_age{age}
 {
 
 }
@@ -9,30 +9,30 @@ Animal::~Animal()
 {
 }
 
-Animal::family()
+std::string Animal::family()
 {
 }
 
-Animal::breed()
+std::string Animal::breed()
 {
 }
 
-Animal::name()
+std::string Animal::name()
 {
  return _name;
 }
 
-Animal::gender()
+Gender Animal::gender()
 {
  return _gender;
 }
 
-Animal::age() 
+int Animal::age() 
 {
  return _age;
 }
 
 std::string Animal::to_string()
 {
- return _name + "\n" + std::to_string(_gender) + "\n" + std::string(_age) + "\n"
+ return _name + "\n" + std::to_string(_gender) + "\n" + std::to_string(_age) + "\n";
 }

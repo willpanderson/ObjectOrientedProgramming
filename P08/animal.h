@@ -2,17 +2,17 @@
 #define __ANIMAL_H_
 
 #include "gender.h"
-#include "dog_breed.h"
+#include <string>
 
 class Animal
 {
 
 public:
-  void Animal(std::string name, Gender gender, int age);
-  virtual ~Animal();
-  virtual std::string family();
-  virtual std::string breed();
-  virtual std::string name();
+  Animal(std::string name, Gender gender, int age);
+  ~Animal();
+  std::string family();
+  std::string breed();
+  std::string name();
   Gender gender();
   int age();
   std::string to_string();

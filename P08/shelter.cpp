@@ -1,30 +1,26 @@
-#include "shelter.cpp"
+#include "shelter.h"
 
 
-void Shelter(std::string name) :_name{name} 
+void Shelter(std::string name)
 {
 }
 
-void ~Animal()
+std::string Shelter::name() 
 {
+ //return _name;
 }
 
-std::string Shelter::name() :_name
+void Shelter::add_animal (Animal& animal)
 {
- return _name;
-}
-
-Shelter::add_animal (Animal& animal)
-{
- return _avalible.push_back(animal);
+ //return _avalible.push_back(animal);
 }
 
 int Shelter::num_animals()
 {
-return _avalible.size();
+//return _avalible.size();
 }
 
 Animal& Shelter::animal(int index)
 {
- return _avalible[index];
+ //return _avalible[index];
 }

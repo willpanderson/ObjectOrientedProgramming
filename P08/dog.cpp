@@ -1,21 +1,20 @@
 #include "dog.h"
-#
 
-Dog::Dog(dog_breed breed, std::string name, Gender gender, int age) : _breed{breed}, Animal(name,gender,age); 
+
+Dog::Dog(Breed breed, std::string name, Gender gender, int age) : _breed{breed}, Animal{name,gender,age} 
 {
 }
 
-void ~Dog()
+Dog::~Dog()
 {
 }
 
-Dog::family()
+std::string Dog::family()
 {
- std::string dog = "Dog";
- return std::to_string(dog);
+ return "Dog";
 }
 
-Dog::breed() : _breed{breed}
+std::string Dog::breed()  
 {
- //switch case
+ 
 }
