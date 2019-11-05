@@ -2,6 +2,7 @@
 #define __SHELTER_H_
 
 #include "animal.h"
+#include "dog.h"
 #include <vector>
 
 class Shelter

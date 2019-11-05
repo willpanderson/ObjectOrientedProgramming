@@ -11,12 +11,12 @@ Dog::~Dog()
 
 std::string Dog::family()
 {
- return "dog";
+  return "dog";
 }
 
 std::string Dog::breed()  
 {
-/*
+
  switch (_breed) {
  	case Breed::Bloodhound:
              return "Bloodhound";
@@ -37,7 +37,7 @@ std::string Dog::breed()
 	default:
 		return "";
 }
-*/
+
 return "";
 
 }

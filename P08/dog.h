@@ -3,7 +3,7 @@
 
 #include "animal.h"
 
-enum class Breed {Bloodhound, Rotwiler, Beagle, Pitbull, Bulldog, Chihuahua, Samoyed, Poodle};
+enum class Breed {Bloodhound, Rotwiler, Beagle, Pitbull, Bulldog, Chihuahua, Samoyed, Poodle, count};
 
 class Dog : public Animal
 {

@@ -1,5 +1,6 @@
 #include "mainwin.h"
-
+#include "shelter.h"
+#include <iostream>
 
 Mainwin::Mainwin()
 {
@@ -94,30 +95,156 @@ Mainwin::~Mainwin() { }
 
 void Mainwin::on_new_animal_click()
 {
+  std::string name = "";
+  int age = -1;
+  int gender = -1;
+  int breed = -1;
+  Gender _gender;
+  Breed  _breed;
   Gtk::Dialog *dialog = new Gtk::Dialog{"Add A New Animal", *this};
+  
+  Gtk::HBox b_name;
+  
+  Gtk::Label l_name{"Name:"};
+  l_name.set_width_chars(15);
+  b_name.pack_start(l_name, Gtk::PACK_SHRINK);
+  
+  Gtk::Entry e_name;
+  e_name.set_max_length(50);
+  b_name.pack_start(e_name, Gtk::PACK_SHRINK);
+  dialog->get_vbox()->pack_start(b_name, Gtk::PACK_SHRINK);
+  
+  Gtk::HBox b_agex;
+  
+  Gtk::Label l_agex{"Age:"};
+  l_agex.set_width_chars(15);
+  b_agex.pack_start(l_agex, Gtk::PACK_SHRINK);
 
-   
-    // Show dialog
+  Gtk::Entry e_agex;
+  e_agex.set_max_length(50);
+  b_agex.pack_start(e_agex, Gtk::PACK_SHRINK);
+  dialog->get_vbox()->pack_start(b_agex, Gtk::PACK_SHRINK);
+
+  
+  Gtk::HBox b_options;
+  Gtk::Label l_options{"Gender:"};
+  l_options.set_width_chars(15);
+  b_options.pack_start(l_options);
+
+      Gtk::ComboBoxText options;
+      options.append("Male");
+      options.append("Female");
+      options.set_active(0);
+      b_options.pack_start(options, Gtk::PACK_SHRINK);
+      dialog->get_vbox()->pack_start(b_options);
+
+
+  Gtk::HBox b_options2;
+  Gtk::Label l_options2{"Breed:"};
+  l_options2.set_width_chars(15);
+  b_options2.pack_start(l_options2);
+
+      Gtk::ComboBoxText options2;
+      options2.append("Bloodhound");
+      options2.append("Rotwiler");
+      options2.append("Beagle");
+      options2.append("Pitbull");
+      options2.append("Bulldog");
+      options2.append("Chihuahua");
+      options2.append("Samoyed");
+      options2.append("Poodle");
+      options2.set_active(0);
+      b_options2.pack_start(options2, Gtk::PACK_SHRINK);
+      dialog->get_vbox()->pack_start(b_options2);
+
   dialog->add_button("Cancel", 0);
-  dialog->add_button("Enter", 1);
-  dialog->show_all();
+  dialog->add_button("Create", 1);
+  dialog->show_all(); //Throws an GTK::critical error
+
   int result; // of the dialog (1 = OK)
-
   bool fail = true;  // set to true if any data is invalid
+  
+  while (fail) {
+        fail = false;  // optimist!
+        result = dialog->run();
+        if (result != 1) {
 
-  //shelter->add_animal;
-  msg->set_text("New Animal Added");
+            msg->set_text("New animal entry cancelled");
+            delete dialog;
+            return;}
+        try {
+            age = std::stod(e_agex.get_text());
+        } catch(std::exception e) {
+            e_agex.set_text("### Invalid ###");
+            fail = true;
+        }
+        name = e_name.get_text();
+        gender = options.get_active_row_number();
+        breed = options2.get_active_row_number();
+        if (name.size() == 0) {
+            e_name.set_text("### Invalid ###");
+            fail = true;
+    }
+    delete dialog;
+  }
+
+  if (gender == 0)
+  {
+   _gender = Gender::Male;
+  }
+  else if (gender == 1)
+  {
+   _gender = Gender::Female;
+  }
+  
+  if (breed == 0)
+  {
+   _breed = Breed::Bloodhound;
+  }
+  else if (breed == 1)
+  {
+   _breed = Breed::Rotwiler;
+  }
+  else if (breed == 2)
+  {
+   _breed = Breed::Beagle;
+  }
+  else if (breed == 3)
+  {
+   _breed = Breed::Pitbull;
+  }
+  else if (breed == 4)
+  {
+   _breed = Breed::Bulldog;
+  }
+  else if (breed == 5)
+  {
+   _breed = Breed::Chihuahua;
+  }
+  else if (breed == 6)
+  {
+   _breed = Breed::Samoyed;
+  }
+  else if (breed == 7)
+  {
+   _breed = Breed::Poodle;
+  }
+
+ Dog animal{_breed, name, _gender, age};
+ //shelter->add_animal(animal); Throws a seg fault
+ 
 }
 
 void Mainwin::on_list_animals_click()
 {
  int i;
- std::string s; //add text formating
- //for (int i = 0; i < shelter->_avalible.size(); i++)
- //{
-  //s += shelter->_avalible[i] + "\n";
- //}
- //label->set_text(s);
+ std::string s = "<span size='large' weight='bold'>";
+ for (int i = 0; i < shelter->num_animals(); i++)
+ {
+  s += shelter->animal(i).to_string(); + "\n";
+ }
+ s+="</span>";
+ label->set_text(s);
  msg->set_text("List of Animals in the Shelter");
 }
 

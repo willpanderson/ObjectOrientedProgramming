@@ -4,7 +4,7 @@
 #include <string>
 
 
-enum class Gender{Male, Female};
+enum class Gender{Male, Female,count};
 
 class Animal
 {
@@ -25,6 +25,4 @@ protected:
   Gender _gender;
   int _age;
 };
-
-
 #endif

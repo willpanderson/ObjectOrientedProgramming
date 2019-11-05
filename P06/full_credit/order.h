@@ -15,5 +15,4 @@ class Order {
     std::vector<int> _quantities;
     std::vector<Sweet> _sweets;
 };
-std::ostream& operator<<(std::ostream& ost, const Order& order);
 #endif
