@@ -53,6 +53,20 @@ Mainwin::Mainwin() : shelter{new Shelter{"Mavs Animal Shelter"}} {
     menuitem_listanimal->signal_activate().connect([this] {this->on_list_animals_click();});
     animalmenu->append(*menuitem_listanimal);
 
+    //     C L I E N T
+    // Create an Client menu and add to the menu bar
+
+    Gtk::MenuItem *menuitem_client = Gtk::manage(new Gtk::MenuItem("_Client", true));
+    menubar->append(*menuitem_client);
+    Gtk::Menu *clientmenu = Gtk::manage(new Gtk::Menu());
+    menuitem_animal->set_submenu(*clientmenu);
+
+    //           N E W
+    // Append New to the Client menu
+    Gtk::MenuItem *menuitem_newclient = Gtk::manage(new Gtk::MenuItem("_New", true));
+    menuitem_newclient->signal_activate().connect([this] {this->on_new_client_click();});
+    clientmenu->append(*menuitem_newclient);
+
     // /////////////
     // T O O L B A R
     // Add a toolbar to the vertical box below the menu
@@ -133,7 +147,7 @@ void Mainwin::on_new_animal_click() {
 
     while(dialog.run()) {
         if(e_name.get_text().size() == 0) {e_name.set_text("*required*"); continue;}
-        Animal* animal = new Dog{dog_breeds[c_breed.get_active_row_number()], 
+        Animal* animal = new Dog{dog_breeds[c_breed.get_active_row_number()],
                                  e_name.get_text(),
                                  (c_gender.get_active_row_number() ? Gender::MALE : Gender::FEMALE),
                                  static_cast<int>(s_age.get_value())};
@@ -148,10 +162,15 @@ void Mainwin::on_new_animal_click() {
 void Mainwin::on_list_animals_click() {
     std::ostringstream oss;
     for(int i=0; i<shelter->num_animals(); ++i)
-        oss << shelter->animal(i) << '\n'; 
+        oss << shelter->animal(i) << '\n';
     data->set_text(oss.str());
     status("");
 }      // List all animals
+
+void Mainwin::on_new_client_click()
+{
+  close();
+}
 
 // /////////////////
 // U T I L I T I E S
