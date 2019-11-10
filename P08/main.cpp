@@ -5,3 +5,4 @@ int main (int argc, char *argv[]) {
     Mainwin win;
     return app->run(win);
 }
+

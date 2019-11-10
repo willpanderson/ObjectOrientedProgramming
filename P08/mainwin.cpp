@@ -1,25 +1,24 @@
 #include "mainwin.h"
-#include "shelter.h"
-#include <iostream>
+#include "dog.h"
+#include <sstream>
 
-Mainwin::Mainwin()
-{
+Mainwin::Mainwin() : shelter{new Shelter{"Mavs Animal Shelter"}} {
 
-    // ///////////////// //
-    // G U I   S E T U P //
-    // ///////////////// //
+    // /////////////////
+    // G U I   S E T U P
+    // /////////////////
 
-    set_default_size(640, 480);
-    set_title("Mav's Animal Shelter Software");
+    set_default_size(800, 600);
+    set_title(APP_TITLE);
 
     // Put a vertical box container as the Window contents
-    Gtk::Box *vbox = Gtk::manage(new Gtk::Box(Gtk::ORIENTATION_VERTICAL, 0));
+    Gtk::Box *vbox = Gtk::manage(new Gtk::VBox);
     add(*vbox);
 
     // ///////
     // M E N U
     // Add a menu bar as the top item in the vertical box
-    Gtk::MenuBar *menubar = Gtk::manage(new Gtk::MenuBar());
+    Gtk::MenuBar *menubar = Gtk::manage(new Gtk::MenuBar);
     vbox->pack_start(*menubar, Gtk::PACK_SHRINK, 0);
 
     //     F I L E
@@ -35,53 +34,47 @@ Mainwin::Mainwin()
     menuitem_quit->signal_activate().connect([this] {this->on_quit_click();});
     filemenu->append(*menuitem_quit);
 
-    //     A N I M A L S    M E N U
+    //     A N I M A L
     // Create an Animal menu and add to the menu bar
     Gtk::MenuItem *menuitem_animal = Gtk::manage(new Gtk::MenuItem("_Animal", true));
     menubar->append(*menuitem_animal);
     Gtk::Menu *animalmenu = Gtk::manage(new Gtk::Menu());
     menuitem_animal->set_submenu(*animalmenu);
 
-    //         A D D   A N I M A L
-    // Append Add to the Sweets menu
-    menuitem_add_animal = Gtk::manage(new Gtk::MenuItem("_New Animal", true));
-    menuitem_add_animal->signal_activate().connect([this] {this->on_new_animal_click();});
-    animalmenu->append(*menuitem_add_animal);
+    //           N E W
+    // Append New to the Animal menu
+    Gtk::MenuItem *menuitem_newanimal = Gtk::manage(new Gtk::MenuItem("_New", true));
+    menuitem_newanimal->signal_activate().connect([this] {this->on_new_animal_click();});
+    animalmenu->append(*menuitem_newanimal);
 
-    //         L I S T   A N I M A L S
-    // Append List to the Animals menu
-    menuitem_list_animal = Gtk::manage(new Gtk::MenuItem("_List", true));
-    menuitem_list_animal->signal_activate().connect([this] {this->on_list_animals_click();});
-    animalmenu->append(*menuitem_list_animal);
-    
-    //     H E L P
-    // Create a Help menu and add to the menu bar
-    //Gtk::MenuItem *menuitem_help = Gtk::manage(new Gtk::MenuItem("_Help", true));
-    //menubar->append(*menuitem_help);
-    //Gtk::Menu *helpmenu = Gtk::manage(new Gtk::Menu());
-    //menuitem_help->set_submenu(*helpmenu);
+    //           L I S T
+    // Append List to the Animal menu
+    Gtk::MenuItem *menuitem_listanimal = Gtk::manage(new Gtk::MenuItem("_List", true));
+    menuitem_listanimal->signal_activate().connect([this] {this->on_list_animals_click();});
+    animalmenu->append(*menuitem_listanimal);
 
-    //           A B O U T
-    // Append About to the Help menu
-    //Gtk::MenuItem *menuitem_about = Gtk::manage(new Gtk::MenuItem("About", true));
-    //menuitem_about->signal_activate().connect([this] {this->on_about_click();});
-    //helpmenu->append(*menuitem_about);
+    // /////////////
+    // T O O L B A R
+    // Add a toolbar to the vertical box below the menu
+    Gtk::Toolbar *toolbar = Gtk::manage(new Gtk::Toolbar);
+    toolbar->override_background_color(Gdk::RGBA{"gray"});
+    vbox->pack_start(*toolbar, Gtk::PACK_SHRINK, 0);
 
-        // D A T A   D I S P L A Y
-    // Provide a text entry box to show the remaining sticks
-    label = Gtk::manage(new Gtk::Label());
-    label->set_hexpand(true);
-    label->set_vexpand(true);
-    vbox->add(*label);
+    // ///////////////////////
+    // D A T A   D I S P L A Y
+    // Provide a text entry box to show the remaining data
+    data = Gtk::manage(new Gtk::Label());
+    data->set_hexpand(true);
+    data->set_vexpand(true);
+    vbox->pack_start(*data, Gtk::PACK_EXPAND_WIDGET, 0);
 
+    // ///////////////////////////////////
     // S T A T U S   B A R   D I S P L A Y
-    // Provide a status bar for transient messages
+    // Provide a status bar for program messages
     msg = Gtk::manage(new Gtk::Label());
     msg->set_hexpand(true);
-    vbox->add(*msg);
-
-    // Set the sensitivity of menu and tool bar items to match what data is available
-    //reset_sensitivity();
+    msg->override_background_color(Gdk::RGBA{"gray"});
+    vbox->pack_start(*msg, Gtk::PACK_SHRINK, 0);
 
     // Make the box and everything in it visible
     vbox->show_all();
@@ -93,164 +86,77 @@ Mainwin::~Mainwin() { }
 // C A L L B A C K S
 // /////////////////
 
-void Mainwin::on_new_animal_click()
-{
-  std::string name = "";
-  int age = -1;
-  int gender = -1;
-  int breed = -1;
-  Gender _gender;
-  Breed  _breed;
-  Gtk::Dialog *dialog = new Gtk::Dialog{"Add A New Animal", *this};
-  
-  Gtk::HBox b_name;
-  
-  Gtk::Label l_name{"Name:"};
-  l_name.set_width_chars(15);
-  b_name.pack_start(l_name, Gtk::PACK_SHRINK);
-  
-  Gtk::Entry e_name;
-  e_name.set_max_length(50);
-  b_name.pack_start(e_name, Gtk::PACK_SHRINK);
-  dialog->get_vbox()->pack_start(b_name, Gtk::PACK_SHRINK);
-  
-  Gtk::HBox b_agex;
-  
-  Gtk::Label l_agex{"Age:"};
-  l_agex.set_width_chars(15);
-  b_agex.pack_start(l_agex, Gtk::PACK_SHRINK);
+void Mainwin::on_quit_click() {
+    close();
+}
 
-  Gtk::Entry e_agex;
-  e_agex.set_max_length(50);
-  b_agex.pack_start(e_agex, Gtk::PACK_SHRINK);
-  dialog->get_vbox()->pack_start(b_agex, Gtk::PACK_SHRINK);
+void Mainwin::on_new_animal_click() {
 
-  
-  Gtk::HBox b_options;
-  Gtk::Label l_options{"Gender:"};
-  l_options.set_width_chars(15);
-  b_options.pack_start(l_options);
+    Gtk::Dialog dialog{"Dog Information", *this};
 
-      Gtk::ComboBoxText options;
-      options.append("Male");
-      options.append("Female");
-      options.set_active(0);
-      b_options.pack_start(options, Gtk::PACK_SHRINK);
-      dialog->get_vbox()->pack_start(b_options);
+    Gtk::Grid grid;
 
+    Gtk::Label l_name{"Name"};
+    Gtk::Entry e_name;
+    grid.attach(l_name, 0, 0, 1, 1);
+    grid.attach(e_name, 1, 0, 2, 1);
 
-  Gtk::HBox b_options2;
-  Gtk::Label l_options2{"Breed:"};
-  l_options2.set_width_chars(15);
-  b_options2.pack_start(l_options2);
+    Gtk::Label l_breed{"Breed"};
+    Gtk::ComboBoxText c_breed;
+    for(auto b : dog_breeds) c_breed.append(to_string(b));
+    c_breed.set_active(0);
+    grid.attach(l_breed, 0, 1, 1, 1);
+    grid.attach(c_breed, 1, 1, 2, 1);
 
-      Gtk::ComboBoxText options2;
-      options2.append("Bloodhound");
-      options2.append("Rotwiler");
-      options2.append("Beagle");
-      options2.append("Pitbull");
-      options2.append("Bulldog");
-      options2.append("Chihuahua");
-      options2.append("Samoyed");
-      options2.append("Poodle");
-      options2.set_active(0);
-      b_options2.pack_start(options2, Gtk::PACK_SHRINK);
-      dialog->get_vbox()->pack_start(b_options2);
+    Gtk::Label l_gender{"Gender"};
+    Gtk::ComboBoxText c_gender;
+    c_gender.append("Female");
+    c_gender.append("Male");
+    c_gender.set_active(0);
+    grid.attach(l_gender, 0, 2, 1, 1);
+    grid.attach(c_gender, 1, 2, 2, 1);
 
-  dialog->add_button("Cancel", 0);
-  dialog->add_button("Create", 1);
-  dialog->show_all(); //Throws an GTK::critical error
+    Gtk::Label l_age{"Age"};
+    Gtk::SpinButton s_age;
+    s_age.set_range(0,99);
+    s_age.set_increments(1,5);
+    s_age.set_value(5);
+    grid.attach(l_age, 0, 3, 1, 1);
+    grid.attach(s_age, 1, 3, 2, 1);
 
-  int result; // of the dialog (1 = OK)
-  bool fail = true;  // set to true if any data is invalid
-  
-  while (fail) {
-        fail = false;  // optimist!
-        result = dialog->run();
-        if (result != 1) {
+    dialog.get_content_area()->add(grid);
 
-            msg->set_text("New animal entry cancelled");
-            delete dialog;
-            return;}
-        try {
-            age = std::stod(e_agex.get_text());
-        } catch(std::exception e) {
-            e_agex.set_text("### Invalid ###");
-            fail = true;
-        }
-        name = e_name.get_text();
-        gender = options.get_active_row_number();
-        breed = options2.get_active_row_number();
-        if (name.size() == 0) {
-            e_name.set_text("### Invalid ###");
-            fail = true;
+    dialog.add_button("Add Dog", 1);
+    dialog.add_button("Cancel", 0);
+
+    dialog.show_all();
+
+    while(dialog.run()) {
+        if(e_name.get_text().size() == 0) {e_name.set_text("*required*"); continue;}
+        Animal* animal = new Dog{dog_breeds[c_breed.get_active_row_number()], 
+                                 e_name.get_text(),
+                                 (c_gender.get_active_row_number() ? Gender::MALE : Gender::FEMALE),
+                                 static_cast<int>(s_age.get_value())};
+        shelter->add_animal(*animal);
+        std::ostringstream oss;
+        oss << "Added " << *animal;
+        status(oss.str());
+        break;
     }
-    delete dialog;
-  }
-
-  if (gender == 0)
-  {
-   _gender = Gender::Male;
-  }
-  else if (gender == 1)
-  {
-   _gender = Gender::Female;
-  }
-  
-  if (breed == 0)
-  {
-   _breed = Breed::Bloodhound;
-  }
-  else if (breed == 1)
-  {
-   _breed = Breed::Rotwiler;
-  }
-  else if (breed == 2)
-  {
-   _breed = Breed::Beagle;
-  }
-  else if (breed == 3)
-  {
-   _breed = Breed::Pitbull;
-  }
-  else if (breed == 4)
-  {
-   _breed = Breed::Bulldog;
-  }
-  else if (breed == 5)
-  {
-   _breed = Breed::Chihuahua;
-  }
-  else if (breed == 6)
-  {
-   _breed = Breed::Samoyed;
-  }
-  else if (breed == 7)
-  {
-   _breed = Breed::Poodle;
-  }
-
- Dog animal{_breed, name, _gender, age};
- //shelter->add_animal(animal); Throws a seg fault
- 
 }
 
-void Mainwin::on_list_animals_click()
-{
- int i;
- std::string s = "<span size='large' weight='bold'>";
- for (int i = 0; i < shelter->num_animals(); i++)
- {
-  s += shelter->animal(i).to_string(); + "\n";
- }
- s+="</span>";
- label->set_text(s);
- msg->set_text("List of Animals in the Shelter");
+void Mainwin::on_list_animals_click() {
+    std::ostringstream oss;
+    for(int i=0; i<shelter->num_animals(); ++i)
+        oss << shelter->animal(i) << '\n'; 
+    data->set_text(oss.str());
+    status("");
+}      // List all animals
+
+// /////////////////
+// U T I L I T I E S
+// /////////////////
+
+void Mainwin::status(std::string s) {
+    msg->set_text(s);
 }
-
-void Mainwin::on_quit_click()
-{
- close();
-}
-
-

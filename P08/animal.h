@@ -1,28 +1,30 @@
-#ifndef __ANIMAL_H_
-#define __ANIMAL_H_
+#ifndef __ANIMAL_H
+#define __ANIMAL_H
 
-#include <string>
+#include <ostream>
 
+enum class Gender{FEMALE, MALE};
+std::string to_string(Gender gender);
+std::ostream& operator<<(std::ostream& ost, const Gender& gender);
 
-enum class Gender{Male, Female,count};
+class Animal {
+  public:
+    Animal(std::string name, Gender gender, int age);
+    virtual ~Animal();
 
-class Animal
-{
+    virtual std::string family() const = 0;
+    virtual std::string breed() const = 0;
+    std::string name() const;
+    Gender gender() const;
+    int age() const;
 
-public:
-  Animal(std::string name, Gender gender, int age);
-  ~Animal();
-  virtual std::string family() = 0;
-  virtual std::string breed() = 0;
-  std::string name();
-  Gender gender();
-  int age();
-  std::string to_string();
-
-
-protected:
-  std::string _name;
-  Gender _gender;
-  int _age;
+    virtual std::string to_string() const;
+    friend std::ostream& operator<<(std::ostream& ost, const Animal& animal);
+  protected:
+    std::string _name;
+    Gender _gender;
+    int _age;
 };
+
 #endif
+
