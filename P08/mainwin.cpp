@@ -55,11 +55,10 @@ Mainwin::Mainwin() : shelter{new Shelter{"Mavs Animal Shelter"}} {
 
     //     C L I E N T
     // Create an Client menu and add to the menu bar
-
     Gtk::MenuItem *menuitem_client = Gtk::manage(new Gtk::MenuItem("_Client", true));
     menubar->append(*menuitem_client);
     Gtk::Menu *clientmenu = Gtk::manage(new Gtk::Menu());
-    menuitem_animal->set_submenu(*filemenu);
+    menuitem_client->set_submenu(*clientmenu);
 
     //           N E W
     // Append New to the Client menu
