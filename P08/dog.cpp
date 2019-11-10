@@ -2,7 +2,7 @@
 #include <map>
 #include <iostream>
 
-std::map<int,std::string> MapofDogs;
+std::map<Dog_breed,std::string> MapofDogs;
 // Constructor / Destructor - note how delegation to base class works!
 Dog::Dog(Dog_breed breed, std::string name, Gender gender, int age)
     : Animal(name, gender, age), _breed{breed} { }
