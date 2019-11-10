@@ -2,7 +2,7 @@
 #define __CLIENT_H
 
 
-std::ostream& operator<<(std::ostream& ost, const Client& client);
+//std::ostream& operator<<(std::ostream& ost, const Client& client);
 
 
 class Client :
