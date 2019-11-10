@@ -32,6 +32,7 @@ constexpr cat_breed cat_breeds[] = {
     cat_breed::MANX,
     cat_breed::SIAMESE,
 };
+
 std::string to_string(const cat_breed& breed);
 std::ostream& operator<<(std::ostream& ost, const cat_breed& breed);
 
