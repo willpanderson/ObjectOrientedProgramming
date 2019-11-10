@@ -1,5 +1,6 @@
 #include "dog.h"
 #include <map>
+#include <iostream>
 
 std::map<int,std::string> MapofDogs;
 // Constructor / Destructor - note how delegation to base class works!
