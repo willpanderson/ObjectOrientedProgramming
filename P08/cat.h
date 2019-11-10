@@ -39,7 +39,7 @@ std::ostream& operator<<(std::ostream& ost, const cat_breed& breed);
 // Class Dog with overrides for family and breed
 class Cat : public Animal {
   public:
-    Cat(Cat_breed breed, std::string name, Gender gender, int age);
+    Cat(cat_breed breed, std::string name, Gender gender, int age);
     virtual ~Cat();
     virtual std::string family() const override;
     virtual std::string breed() const override;
