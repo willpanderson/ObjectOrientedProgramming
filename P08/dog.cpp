@@ -16,11 +16,12 @@ std::string Dog::breed() const {return ::to_string(_breed);}
     int dogselect;
     std::cout << "what kind of dog do you want?" <<std::endl;
     std::cin >> dogselect;
-    if (dogselect == 1)
+
+    if(dogselect == 1)
     {
       MapofDogs.insert(std::make_pair(Dog_breed::BOXER,"Boxer"));
     }
-    for (auto it : MapofDogs)
+    for(auto it : MapofDogs)
     {
         std::cout << it.first << it.second << std::endl;
     }
