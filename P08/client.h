@@ -1,8 +1,9 @@
 #ifndef __CLIENT_H
 #define __CLIENT_H
 
+#include <string>
 
-//std::ostream& operator<<(std::ostream& ost, const Client& client);
+std::ostream& operator<<(std::ostream& ost, const Client& client);
 
 
 class Client {
