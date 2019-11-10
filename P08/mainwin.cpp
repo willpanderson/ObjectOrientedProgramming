@@ -168,7 +168,47 @@ void Mainwin::on_list_animals_click() {
 
 void Mainwin::on_new_client_click()
 {
-  close();
+  Gtk::Dialog dialog{"Client Information", *this};
+
+  Gtk::Grid grid;
+
+  Gtk::Label l_name{"Name"};
+  Gtk::Entry n_name;
+  grid.attach(l_name, 0, 0, 1, 1);
+  grid.attach(n_name, 1, 0, 2, 1);
+
+  Gtk::Label l_email{"Email"};
+  Gtk::Entry e_email;
+  grid.attach(l_email, 0, 0, 1, 1);
+  grid.attach(e_email, 1, 0, 2, 1);
+
+  Gtk::Label l_phone{"Phone"};
+  Gtk::Entry p_phone;
+  grid.attach(l_phone, 0, 0, 1, 1);
+  grid.attach(p_phone, 1, 0, 2, 1);
+
+  dialog.get_content_area()->add(grid);
+
+  dialog.add_button("Add Dog", 1);
+  dialog.add_button("Cancel", 0);
+
+  dialog.show_all();
+
+  while(dialog.run()) {
+      if(n_name.get_text().size() == 0 || e_email.get_text().size() == 0 || p_phone.get_text().size() == 0)
+       {n_name.set_text("*required*");
+        e_email.set_text("*required*");
+        p_phone.set_text("*required*");
+        continue;}
+
+  Client* client = new Client{n_name.get_text(),e_email.get_text(),p_phone.get_text()};
+  shelter->add_client(*client);
+  std::ostringstream oss;
+  oss << "Added " << *client;
+  status(oss.str());
+  break;
+
+
 }
 
 // /////////////////
