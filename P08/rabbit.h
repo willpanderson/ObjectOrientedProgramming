@@ -5,9 +5,9 @@
 
 // List of cat breeds, conversion to/from string and stream, and iteration
 enum class rabbit_breed {
-    HARE,
-    GIANT,
-    FUZZY,
+    HARE, //0
+    GIANT, //1
+    FUZZY, //2
     GOTLAND,
     HARLEQUIN,
     PALOMINO,
