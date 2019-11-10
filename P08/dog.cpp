@@ -32,14 +32,14 @@ std::string to_string(const Dog_breed& breed)
     }
     int dogselect;
     std::cout << "what kind of dog do you want?" <<std::endl;
-    cin >> dogselect;
+    std::cin >> dogselect;
     if (dogselect == 1)
     {
       MapofDogs.insert(make_pair(BOXER,"Boxer"));
     }
     for (auto it : MapofDogs)
     {
-        cout << it.first << it.second << std::endl;
+        std::cout << it.first << it.second << std::endl;
     }
 }
 std::ostream& operator<<(std::ostream& ost, const Dog_breed& breed) {
