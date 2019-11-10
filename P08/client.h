@@ -8,7 +8,7 @@ std::ostream& operator<<(std::ostream& ost, const Client& client);
 class Client :
  {
   public:
-    Client(std::string name, std::string phone, std::string email)
+    Client(std::string name, std::string phone, std::string email);
 
   private:
     std::string _name;
