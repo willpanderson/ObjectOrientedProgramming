@@ -211,6 +211,7 @@ void Mainwin::on_new_client_click()
 
 
 }
+}
 
 // /////////////////
 // U T I L I T I E S
