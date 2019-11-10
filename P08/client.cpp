@@ -6,4 +6,4 @@ Client::Client(std::string name, Gender gender, int age)
 //std::ostream& operator<<(std::ostream& ost, const Client& client) {
   //  ost << to_string(client);
     //return ost;
-}
+//}
