@@ -2,7 +2,6 @@
 #define __CLIENT_H
 
 
-//std::string to_string(const rabbit_breed& breed);
 std::ostream& operator<<(std::ostream& ost, const Client& client);
 
 
