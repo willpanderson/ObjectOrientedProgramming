@@ -32,8 +32,8 @@ constexpr Dog_breed dog_breeds[] = {
     Dog_breed::SHEPHERD,
     Dog_breed::TERRIER,
 };
-std::string to_string(const Dog_breed& breed);
-std::ostream& operator<<(std::ostream& ost, const Dog_breed& breed);
+//std::string to_string(const Dog_breed& breed);
+//std::ostream& operator<<(std::ostream& ost, const Dog_breed& breed);
 
 // Class Dog with overrides for family and breed
 class Dog : public Animal {

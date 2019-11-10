@@ -14,7 +14,7 @@ std::string Dog::breed() const {return ::to_string(_breed);}
 
 // Convert breed to string and stream - use a std::map for other derived classes!
     int dogselect;
-    std::cout << "what kind of dog do you want?" <<std::endl;
+    std::cout << "what kind of dog do you want?";
     std::cin >> dogselect;
 
     if(dogselect == 1)
@@ -25,8 +25,7 @@ std::string Dog::breed() const {return ::to_string(_breed);}
     {
         std::cout << it.first << it.second << std::endl;
     }
-}
-std::ostream& operator<<(std::ostream& ost, const Dog_breed& breed) {
-    ost << ::to_string(breed);
-    return ost;
+//std::ostream& operator<<(std::ostream& ost, const Dog_breed& breed) {
+  //  ost << ::to_string(breed);
+    //return ost;
 }
