@@ -35,7 +35,7 @@ std::string to_string(const Dog_breed& breed)
     std::cin >> dogselect;
     if (dogselect == 1)
     {
-      MapofDogs.insert(make_pair(Dog_breed::BOXER,"Boxer"));
+      MapofDogs.insert(std::make_pair(Dog_breed::BOXER,"Boxer"));
     }
     for (auto it : MapofDogs)
     {
