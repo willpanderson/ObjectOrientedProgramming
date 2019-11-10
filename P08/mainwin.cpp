@@ -1,5 +1,6 @@
 #include "mainwin.h"
 #include "dog.h"
+#include "client.h"
 #include <sstream>
 
 Mainwin::Mainwin() : shelter{new Shelter{"Mavs Animal Shelter"}} {
