@@ -59,7 +59,7 @@ Mainwin::Mainwin() : shelter{new Shelter{"Mavs Animal Shelter"}} {
     Gtk::MenuItem *menuitem_client = Gtk::manage(new Gtk::MenuItem("_Client", true));
     menubar->append(*menuitem_client);
     Gtk::Menu *clientmenu = Gtk::manage(new Gtk::Menu());
-    menuitem_animal->set_submenu(*clientmenu);
+    menuitem_animal->set_submenu(*filemenu);
 
     //           N E W
     // Append New to the Client menu
