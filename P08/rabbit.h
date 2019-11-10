@@ -38,7 +38,7 @@ std::ostream& operator<<(std::ostream& ost, const rabbit_breed& breed);
 // Class Dog with overrides for family and breed
 class Rabbit : public Animal {
   public:
-    Rabbit(Rabbit_breed breed, std::string name, Gender gender, int age);
+    Rabbit(rabbit_breed breed, std::string name, Gender gender, int age);
     virtual ~Rabbit();
     virtual std::string family() const override;
     virtual std::string breed() const override;
