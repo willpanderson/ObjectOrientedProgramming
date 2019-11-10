@@ -204,9 +204,9 @@ void Mainwin::on_new_client_click()
 
   Client* client = new Client{n_name.get_text(),e_email.get_text(),p_phone.get_text()};
   shelter->add_client(*client);
-  std::ostringstream oss;
-  oss << "Added " << *client;
-  status(oss.str());
+  //std::ostringstream oss;
+  //oss << "Added " << *client;
+  //status(oss.str());
   break;
 
 
