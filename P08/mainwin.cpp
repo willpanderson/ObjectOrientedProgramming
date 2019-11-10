@@ -180,13 +180,13 @@ void Mainwin::on_new_client_click()
 
   Gtk::Label l_email{"Email"};
   Gtk::Entry e_email;
-  grid.attach(l_email, 0, 0, 1, 1);
-  grid.attach(e_email, 1, 0, 2, 1);
+  grid.attach(l_email, 0, 1, 1, 1);
+  grid.attach(e_email, 1, 1, 2, 1);
 
   Gtk::Label l_phone{"Phone"};
   Gtk::Entry p_phone;
-  grid.attach(l_phone, 0, 0, 1, 1);
-  grid.attach(p_phone, 1, 0, 2, 1);
+  grid.attach(l_phone, 0, 2, 1, 1);
+  grid.attach(p_phone, 1, 2, 2, 1);
 
   dialog.get_content_area()->add(grid);
 
