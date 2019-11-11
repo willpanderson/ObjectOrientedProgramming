@@ -1,5 +1,5 @@
 #include "mainwin.h"
-//#include "dog.h"
+#include "dog.h"
 #include "cat.h"
 #include "rabbit.h"
 #include "client.h"
@@ -108,6 +108,29 @@ void Mainwin::on_quit_click() {
 
 void Mainwin::on_new_animal_click() {
 
+
+    Gtk::Dialog dialoga{"Animal Information", *this};
+    Gtk::Grid grid2;
+    Gtk::Label l_type{"Animal Type"};
+    Gtk::ComboBoxText c_type;
+    c_type.append("Dog");
+    c_type.append("Cat");
+    c_type.append("Rabbit");
+    c_type.set_active(0);
+    dialoga.get_content_area()->add(grid2);
+    dialoga.add_button("Add", 1);
+    dialoga.add_button("Cancel", 0);
+    grid2.attach(l_type, 0, 2, 1, 1);
+    grid2.attach(c_type, 1, 2, 2, 1);
+    dialoga.show_all();
+    int selection = -1;
+    int option = dialoga.run();
+
+    if (option == 1)
+   {
+    selection = c_type.get_active_row_number();
+    dialoga.close();
+  
     Gtk::Dialog dialog{"Animal Information", *this};
 
     Gtk::Grid grid;
@@ -119,7 +142,12 @@ void Mainwin::on_new_animal_click() {
 
     Gtk::Label l_breed{"Breed"};
     Gtk::ComboBoxText c_breed;
-    for(auto b : cat_breeds) c_breed.append(to_string(b));
+    if (selection == 0)
+    	for(auto b : dog_breeds) c_breed.append(to_string(b));
+    else if (selection == 1)
+    	for(auto b : cat_breeds) c_breed.append(to_string(b));
+    else if (selection == 2)
+        for(auto b : rabbit_breeds) c_breed.append(to_string(b));
     c_breed.set_active(0);
     grid.attach(l_breed, 0, 1, 1, 1);
     grid.attach(c_breed, 1, 1, 2, 1);
@@ -149,16 +177,38 @@ void Mainwin::on_new_animal_click() {
 
     while(dialog.run()) {
         if(e_name.get_text().size() == 0) {e_name.set_text("*required*"); continue;}
-        Animal* animal = new Cat{cat_breeds[c_breed.get_active_row_number()],
+       
+ Animal* animal;
+if (selection == 0)
+animal = new Dog{dog_breeds[c_breed.get_active_row_number()],
                                  e_name.get_text(),
                                  (c_gender.get_active_row_number() ? Gender::MALE : Gender::FEMALE),
                                  static_cast<int>(s_age.get_value())};
+
+if (selection == 1)
+animal = new Cat{cat_breeds[c_breed.get_active_row_number()],
+                                 e_name.get_text(),
+                                 (c_gender.get_active_row_number() ? Gender::MALE : Gender::FEMALE),
+                                 static_cast<int>(s_age.get_value())};
+
+if (selection == 2)
+animal = new Rabbit{rabbit_breeds[c_breed.get_active_row_number()],
+                                 e_name.get_text(),
+                                 (c_gender.get_active_row_number() ? Gender::MALE : Gender::FEMALE),
+                                 static_cast<int>(s_age.get_value())};
+
+
+
+
+
+
         shelter->add_animal(*animal);
         std::ostringstream oss;
         oss << "Added " << *animal;
         status(oss.str());
         break;
     }
+}
 }
 
 void Mainwin::on_list_animals_click() {

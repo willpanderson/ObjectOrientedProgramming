@@ -11,7 +11,6 @@ std::string Cat::breed() const {return ::to_string(_breed);}
 
 std::string to_string(const cat_breed& breed)
 {
-  std::map<cat_breed, std::string>::iterator it;
   std::map<cat_breed, std::string> breeds = {
       {cat_breed::SHORTHAIR, "Shorthair"},
       {cat_breed::BOMBAY, "Bombay"},
@@ -25,15 +24,17 @@ std::string to_string(const cat_breed& breed)
       {cat_breed::MANX, "Manx"},
       {cat_breed::SIAMESE, "Siamese"},
   };
-  //it = breeds.find(breed);
-  //if (it != breeds.end())
-  //{
-    //breeds.erase(it);
-  //}
+
+	return breeds[breed];
+  /*it = breeds.find(breed);
+  if (it != breeds.end())
+  {
+    breeds.erase(it);
+  }
 
   std::ostringstream ost;
-  //ost << breeds.find(breed)->second << "\n";
-  return ost.str();
+  ost << breeds.find(breed)->second << "\n";
+  return ost.str();*/
 }
 
 std::ostream& operator<<(std::ostream& ost, const cat_breed& breed) {
