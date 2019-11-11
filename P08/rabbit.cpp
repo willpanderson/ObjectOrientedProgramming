@@ -14,24 +14,24 @@ std::string to_string(const rabbit_breed& breed)
 {
   {
   std::map<rabbit_breed, std::string> breeds = {
-      {cat_breed::SHORTHAIR, "Shorthair"},
-      {cat_breed::BOMBAY, "Bombay"},
-      {cat_breed::PERSIAN, "Persian"},
-      {cat_breed::BENGAL, "Bengal"},
-      {cat_breed::SPHYNX, "Sphynx"},
-      {cat_breed::BURMESE, "Burmese"},
-      {cat_breed::BOBTAIL, "Bobtail"},
-      {cat_breed::MAU, "Mau"},
-      {cat_breed::LYKOI, "Lykoi"},
-      {cat_breed::KORAT, "Korat"},
-      {cat_breed::MANX, "Manx"},
-      {cat_breed::SIAMESE, "Siamese"},
+      {rabbit_breed::HARE, "Hare"},
+      {rabbit_breed::GIANT, "Giant"},
+      {rabbit_breed::FUZZY, "Fuzzy"},
+      {rabbit_breed::GOTLAND, "Gotland"},
+      {rabbit_breed::HARLEQUIN, "Harlequin"},
+      {rabbit_breed::PALOMINO, "Palmonio"},
+      {rabbit_breed::SABLE, "Sable"},
+      {rabbit_breed::ANGORA, "Angora"},
+      {rabbit_breed::DWARF, "Dwarf"},
+      {rabbit_breed::WOOLY, "Wooly"},
+      {rabbit_breed::CHINCHILLA, "Chinchilla"},
+      {rabbit_breed::LIONHEAD, "Lionhead"},
   };
 
 	return breeds[breed];
- 
+
 }
- 
+
 std::ostream& operator<<(std::ostream& ost, const rabbit_breed& breed) {
     ost << ::to_string(breed);
     return ost;
