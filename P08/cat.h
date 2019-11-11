@@ -2,6 +2,7 @@
 #define __CAT_H
 
 #include "animal.h"
+#include <map>
 
 // List of cat breeds, conversion to/from string and stream, and iteration
 enum class cat_breed {
