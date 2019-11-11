@@ -1,5 +1,5 @@
 #include "cat.h"
-
+#include <sstream>
 // Constructor / Destructor - note how delegation to base class works!
 Cat::Cat(cat_breed breed, std::string name, Gender gender, int age)
     : Animal(name, gender, age), _breed{breed} { }
@@ -25,15 +25,15 @@ std::string to_string(const cat_breed& breed)
       {cat_breed::MANX, "Manx"},
       {cat_breed::SIAMESE, "Siamese"},
   };
-  it = breeds.find(breed);
-  if (it != breeds.end())
-  {
-    breeds.erase(it);
-  }
+  //it = breeds.find(breed);
+  //if (it != breeds.end())
+  //{
+    //breeds.erase(it);
+  //}
 
-  ostringstream ost;
-  ost << breeds.find(breed)->second << "\n";
-  return ost;
+  std::ostringstream ost;
+  //ost << breeds.find(breed)->second << "\n";
+  return ost.str();
 }
 
 std::ostream& operator<<(std::ostream& ost, const cat_breed& breed) {

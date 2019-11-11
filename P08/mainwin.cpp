@@ -1,5 +1,5 @@
 #include "mainwin.h"
-#include "dog.h"
+//#include "dog.h"
 #include "cat.h"
 #include "rabbit.h"
 #include "client.h"
