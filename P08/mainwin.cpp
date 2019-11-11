@@ -190,7 +190,7 @@ void Mainwin::on_new_client_click()
 
   dialog.get_content_area()->add(grid);
 
-  dialog.add_button("Add Dog", 1);
+  dialog.add_button("Add Client", 1);
   dialog.add_button("Cancel", 0);
 
   dialog.show_all();
@@ -208,7 +208,6 @@ void Mainwin::on_new_client_click()
   //oss << "Added " << *client;
   //status(oss.str());
   break;
-
 
 }
 }
