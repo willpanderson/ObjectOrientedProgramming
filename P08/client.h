@@ -3,7 +3,6 @@
 
 #include <string>
 
-//std::ostream& operator<<(std::ostream& ost, const Client& client);
 
 
 class Client {
@@ -15,5 +14,10 @@ class Client {
     std::string _phone;
     std::string _email;
 };
+
+
+std::ostream& operator<<(std::ostream& ost, const Client& client);
+    
+
 
 #endif

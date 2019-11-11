@@ -6,7 +6,7 @@ Cat::Cat(cat_breed breed, std::string name, Gender gender, int age)
 Cat::~Cat() { }
 
 // Overrides for pure virtual methods
-std::string Cat::family() const {return "Albyssian";}
+std::string Cat::family() const {return "cat";}
 std::string Cat::breed() const {return ::to_string(_breed);}
 
 std::string to_string(const cat_breed& breed)
@@ -14,7 +14,8 @@ std::string to_string(const cat_breed& breed)
   std::map<cat_breed, std::string> breeds = {
       {cat_breed::SHORTHAIR, "Shorthair"},
       {cat_breed::BOMBAY, "Bombay"},
-      {cat_breed::BENGAL, "Persian"},
+      {cat_breed::PERSIAN, "Persian"},
+      {cat_breed::BENGAL, "Bengal"},
       {cat_breed::SPHYNX, "Sphynx"},
       {cat_breed::BURMESE, "Burmese"},
       {cat_breed::BOBTAIL, "Bobtail"},

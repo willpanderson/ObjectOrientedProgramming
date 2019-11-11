@@ -6,27 +6,32 @@ Rabbit::Rabbit(rabbit_breed breed, std::string name, Gender gender, int age)
 Rabbit::~Rabbit() { }
 
 // Overrides for pure virtual methods
-std::string Rabbit::family() const {return "Rabbit";}
+std::string Rabbit::family() const {return "rabbit";}
 std::string Rabbit::breed() const {return ::to_string(_breed);}
 
 // Convert breed to string and stream - use a std::map for other derived classes!
-std::string to_string(const rabbit_breed& breed) {
-    switch(breed) {
-        case  rabbit_breed::HARE:       return "Hare";
-        case  rabbit_breed::GIANT:      return "Giant";
-        case  rabbit_breed::FUZZY:      return "Fuzzy";
-        case  rabbit_breed::GOTLAND:    return "Gotland";
-        case  rabbit_breed::HARLEQUIN:  return "Harlequin";
-        case  rabbit_breed::PALOMINO:   return "Palomino";
-        case  rabbit_breed::SABLE:      return "Sable";
-        case  rabbit_breed::ANGORA:     return "Angora";
-        case  rabbit_breed::DWARF:      return "Dwarf";
-        case  rabbit_breed::WOOLY:      return "Wooly";
-        case  rabbit_breed::CHINCHILLA: return "Chinchilla";
-        case  rabbit_breed::LIONHEAD:   return "Lionhead";
-        default:                        return "UNKNOWN";
-    }
+std::string to_string(const rabbit_breed& breed)
+{
+  {
+  std::map<rabbit_breed, std::string> breeds = {
+      {cat_breed::SHORTHAIR, "Shorthair"},
+      {cat_breed::BOMBAY, "Bombay"},
+      {cat_breed::PERSIAN, "Persian"},
+      {cat_breed::BENGAL, "Bengal"},
+      {cat_breed::SPHYNX, "Sphynx"},
+      {cat_breed::BURMESE, "Burmese"},
+      {cat_breed::BOBTAIL, "Bobtail"},
+      {cat_breed::MAU, "Mau"},
+      {cat_breed::LYKOI, "Lykoi"},
+      {cat_breed::KORAT, "Korat"},
+      {cat_breed::MANX, "Manx"},
+      {cat_breed::SIAMESE, "Siamese"},
+  };
+
+	return breeds[breed];
+ 
 }
+ 
 std::ostream& operator<<(std::ostream& ost, const rabbit_breed& breed) {
     ost << ::to_string(breed);
     return ost;
