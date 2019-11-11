@@ -108,7 +108,7 @@ void Mainwin::on_quit_click() {
 
 void Mainwin::on_new_animal_click() {
 
-    Gtk::Dialog dialog{"Dog Information", *this};
+    Gtk::Dialog dialog{"Animal Information", *this};
 
     Gtk::Grid grid;
 
@@ -119,7 +119,7 @@ void Mainwin::on_new_animal_click() {
 
     Gtk::Label l_breed{"Breed"};
     Gtk::ComboBoxText c_breed;
-    for(auto b : dog_breeds) c_breed.append(to_string(b));
+    for(auto b : cat_breeds) c_breed.append(to_string(b));
     c_breed.set_active(0);
     grid.attach(l_breed, 0, 1, 1, 1);
     grid.attach(c_breed, 1, 1, 2, 1);
@@ -142,14 +142,14 @@ void Mainwin::on_new_animal_click() {
 
     dialog.get_content_area()->add(grid);
 
-    dialog.add_button("Add Dog", 1);
+    dialog.add_button("Add", 1);
     dialog.add_button("Cancel", 0);
 
     dialog.show_all();
 
     while(dialog.run()) {
         if(e_name.get_text().size() == 0) {e_name.set_text("*required*"); continue;}
-        Animal* animal = new Dog{dog_breeds[c_breed.get_active_row_number()],
+        Animal* animal = new Cat{cat_breeds[c_breed.get_active_row_number()],
                                  e_name.get_text(),
                                  (c_gender.get_active_row_number() ? Gender::MALE : Gender::FEMALE),
                                  static_cast<int>(s_age.get_value())};
