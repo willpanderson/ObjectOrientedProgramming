@@ -1,5 +1,5 @@
 #include "rabbit.h"
-
+#include <map>
 // Constructor / Destructor - note how delegation to base class works!
 Rabbit::Rabbit(rabbit_breed breed, std::string name, Gender gender, int age)
     : Animal(name, gender, age), _breed{breed} { }
@@ -11,7 +11,6 @@ std::string Rabbit::breed() const {return ::to_string(_breed);}
 
 // Convert breed to string and stream - use a std::map for other derived classes!
 std::string to_string(const rabbit_breed& breed)
-{
   {
   std::map<rabbit_breed, std::string> breeds = {
       {rabbit_breed::HARE, "Hare"},
@@ -32,7 +31,8 @@ std::string to_string(const rabbit_breed& breed)
 
 }
 
-std::ostream& operator<<(std::ostream& ost, const rabbit_breed& breed) {
+std::ostream& operator<<(std::ostream& ost, const rabbit_breed& breed) 
+{
     ost << ::to_string(breed);
     return ost;
 }

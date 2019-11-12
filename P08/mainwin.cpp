@@ -244,19 +244,24 @@ void Mainwin::on_new_client_click()
   dialog.show_all();
 
   while(dialog.run()) {
-      if(n_name.get_text().size() == 0 || e_email.get_text().size() == 0 || p_phone.get_text().size() == 0)
+      if(n_name.get_text().size() == 0 || e_email.get_text().size() == 0 || p_phone.get_text().size() == 0))
        {n_name.set_text("*required*");
         e_email.set_text("*required*");
         p_phone.set_text("*required*");
         continue;}
+try{
+int number = stoi(p_phone.get_text());
+}
 
-  Client* client = new Client{n_name.get_text(),e_email.get_text(),p_phone.get_text()};
+
+  Client *client = new   Client{n_name.get_text(),e_email.get_text(),p_phone.get_text()};
   shelter->add_client(*client);
   std::ostringstream oss;
   oss << "Added " << *client;
   status(oss.str());
   break;
 
+}
 }
 }
 
