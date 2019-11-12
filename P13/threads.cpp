@@ -11,7 +11,7 @@
 
 class Prime_numbers {
   public:
-    Prime_numbers(int num_threads = 1): NUM_THREADS{num_threads} { }
+    Prime_numbers(int num_threads = 2): NUM_THREADS{num_threads} { }
 
     // Returns true if "number" is a prime number
     bool is_prime (int number) {
@@ -62,7 +62,7 @@ class Prime_numbers {
 
 int main(int argc, char* argv[]) {
     // Determine number of threads requested
-    int threads = 1;
+    int threads = 2;
     if(argc > 1) threads = atoi(argv[1]);
     Prime_numbers prime_numbers(threads);
 
