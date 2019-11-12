@@ -27,21 +27,22 @@ class Prime_numbers {
     // NOTE: You'll likely need to break out the for loop as a separate
     //     method, which will be the code executed by each thread.
     //     The find_prime method will just create and manage the threads.
-    void find_primes(int lower, int upper) {
+    void find_primes_thread(int lower, int upper) {
         for (int i=lower; i<=upper; ++i) {
             if (is_prime(i)) {
               m.unlock();  primes.push_back(i); m.lock();
             }
         }
+      }
 
-  void find_primes_thread(int lower, int upper) {
+  void find_primes(int lower, int upper) {
         for (int i=lower; i<=upper; ++i) {
             if (is_prime(i)) {
                 primes.push_back(i);
             }
         }
-    }    
-}
+    }
+
     typedef std::vector<int> Primes;
 
     // Iterating Prime_numbers will iterate attribute primes
@@ -70,8 +71,7 @@ int main(int argc, char* argv[]) {
     // Search and identify all primes between 2 and max_int
     prime_numbers.find_primes(2, max_int);
 
-    // Print all primes that were found  
+    // Print all primes that were found
     for (int p : prime_numbers) std::cout << p << '\n';
     std::cout << std::endl;
 }
-
