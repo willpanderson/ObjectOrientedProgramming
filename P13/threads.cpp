@@ -1,6 +1,7 @@
 #include <cmath>
 #include <iostream>
 #include <vector>
+#include <mutex>
 
 // To measure performance, use
 // $ make timep
@@ -20,6 +21,7 @@ class Prime_numbers {
       }
       return true;
     }
+	
 
     // find_primes is the algorithm to be run as multiple threads,
     //     adding each prime found to the shared vector "primes".
@@ -27,9 +29,19 @@ class Prime_numbers {
     //     method, which will be the code executed by each thread.
     //     The find_prime method will just create and managed the threads.
     void find_primes(int lower, int upper) {
+        std::mutex m;
         for (int i=lower; i<=upper; ++i) {
             if (is_prime(i)) {
                 primes.push_back(i);
+            }
+        }
+    }    
+    void find_primes_threads(int lower, int upper) {
+        for (int i=lower; i<=upper; ++i) {
+            if (is_prime(i)) {
+             m.lock();   
+	     primes.push_back(i); 
+             m.unlock();
             }
         }
     }    
@@ -41,7 +53,6 @@ class Prime_numbers {
     typedef Primes::const_iterator const_iterator;
     iterator begin() {return primes.begin();}
     iterator end() {return primes.end();}
-
   private:
     const int NUM_THREADS;
 
