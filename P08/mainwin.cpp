@@ -3,7 +3,9 @@
 #include "cat.h"
 #include "rabbit.h"
 #include "client.h"
+#include <stdint.h>
 #include <sstream>
+#include <iostream>
 
 Mainwin::Mainwin() : shelter{new Shelter{"Mavs Animal Shelter"}} {
 
@@ -231,7 +233,7 @@ void Mainwin::on_new_client_click()
   grid.attach(l_email, 0, 1, 1, 1);
   grid.attach(e_email, 1, 1, 2, 1);
 
-  Gtk::Label l_phone{"Phone"};
+  Gtk::Label l_phone{"Phone (no spaces)"};
   Gtk::Entry p_phone;
   grid.attach(l_phone, 0, 2, 1, 1);
   grid.attach(p_phone, 1, 2, 2, 1);
@@ -244,26 +246,23 @@ void Mainwin::on_new_client_click()
   dialog.show_all();
 
   while(dialog.run()) {
-      if(n_name.get_text().size() == 0 || e_email.get_text().size() == 0 || p_phone.get_text().size() == 0))
+      if(n_name.get_text().size() == 0 || e_email.get_text().size() == 0 || p_phone.get_text().size() == 0 || p_phone.get_text().size() != 10)
        {n_name.set_text("*required*");
         e_email.set_text("*required*");
         p_phone.set_text("*required*");
         continue;}
-try{
-int number = stoi(p_phone.get_text());
-}
 
 
-  Client *client = new   Client{n_name.get_text(),e_email.get_text(),p_phone.get_text()};
-  shelter->add_client(*client);
+  Client client{n_name.get_text(),e_email.get_text(),p_phone.get_text()};
+  shelter->add_client(client);
   std::ostringstream oss;
-  oss << "Added " << *client;
+  oss << "Added " << client;
   status(oss.str());
   break;
 
 }
 }
-}
+
 
 // /////////////////
 // U T I L I T I E S

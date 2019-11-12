@@ -27,15 +27,7 @@ std::string to_string(const cat_breed& breed)
   };
 
 	return breeds[breed];
-  /*it = breeds.find(breed);
-  if (it != breeds.end())
-  {
-    breeds.erase(it);
-  }
-
-  std::ostringstream ost;
-  ost << breeds.find(breed)->second << "\n";
-  return ost.str();*/
+ 
 }
 
 std::ostream& operator<<(std::ostream& ost, const cat_breed& breed) {

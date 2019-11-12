@@ -10,7 +10,7 @@ int Shelter::num_animals() {return _available.size();}
 Animal& Shelter::animal(int index) {return *(_available[index]);}
 
 void Shelter::add_client(Client& client) {
-    _clients.push_back(&client);
+    _clients.push_back(client);
 }
 int Shelter::num_clients() {return _clients.size();}
-Client& Shelter::client(int index) {return *(_clients[index]);}
+Client& Shelter::client(int index) {return _clients[index];}

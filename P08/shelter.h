@@ -19,7 +19,7 @@ class Shelter {
   private:
     std::string _name;
     std::vector<Animal*> _available;
-    std::vector<Client*> _clients;
+    std::vector<Client> _clients;
 };
 
 #endif
