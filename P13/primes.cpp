@@ -56,7 +56,7 @@ int main(int argc, char* argv[]) {
     Prime_numbers prime_numbers(threads);
 
     // Determine maximum integer to search
-    int max_int = 10000000;
+    int max_int = 20000000;
     if(argc > 2) max_int = atoi(argv[2]);
 
     // Search and identify all primes between 2 and max_int
