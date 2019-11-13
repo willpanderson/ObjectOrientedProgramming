@@ -54,13 +54,12 @@ class Prime_numbers {
       int num_search = (upper-lower)/NUM_THREADS;
       for (int i=0; i< NUM_THREADS; i++)
       {
-
         if(i == 0)
           lower = 0;
         else
           lower += num_search;
         //  upper = lower + num_search;
-        std::thread t1 = new std::thread{&Prime_numbers::find_primes_threads,this, lower, num_search};
+        std::thread* t1 = new std::thread{&Prime_numbers::find_primes_threads,this, lower, num_search};
         threadc.push_back(t1);
       }
       for (int j=0; j< NUM_THREADS; j++)
