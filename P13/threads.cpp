@@ -28,29 +28,41 @@ class Prime_numbers {
     // NOTE: You'll likely need to break out the for loop as a separate
     //     method, which will be the code executed by each thread.
     //     The find_prime method will just create and managed the threads.
+
+
+    // void find_primes(int lower, int upper) {
+    //   std::vector <std::thread> threads;
+    //     for (int i=lower; i<=upper; ++i) {
+    //         if (is_prime(i)) {
+    //             primes.push_back(i);
+    //         }
+    //     }
+    // }
+
     void find_primes(int lower, int upper) {
-        for (int i=lower; i<=upper; ++i) {
-            if (is_prime(i)) {
-                primes.push_back(i);
-            }
-        }
+      std::vector <std::thread> threadc;
+      int num_search = (upper-lower)/NUM_THREADS;
+      for (int i=0; i< NUM_THREADS; i++)
+      {
+        upper = lower + num_search;
+        upper = lower;
+        std::thread t1{&Prime_numbers::find_primes_threads,lower,upper};
+        threadc.push_back(t1);
+      }
+      for (int j=0; j< NUM_THREADS; j++)
+      {
+        threadc[j].join();
+      }
     }
-   void find_primes_threads(int lower, int upper)
-    {
-      int counter = (upper-lower)/NUM_THREADS;
-        for (int i=0; i< NUM_THREADS; i++)
-        {
+
+   void find_primes_threads(int lower, int upper) {
+       for (int i=lower; i<=upper; ++i) {
+           if (is_prime(i)) {
              m.lock();
-             std::thread t{[&] {this->find_primes_threads(lower, lower + counter);}};
-	for (int i=lower; i<=lower+counter; ++i) {
-            if (is_prime(i)) {
-                primes.push_back(i);
-            }
-        }
-             t.join();
-             m.unlock();
-             lower = lower + counter;
-        }
+               primes.push_back(i);
+            m.unlock();
+           }
+       }
     }
     typedef std::vector<int> Primes;
 
@@ -74,11 +86,11 @@ int main(int argc, char* argv[]) {
 
     // Determine maximum integer to search
     int max_int = 10000000;
-    prime_numbers.find_primes(2, max_int);
+
     if(argc > 2) max_int = atoi(argv[2]);
 
     // Search and identify all primes between 2 and max_int
-    prime_numbers.find_primes_threads(2, max_int);
+    prime_numbers.find_primes(2, max_int);
 
     // Print all primes that were found
     for (int p : prime_numbers) std::cout << p << '\n';
