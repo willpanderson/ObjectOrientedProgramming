@@ -38,17 +38,15 @@ class Prime_numbers {
     void find_primes_threads(int lower, int upper)
     {
       int counter = (upper-lower)/NUM_THREADS;
-      std::mutex m;
-        for (int i=lower; i< NUM_THREADS; ++i)
+        for (int i=0; i< NUM_THREADS; i++)
         {
              m.lock();
-       std::thread t{[&] {this->find_primes_threads(lower, lower + counter);}};
-            t.join();
+             std::thread t{[&] {this->find_primes_threads(lower, lower + counter);}};
+             t.join();
              m.unlock();
              lower = lower + counter;
-            }
         }
-
+    }
     typedef std::vector<int> Primes;
 
     // Iterating Prime_numbers will iterate attribute primes
@@ -58,7 +56,7 @@ class Prime_numbers {
     iterator end() {return primes.end();}
   private:
     const int NUM_THREADS;
-
+    std::mutex m;
     // Vector primes will contain all of the primes found
     Primes primes;
 };
