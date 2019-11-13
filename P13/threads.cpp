@@ -39,8 +39,8 @@ class Prime_numbers {
     //     }
     // }
 
-    void find_primes_threads(int lower, int num_search) {
-        for (int i=lower; i< lower+num_search; ++i) {
+    void find_primes_threads(int lower, int upper) {
+        for (int i=lower; i<= upper; ++i) {
             if (is_prime(i)) {
               m.lock();
                 primes.push_back(i);
@@ -51,15 +51,13 @@ class Prime_numbers {
 
     void find_primes(int lower, int upper) {
       std::vector <std::thread *> threadc;
-      int num_search = (upper-lower)/NUM_THREADS;
+      int num_search = ceil((upper-lower)/NUM_THREADS);
       for (int i=0; i< NUM_THREADS; i++)
       {
-        if(i == 0)
-          lower = 0;
-        else
-          lower += num_search;
-        //  upper = lower + num_search;
-        std::thread* t1 = new std::thread{&Prime_numbers::find_primes_threads,this, lower, num_search};
+        int l = lower + (i*num_search);
+        int u = lower + (i+1) * num_search;
+        int x = fmin(u,upper);
+        std::thread* t1 = new std::thread{&Prime_numbers::find_primes_threads,this, l, x};
         threadc.push_back(t1);
       }
       for (int j=0; j< NUM_THREADS; j++)
