@@ -74,7 +74,7 @@ int main(int argc, char* argv[]) {
 
     // Determine maximum integer to search
     int max_int = 10000000;
-    //prime_numbers.find_primes(2, max_int);
+    prime_numbers.find_primes(2, max_int);
     if(argc > 2) max_int = atoi(argv[2]);
 
     // Search and identify all primes between 2 and max_int
