@@ -35,13 +35,18 @@ class Prime_numbers {
             }
         }
     }
-    void find_primes_threads(int lower, int upper)
+   void find_primes_threads(int lower, int upper)
     {
       int counter = (upper-lower)/NUM_THREADS;
         for (int i=0; i< NUM_THREADS; i++)
         {
              m.lock();
              std::thread t{[&] {this->find_primes_threads(lower, lower + counter);}};
+	for (int i=lower; i<=lower+counter; ++i) {
+            if (is_prime(i)) {
+                primes.push_back(i);
+            }
+        }
              t.join();
              m.unlock();
              lower = lower + counter;
@@ -69,6 +74,7 @@ int main(int argc, char* argv[]) {
 
     // Determine maximum integer to search
     int max_int = 10000000;
+    //prime_numbers.find_primes(2, max_int);
     if(argc > 2) max_int = atoi(argv[2]);
 
     // Search and identify all primes between 2 and max_int
