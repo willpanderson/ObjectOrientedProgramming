@@ -50,7 +50,7 @@ class Prime_numbers {
      }
 
     void find_primes(int lower, int upper) {
-      std::vector <std::thread> threadc;
+      std::vector <std::thread *> threadc;
       int num_search = (upper-lower)/NUM_THREADS;
       for (int i=0; i< NUM_THREADS; i++)
       {
@@ -60,12 +60,12 @@ class Prime_numbers {
         else
           lower += num_search;
         //  upper = lower + num_search;
-        std::thread t1{&Prime_numbers::find_primes_threads, lower, num_search};
+        std::thread t1 = new std::thread{&Prime_numbers::find_primes_threads,this, lower, num_search};
         threadc.push_back(t1);
       }
       for (int j=0; j< NUM_THREADS; j++)
       {
-        threadc[j].join();
+        threadc[j]->join();
       }
     }
 
