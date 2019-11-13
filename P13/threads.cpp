@@ -42,11 +42,11 @@ class Prime_numbers {
     void find_primes(int lower, int upper) {
       std::vector <std::thread> threadc;
       int num_search = (upper-lower)/NUM_THREADS;
+      std::thread t1{&this->find_primes_threads,lower,upper};
       for (int i=0; i< NUM_THREADS; i++)
       {
         upper = lower + num_search;
         upper = lower;
-        std::thread t1{&Prime_numbers::find_primes_threads,lower,upper};
         threadc.push_back(t1);
       }
       for (int j=0; j< NUM_THREADS; j++)
