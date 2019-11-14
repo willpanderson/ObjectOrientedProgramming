@@ -132,7 +132,7 @@ void Mainwin::on_new_animal_click() {
    {
     selection = c_type.get_active_row_number();
     dialoga.close();
-  
+
     Gtk::Dialog dialog{"Animal Information", *this};
 
     Gtk::Grid grid;
@@ -179,7 +179,7 @@ void Mainwin::on_new_animal_click() {
 
     while(dialog.run()) {
         if(e_name.get_text().size() == 0) {e_name.set_text("*required*"); continue;}
-       
+
  Animal* animal;
 if (selection == 0)
 animal = new Dog{dog_breeds[c_breed.get_active_row_number()],
@@ -262,6 +262,14 @@ void Mainwin::on_new_client_click()
 
 }
 }
+
+void Mainwin::on_list_clients_click() {
+    std::ostringstream oss;
+    for(int i=0; i<shelter->num_clients(); ++i)
+        oss << shelter->client(i) << '\n';
+    data->set_text(oss.str());
+    status("");
+}      // List all animals
 
 
 // /////////////////
