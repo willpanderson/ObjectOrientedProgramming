@@ -40,7 +40,7 @@ class Prime_numbers {
     // }
 
     void find_primes_threads(int lower, int upper) {
-        for (int i=lower; i<= upper; ++i) {
+        for (int i=lower; i<=upper; i++) {
             if (is_prime(i)) {
               m.lock();
                 primes.push_back(i);
@@ -52,13 +52,15 @@ class Prime_numbers {
     void find_primes(int lower, int upper) {
       std::vector <std::thread *> threadc;
       int num_search = ceil((upper-lower)/NUM_THREADS);
-      for (int i=0; i< NUM_THREADS; i++)
+    	int lo = lower;
+      for (int i=0; i<= NUM_THREADS; i++)
       {
-        int l = lower + (i*num_search);
-        int u = lower + (i+1) * num_search;
+        int l = lo;
+        int u = l + num_search;
         int x = fmin(u,upper);
-        std::thread* t1 = new std::thread{&Prime_numbers::find_primes_threads,this, l, x};
-        threadc.push_back(t1);
+        std::thread* t1 = new 		  std::thread{&Prime_numbers::find_primes_threads,this, l, x};
+	threadc.push_back(t1);
+	lo = x+1;
       }
       for (int j=0; j< NUM_THREADS; j++)
       {
@@ -73,9 +75,9 @@ class Prime_numbers {
     typedef Primes::const_iterator const_iterator;
     iterator begin() {return primes.begin();}
     iterator end() {return primes.end();}
+    std::mutex m;
   private:
     const int NUM_THREADS;
-    std::mutex m;
     // Vector primes will contain all of the primes found
     Primes primes;
 };
