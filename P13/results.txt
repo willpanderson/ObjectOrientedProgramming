@@ -1,37 +1,86 @@
-max_int for my machine (between 20 and 30 second runtime without threads):
+max_int for my machine (between 20 and 30 second runtime without threads):10000000
+
+=====================================================================
+The system was ran on an ASUS laptop running Ubuntu 19.04. The laptop has an 1.7GHz quad-core Intel Core i5-4200 processor and 12GB of RAM. Each test was ran consecutively of each other. Your threading time may vary. 
+====================================================================
 
 Without threads:
 
+real	0m21.081s
+user	0m21.047s
+sys	0m0.016s
+=================
+load    0m21.063s 
 
 
 With 2 threads:
 
+real	0m14.043s
+user	0m22.700s
+sys	0m0.013s
+=================
+load    0m22.713s 
 
 
 With 4 threads:
 
+real	0m10.093s
+user	0m29.545s
+sys	0m0.044s
+=================
+load    0m29.589s 
 
 
 With 8 threads:
 
+real	0m8.582s
+user	0m32.574s
+sys	0m0.008s
+=================
+load    0m32.582s 
 
 
 With 16 threads:
 
+real	0m8.570s
+user	0m32.783s
+sys	0m0.040s
+=================
+load    0m32.823s 
 
 
 With 32 threads:
 
+real	0m8.400s
+user	0m33.084s
+sys	0m0.024s
+=================
+load    0m33.108s 
 
 
 With 64 threads:
 
+real	0m8.380s
+user	0m33.128s
+sys	0m0.020s
+=================
+load    0m33.148s 
 
 
 QUESTION: After threading is added to threads.cpp, is the order of prime numbers found in primes_threads.txt the same or different than in primes.txt?  Why?
 
+Each thread in a process may run at any point in any order of execution. In my situation, the numbers were out of order regardless of any search of prime numbers.
+
 
 QUESTION: Does adding more threads continue to speed up the program? Do more threads ever slow down the program slightly?  Why or why not?
 
+It is uncertain that adding more threads continues to speed up a program. This depends on a number of factors such as your processor configuration, the type of program you are running, etc. Threading does not always speed up a program. In my case, my real execution time decreased as more threads were added, and this had an added result of increasing my user time.
+
 
 QUESTION: Does adding more threads increase the "system load", or is it constant regardless of the number of threads?  Why?
+
+In my situation, as seen above, the system load did increase as the number of threads increase. I think this is due to the amount of threads having to be processed and is dependent on what operating enviroment you are working with. There is an optimal amount of threads that programs operate on and every program is diffrent. 
+
+
+
+
