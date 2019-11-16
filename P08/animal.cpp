@@ -21,6 +21,13 @@ std::ostream& operator<<(std::ostream& ost, const Animal& animal) {
     return ost;
 }
 
+
+std::string Animal::adoptname() const {
+  std::string format = "";
+  format += _name;
+  return format;
+}
+
 // Convert Gender to a string and stream representation
 std::string to_string(Gender gender) {return ((gender == Gender::FEMALE) ? "female" : "male");}
 std::ostream& operator<<(std::ostream& ost, const Gender& gender) {

@@ -15,6 +15,7 @@ class Animal {
     virtual std::string family() const = 0;
     virtual std::string breed() const = 0;
     std::string name() const;
+    virtual std::string adoptname() const;
     Gender gender() const;
     int age() const;
 

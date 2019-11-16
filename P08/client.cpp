@@ -18,7 +18,8 @@ std::string Client::name() const {
   format += _name;
   return format;
 }
-Animal& Client::animal(int index) const{//return _adopted[index];
-}
+
+Animal& Client::animal(int index) const {return *(_adopted[index]);}
+
 
 int Client::num_adopted() {return _adopted.size();}
