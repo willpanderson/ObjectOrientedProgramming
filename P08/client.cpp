@@ -13,8 +13,7 @@ std::string Client::to_string() const {
    return format;
 }
 
-Animal& Client::animal(int index) const{
-  //
+Animal& Client::animal(int index) const{//return _adopted[index];
 }
 
-int Client::num_adopted() {return _adopted.size()}
+int Client::num_adopted() {return _adopted.size();}
