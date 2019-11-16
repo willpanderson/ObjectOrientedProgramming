@@ -13,6 +13,11 @@ std::string Client::to_string() const {
    return format;
 }
 
+std::string Client::name() const {
+  std::string format = "";
+  format += _name;
+  return format;
+}
 Animal& Client::animal(int index) const{//return _adopted[index];
 }
 

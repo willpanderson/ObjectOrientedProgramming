@@ -11,6 +11,7 @@ class Client {
     Client(std::string name, std::string phone, std::string email);
     friend std::ostream& operator<<(std::ostream& ost, const Client& client);
     virtual std::string to_string() const;
+    virtual std::string name() const;
     Animal& animal(int index) const;
     int num_adopted();
 

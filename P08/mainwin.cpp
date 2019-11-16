@@ -314,7 +314,7 @@ void Mainwin::on_adopt_animal_click()
   Gtk::ComboBoxText c_animal;
   for (int l = 0; l < shelter->num_animals(); l++)
   {
-    c_animal.append(shelter->animal(l).name());
+    //c_animal.append(shelter->animal(l).name());
   }
   c_animal.set_active(0);
   grid.attach(l_name, 0, 0, 1, 1);
@@ -333,7 +333,7 @@ void Mainwin::on_adopt_animal_click()
   client_a = c_client.get_active_row_number();
   animal_a = c_animal.get_active_row_number();
   }
-  
+
   //shelter->adopt(client,animal);
   //break;
 }
