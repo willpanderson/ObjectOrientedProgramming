@@ -87,8 +87,8 @@ Gtk::MenuItem *menuitem_adopt = Gtk::manage(new Gtk::MenuItem("_Adopt", true));
     adoptmenu->append(*menuitem_newadopt);
 
     Gtk::MenuItem *menuitem_listadopted = Gtk::manage(new Gtk::MenuItem("_List", true));
-    //menuitem_listadopted->signal_activate().connect([this] {this->on_list_adopted_click();;});
-  //  clientmenu->append(*menuitem_listadopted);
+    menuitem_listadopted->signal_activate().connect([this] {this->on_list_adopted_click();});
+    adoptmenu->append(*menuitem_listadopted);
 ////////////////////////////////////////////////////////////////////
 
     // /////////////
@@ -333,19 +333,17 @@ void Mainwin::on_adopt_animal_click()
   client_a = c_client.get_active_row_number();
   animal_a = c_animal.get_active_row_number();
   }
-
-  //shelter->adopt(client,animal);
+  Animal& animal = shelter->animal(animal_a);
+  Client& client = shelter->client(client_a);
+  //shelter->_available.erase(_available+ animal_a);
+  shelter->adopt(client,animal);
   //break;
 }
 }
 
 void Mainwin::on_list_adopted_click()
 {
- std::ostringstream oss;
-    //for(int i=0; i<shelter->client->num_adopted(); ++i)
-       // oss << shelter->client(i) << '\n';
-    //data->set_text(oss.str());
-   // status("");
+ close();
 }
 
 

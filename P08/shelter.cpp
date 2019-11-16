@@ -15,4 +15,7 @@ void Shelter::add_client(Client& client) {
 int Shelter::num_clients() {return _clients.size();}
 Client& Shelter::client(int index) {return _clients[index];}
 
-void Shelter::adopt (Client& client,Animal& animal){}
+void Shelter::adopt(Client& client,Animal& animal){
+    //shelter->_clients->animal.push_back();
+    //_available.erase(_avalible_animal);
+}
