@@ -12,6 +12,7 @@ class Client {
     friend std::ostream& operator<<(std::ostream& ost, const Client& client);
     virtual std::string to_string() const;
     Animal& animal(int index) const;
+    int num_adopted();
 
   private:
     std::string _name;
