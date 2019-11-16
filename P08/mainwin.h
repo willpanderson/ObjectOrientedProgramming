@@ -18,8 +18,8 @@ class Mainwin : public Gtk::Window {
         void on_list_animals_click();      // List all animals
         void on_new_client_click();        // Creaate a new client
         void on_list_clients_click();
-        void adopt_animal_click();
-        void list_adopted_click();
+        void on_adopt_animal_click();
+        void on_list_adopted_click();
         void status(std::string s);        // Set the status message
     private:
         Shelter *shelter;                  // Current animal shelter
