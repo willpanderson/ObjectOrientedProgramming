@@ -4,6 +4,7 @@
 #include <string>
 #include <ostream>
 #include "animal.h"
+#include <vector>
 
 class Client {
   public:
