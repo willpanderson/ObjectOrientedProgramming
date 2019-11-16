@@ -291,14 +291,14 @@ void Mainwin::on_adopt_animal_click()
   Gtk::ComboBoxText c_client;
   for (int k = 0; k < shelter->num_clients(); k++)
   {
-    //c_client.append(Client[k]);
+    c_client.append(shelter->client[k]);
   }
   c_client.set_active(0);
   Gtk::Label l_animal{"Animal"};
   Gtk::ComboBoxText c_animal;
   for (int l = 0; l < shelter->num_animals(); l++)
   {
-    //c_animal.append(Animal[l]);
+    c_animal.append(shelter->animal[l]);
   }
   c_animal.set_active(0);
   grid.attach(l_name, 0, 0, 1, 1);
@@ -313,11 +313,11 @@ void Mainwin::on_adopt_animal_click()
   dialog.show_all();
 
   while(dialog.run()) {
-  //int client_a = c_client.get_active_row_number();
-  //int animal_a = c_animal.get_active_row_number();
+  int client_a = c_client.get_active_row_number();
+  int animal_a = c_animal.get_active_row_number();
   }
-  //Animal& animal_sel = Animal[animal_a];
-  //Client& client_sel = Client[client_a];
+  Animal& animal_sel = shelter->Animal[animal_a];
+  Client& client_sel = shelter->[client_a];
   //shelter->adopt(client_sel,animal_sel);
   //break;
 }
