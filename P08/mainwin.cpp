@@ -3,9 +3,10 @@
 #include "cat.h"
 #include "rabbit.h"
 #include "client.h"
-#include <stdint.h>
 #include <sstream>
-#include <iostream>
+#include <regex> //future release for bonus features!
+
+///////////////////////////////////////////////////////////////////
 
 Mainwin::Mainwin() : shelter{new Shelter{"Mavs Animal Shelter"}} {
 
@@ -23,24 +24,50 @@ Mainwin::Mainwin() : shelter{new Shelter{"Mavs Animal Shelter"}} {
     // ///////
     // M E N U
     // Add a menu bar as the top item in the vertical box
+
     Gtk::MenuBar *menubar = Gtk::manage(new Gtk::MenuBar);
     vbox->pack_start(*menubar, Gtk::PACK_SHRINK, 0);
 
     //     F I L E
     // Create a File menu and add to the menu bar
+
     Gtk::MenuItem *menuitem_file = Gtk::manage(new Gtk::MenuItem("_File", true));
     menubar->append(*menuitem_file);
     Gtk::Menu *filemenu = Gtk::manage(new Gtk::Menu());
     menuitem_file->set_submenu(*filemenu);
 
+/*
+    Gtk::MenuItem *menuitem_newshelter = Gtk::manage(new Gtk::MenuItem("_New Shelter", true));
+    menuitem_newshelter->signal_activate().connect([this] {this->on_new_shelter_click();});
+    filemenu->append(*menuitem_newshelter);
+
+    Gtk::MenuItem *menuitem_load = Gtk::manage(new Gtk::MenuItem("_Load Shelter", true));
+    menuitem_load->signal_activate().connect([this] {this->on_open_click();});
+    filemenu->append(*menuitem_quit);
+    
+    Gtk::MenuItem *menuitem_save = Gtk::manage(new Gtk::MenuItem("_Save", true));
+    menuitem_save->signal_activate().connect([this] {this->on_save_click();});
+    filemenu->append(*menuitem_save);
+
+ Gtk::MenuItem *menuitem_saveas = Gtk::manage(new Gtk::MenuItem("_Save As", true));
+    menuitem_saveas->signal_activate().connect([this] {this->on_save_as_click();});
+    filemenu->append(*menuitem_saveas);
+
+*/
+
     //         Q U I T
     // Append Quit to the File menu
+
     Gtk::MenuItem *menuitem_quit = Gtk::manage(new Gtk::MenuItem("_Quit", true));
     menuitem_quit->signal_activate().connect([this] {this->on_quit_click();});
     filemenu->append(*menuitem_quit);
 
-    //     A N I M A L
+
+///////////////////////////////////////////////////////////////////
+    
+     //     A N I M A L
     // Create an Animal menu and add to the menu bar
+
     Gtk::MenuItem *menuitem_animal = Gtk::manage(new Gtk::MenuItem("_Animal", true));
     menubar->append(*menuitem_animal);
     Gtk::Menu *animalmenu = Gtk::manage(new Gtk::Menu());
@@ -48,18 +75,31 @@ Mainwin::Mainwin() : shelter{new Shelter{"Mavs Animal Shelter"}} {
 
     //           N E W
     // Append New to the Animal menu
+
     Gtk::MenuItem *menuitem_newanimal = Gtk::manage(new Gtk::MenuItem("_New", true));
     menuitem_newanimal->signal_activate().connect([this] {this->on_new_animal_click();});
     animalmenu->append(*menuitem_newanimal);
 
     //           L I S T
     // Append List to the Animal menu
+
     Gtk::MenuItem *menuitem_listanimal = Gtk::manage(new Gtk::MenuItem("_List", true));
     menuitem_listanimal->signal_activate().connect([this] {this->on_list_animals_click();});
     animalmenu->append(*menuitem_listanimal);
 
-    //     C L I E N T
+    Gtk::MenuItem *menuitem_newadopt = Gtk::manage(new Gtk::MenuItem("_Adopt", true));
+    menuitem_newadopt->signal_activate().connect([this] {this->on_adopt_animal_click();});
+    animalmenu->append(*menuitem_newadopt);
+
+    Gtk::MenuItem *menuitem_listadopted = Gtk::manage(new Gtk::MenuItem("_List Adoptions", true));
+    menuitem_listadopted->signal_activate().connect([this] {this->on_list_adopted_click();});
+    animalmenu->append(*menuitem_listadopted);
+
+////////////////////////////////////////////////////////////////////
+    
+     //     C L I E N T
     // Create an Client menu and add to the menu bar
+
     Gtk::MenuItem *menuitem_client = Gtk::manage(new Gtk::MenuItem("_Client", true));
     menubar->append(*menuitem_client);
     Gtk::Menu *clientmenu = Gtk::manage(new Gtk::Menu());
@@ -67,6 +107,7 @@ Mainwin::Mainwin() : shelter{new Shelter{"Mavs Animal Shelter"}} {
 
     //           N E W
     // Append New to the Client menu
+
     Gtk::MenuItem *menuitem_newclient = Gtk::manage(new Gtk::MenuItem("_New", true));
     menuitem_newclient->signal_activate().connect([this] {this->on_new_client_click();});
     clientmenu->append(*menuitem_newclient);
@@ -74,33 +115,75 @@ Mainwin::Mainwin() : shelter{new Shelter{"Mavs Animal Shelter"}} {
     Gtk::MenuItem *menuitem_listclient = Gtk::manage(new Gtk::MenuItem("_List", true));
     menuitem_listclient->signal_activate().connect([this] {this->on_list_clients_click();});
     clientmenu->append(*menuitem_listclient);
+
 //////////////////////////////////////////////////////////////////////
-Gtk::MenuItem *menuitem_adopt = Gtk::manage(new Gtk::MenuItem("_Adopt", true));
-    menubar->append(*menuitem_adopt);
-    Gtk::Menu *adoptmenu = Gtk::manage(new Gtk::Menu());
-    menuitem_adopt->set_submenu(*adoptmenu);
-
-    //           N E W
-    // Append New to the Client menu
-    Gtk::MenuItem *menuitem_newadopt = Gtk::manage(new Gtk::MenuItem("_New", true));
-    menuitem_newadopt->signal_activate().connect([this] {this->on_adopt_animal_click();});
-    adoptmenu->append(*menuitem_newadopt);
-
-    Gtk::MenuItem *menuitem_listadopted = Gtk::manage(new Gtk::MenuItem("_List", true));
-    menuitem_listadopted->signal_activate().connect([this] {this->on_list_adopted_click();});
-    adoptmenu->append(*menuitem_listadopted);
-////////////////////////////////////////////////////////////////////
 
     // /////////////
     // T O O L B A R
     // Add a toolbar to the vertical box below the menu
+
     Gtk::Toolbar *toolbar = Gtk::manage(new Gtk::Toolbar);
     toolbar->override_background_color(Gdk::RGBA{"gray"});
     vbox->pack_start(*toolbar, Gtk::PACK_SHRINK, 0);
 
-    // ///////////////////////
+ /*Gtk::ToolButton *load_shelter_button = Gtk::manage(new Gtk::ToolButton(Gtk::Stock::NEW));
+    load_shelter_button->set_tooltip_markup("Load a .muss file");
+    load_shelter_button->signal_clicked().connect([this] {this->on_open_click();});
+    toolbar->append(*load_shelter_button);
+
+ Gtk::ToolButton *save_shelter_button = Gtk::manage(new Gtk::ToolButton(Gtk::Stock::NEW));
+    save_shelter_button->set_tooltip_markup("Save a .muss file");
+    save_shelter_button->signal_clicked().connect([this] {this->on_save_click();});
+    toolbar->append(*save_shelter_button);
+
+
+
+
+     Gtk::ToolButton *new_animal_button = Gtk::manage(new Gtk::ToolButton(Gtk::Stock::NEW));
+    new_animal_button->set_tooltip_markup("Create a new animal");
+    new_animal_button->signal_clicked().connect([this] {this->on_new_animal_click();});
+    toolbar->append(*new_animal_button);
+
+ Gtk::ToolButton *list_animals_button = Gtk::manage(new Gtk::ToolButton(Gtk::Stock::NEW));
+    list_animals_button->set_tooltip_markup("List all animals in the shelter");
+    list_animals_button->signal_clicked().connect([this] {this->on_list_animals_click();});
+    toolbar->append(*list_animals_button);
+
+ Gtk::ToolButton *new_client_button = Gtk::manage(new Gtk::ToolButton(Gtk::Stock::NEW));
+    new_client_button->set_tooltip_markup("Create a new client");
+    new_client_button->signal_clicked().connect([this] {this->on_new_client_click();});
+    toolbar->append(*new_client_button);
+
+ Gtk::ToolButton *client_list_button = Gtk::manage(new Gtk::ToolButton(Gtk::Stock::NEW));
+    client_list_button->set_tooltip_markup("List all the clients in the shelter");
+    client_list_button->signal_clicked().connect([this] {this->on_list_clients_click();});
+    toolbar->append(*client_list_button);
+
+Gtk::ToolButton *adopt_animal_button = Gtk::manage(new Gtk::ToolButton(Gtk::Stock::NEW));
+    adopt_animal_button->set_tooltip_markup("Match an animal with a client");
+    adopt_animal_button->signal_clicked().connect([this] {this->on_adopt_animal_click();});
+    toolbar->append(*adopt_animal_button);
+
+Gtk::ToolButton *adopt_list_button = Gtk::manage(new Gtk::ToolButton(Gtk::Stock::NEW));
+    adopt_list_button->set_tooltip_markup("List clients with adoptions");
+    adopt_list_button->signal_clicked().connect([this] {this->on_list_adopted_click();});
+    toolbar->append(*adopt_list_button);
+
+Gtk::ToolButton *quit_button = Gtk::manage(new Gtk::ToolButton(Gtk::Stock::QUIT));
+    quit_button->set_tooltip_markup("Exit the Shelter");
+    quit_button->signal_clicked().connect([this] {this->on_quit_click();});
+
+    Gtk::SeparatorToolItem *sep = Gtk::manage(new Gtk::SeparatorToolItem());
+    sep->set_expand(true);  // The expanding sep forces the Quit button to the right
+    toolbar->append(*sep);
+    toolbar->append(*quit_button);
+*/
+////////////////////////////////////////////////////////////////////
+   
+     // ///////////////////////
     // D A T A   D I S P L A Y
     // Provide a text entry box to show the remaining data
+
     data = Gtk::manage(new Gtk::Label());
     data->set_hexpand(true);
     data->set_vexpand(true);
@@ -109,6 +192,7 @@ Gtk::MenuItem *menuitem_adopt = Gtk::manage(new Gtk::MenuItem("_Adopt", true));
     // ///////////////////////////////////
     // S T A T U S   B A R   D I S P L A Y
     // Provide a status bar for program messages
+
     msg = Gtk::manage(new Gtk::Label());
     msg->set_hexpand(true);
     msg->override_background_color(Gdk::RGBA{"gray"});
@@ -118,15 +202,23 @@ Gtk::MenuItem *menuitem_adopt = Gtk::manage(new Gtk::MenuItem("_Adopt", true));
     vbox->show_all();
 }
 
+///////////////////////////////////////////////////////////////////
+
 Mainwin::~Mainwin() { }
+
+///////////////////////////////////////////////////////////////////
+
 
 // /////////////////
 // C A L L B A C K S
 // /////////////////
 
-void Mainwin::on_quit_click() {
-    close();
-}
+
+///////////////////////////////////////////////////////////////////
+
+void Mainwin::on_quit_click() { close();}
+
+///////////////////////////////////////////////////////////////////
 
 void Mainwin::on_new_animal_click() {
 
@@ -229,6 +321,8 @@ void Mainwin::on_new_animal_click() {
 }
 }
 
+///////////////////////////////////////////////////////////////////
+
 void Mainwin::on_list_animals_click()
 {
     std::ostringstream oss;
@@ -237,6 +331,8 @@ void Mainwin::on_list_animals_click()
     data->set_text(oss.str());
     status("");
 }      // List all animals
+
+///////////////////////////////////////////////////////////////////
 
 void Mainwin::on_new_client_click()
 {
@@ -291,7 +387,7 @@ void Mainwin::on_list_clients_click() {
     data->set_text(oss.str());
     status("");
 }      // List all animals
-
+///////////////////////////////////////////////////////////////////
 void Mainwin::on_adopt_animal_click()
 {
   if (shelter->num_clients() == 0 || (shelter->num_animals() == 0))
@@ -340,6 +436,7 @@ void Mainwin::on_adopt_animal_click()
 }
 }
 }
+///////////////////////////////////////////////////////////////////
 
 void Mainwin::on_list_adopted_click()
 {
@@ -349,7 +446,7 @@ void Mainwin::on_list_adopted_click()
    oss << shelter->client(i) << " " << "adopted: ";
   for (int j = 0; j < shelter->client(i).num_adopted(); j++)
    {
-    oss << "\t\t" << shelter->client(i).animal(j) << "\n";
+    oss << "\n" << shelter->client(i).animal(j) << "\n";
 }
  oss << "\n";
 }
@@ -358,10 +455,39 @@ void Mainwin::on_list_adopted_click()
  status("");
 }
 
+////////////////////////////////////////////////////////////////////
+
+//void Mainwin::on_save_as_click(){}
+
+////////////////////////////////////////////////////////////////////
+
+//void Mainwin::on_new_shelter_click() {}
+
+///////////////////////////////////////////////////////////////////
+
+//void Mainwin::on_open_click(){}
+
+////////////////////////////////////////////////////////////////////
+
+//void Mainwin::on_save_click(){}
+
+////////////////////////////////////////////////////////////////////
+
+//void Mainwin::on_profile_manager_click() {} //BONUS FEATURE
+
+////////////////////////////////////////////////////////////////////
+
+
 // //////////////////
 // U T I L I T I E S
 // /////////////////
 
-void Mainwin::status(std::string s) {
-    msg->set_text(s);
-}
+
+////////////////////////////////////////////////////////////////////
+
+void Mainwin::status(std::string s) {msg->set_text(s);}
+
+////////////////////////////////////////////////////////////////////
+
+
+

@@ -16,14 +16,19 @@ class Mainwin : public Gtk::Window {
         void on_quit_click();              // Exit the application
         void on_new_animal_click();        // Create a new animal
         void on_list_animals_click();      // List all animals
-        void on_new_client_click();        // Creaate a new client
-        void on_list_clients_click();
-        void on_adopt_animal_click();
-        void on_list_adopted_click();
+        void on_new_client_click();        // Create a new client
+        void on_list_clients_click();      // List all clients
+        void on_adopt_animal_click();      // Adopt an animal
+        void on_list_adopted_click();      // List adoption list
+/*      void on_profile_manager_click();   // Change access mode
+        void on_open_click();              // Open an existing file
+        void on_new_shelter_click();       // Create a new shelter
+        void on_save_as_click();           // Save shelter into file
+        void on_about_click();*/           // See important info
         void status(std::string s);        // Set the status message
     private:
         Shelter *shelter;                  // Current animal shelter
-        Gtk::Label *data;                  // Display of sticks on game board
+        Gtk::Label *data;                  //???
         Gtk::Label *msg;                   // Status message display
 };
 #endif
