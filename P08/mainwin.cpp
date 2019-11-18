@@ -4,6 +4,7 @@
 #include "rabbit.h"
 #include "client.h"
 #include <sstream>
+#include <fstream> //future sprint
 #include <regex> //future release for bonus features!
 
 ///////////////////////////////////////////////////////////////////
@@ -363,7 +364,7 @@ void Mainwin::on_new_client_click()
   dialog.show_all();
 
   while(dialog.run()) {
-      if(n_name.get_text().size() == 0 || e_email.get_text().size() == 0 || p_phone.get_text().size() == 0 || p_phone.get_text().size() != 10)
+      if(n_name.get_text().size() == 0 || e_email.get_text().size() == 0 || p_phone.get_text().size() == 0 || p_phone.get_text().size() != 10 /*|| n_name.get_text() == "*required*" || e_email.get_text() == "*required*" || p_phone.get_text() == "*required*" */ )
        {n_name.set_text("*required*");
         e_email.set_text("*required*");
         p_phone.set_text("*required*");
@@ -457,7 +458,34 @@ void Mainwin::on_list_adopted_click()
 
 ////////////////////////////////////////////////////////////////////
 
-//void Mainwin::on_save_as_click(){}
+/*void Mainwin::on_save_as_click() {
+    Gtk::FileChooserDialog dialog("Please choose a file",
+          Gtk::FileChooserAction::FILE_CHOOSER_ACTION_SAVE);
+    dialog.set_transient_for(*this);
+
+    auto filter_ctp = Gtk::FileFilter::create();
+    filter_ctp->set_name(MUSS);
+    filter_ctp->add_pattern("*."+MUSS);
+    dialog.add_filter(filter_ctp);
+
+    auto filter_any = Gtk::FileFilter::create();
+    filter_any->set_name("Any files");
+    filter_any->add_pattern("*");
+    dialog.add_filter(filter_any);
+
+    dialog.set_filename("untitled."+MUSS);
+
+    //Add response buttons the the dialog:
+    dialog.add_button("_Cancel", 0);
+    dialog.add_button("_Save", 1);
+
+    int result = dialog.run();
+
+    if (result == 1) {
+        std::ofstream ofs{dialog.get_filename()};
+        if(!ofs) throw std::runtime_error{"Error writing file"};
+    }
+}
 
 ////////////////////////////////////////////////////////////////////
 
@@ -465,18 +493,74 @@ void Mainwin::on_list_adopted_click()
 
 ///////////////////////////////////////////////////////////////////
 
-//void Mainwin::on_open_click(){}
+void Mainwin::on_open_click() {
+    Gtk::FileChooserDialog dialog("Please choose a file",
+          Gtk::FileChooserAction::FILE_CHOOSER_ACTION_OPEN);
+    dialog.set_transient_for(*this);
+
+    auto filter_ctp = Gtk::FileFilter::create();
+    filter_ctp->set_name(MUSS);
+    filter_ctp->add_pattern("*."+MUSS);
+    dialog.add_filter(filter_ctp);
+ 
+    auto filter_any = Gtk::FileFilter::create();
+    filter_any->set_name("Any files");
+    filter_any->add_pattern("*");
+    dialog.add_filter(filter_any);
+
+    dialog.set_filename("untitled."+MUSS);
+
+    //Add response buttons the the dialog:
+    dialog.add_button("_Cancel", 0);
+    dialog.add_button("_Open", 1);
+
+    int result = dialog.run();
+
+    if (result == 1) {
+        try {
+            std::ifstream ifs{dialog.get_filename()};
+            if(!ifs) throw std::runtime_error{"File contents bad"};
+        } catch (std::exception& e) {
+            Gtk::MessageDialog{*this, "Unable to open shelter"}.run();
+        }
+    }
+}
 
 ////////////////////////////////////////////////////////////////////
 
-//void Mainwin::on_save_click(){}
+void Mainwin::on_save_click() {
+    try {
+        std::ofstream ofs{shelter->get_filename()};
+        shelter->save(ofs);
+    } catch(std::exception e) {
+        Gtk::MessageDialog{*this, "Unable to save data", false, Gtk::MESSAGE_ERROR}.run();
+    }
+}
 
 ////////////////////////////////////////////////////////////////////
 
-//void Mainwin::on_profile_manager_click() {} //BONUS FEATURE
+void Mainwin::on_profile_manager_click() {} //BONUS FEATURE
 
 ////////////////////////////////////////////////////////////////////
 
+void Mainwin::on_about_click() {
+    Gtk::AboutDialog dialog{};
+    dialog.set_transient_for(*this); // Avoid the discouraging warning
+    dialog.set_program_name(TITLE);
+    //auto logo = Gdk::Pixbuf::create_from_file("logo.png");
+    //dialog.set_logo(logo);
+    dialog.set_version(VERSION);
+    dialog.set_copyright("Copyright 2019");
+    dialog.set_license_type(Gtk::License::LICENSE_GPL_3_0);
+    std::vector< Glib::ustring > authors = {"William P. Anderson"};
+    dialog.set_authors(authors);
+    //std::vector< Glib::ustring > artists = {};
+    //dialog.set_artists(artists);
+    //dialog.set_comments("Animal Shelter.");
+    dialog.run();
+}
+///////////////////////////////////////////////////////////////////
+*/
 
 // //////////////////
 // U T I L I T I E S

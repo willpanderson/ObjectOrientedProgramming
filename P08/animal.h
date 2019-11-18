@@ -18,7 +18,7 @@ class Animal {
     virtual std::string adoptname() const;
     Gender gender() const;
     int age() const;
-
+    //Animal(std::istream& ist);
     virtual std::string to_string() const;
     friend std::ostream& operator<<(std::ostream& ost, const Animal& animal);
   protected:

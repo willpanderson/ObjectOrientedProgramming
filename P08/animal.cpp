@@ -35,3 +35,5 @@ std::ostream& operator<<(std::ostream& ost, const Gender& gender) {
     return ost;
 }
 
+//Animal::Animal(std::istream& ist) : Animal(ist) { }
+
