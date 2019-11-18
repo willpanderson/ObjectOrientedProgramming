@@ -13,6 +13,7 @@ class Client {
     virtual std::string to_string() const;
     virtual std::string name() const;
     Animal& animal(int index) const;
+    void adopt(Animal& animal);
     int num_adopted();
 
   private:

@@ -332,22 +332,33 @@ void Mainwin::on_adopt_animal_click()
   while(dialog.run()) {
   client_a = c_client.get_active_row_number();
   animal_a = c_animal.get_active_row_number();
-  }
+  
   Animal& animal = shelter->animal(animal_a);
   Client& client = shelter->client(client_a);
-  //shelter->_available.erase(_available+ animal_a);
   shelter->adopt(client,animal);
-  //break;
+  break;
+}
 }
 }
 
 void Mainwin::on_list_adopted_click()
 {
- close();
+ std::ostringstream oss;
+   for (int i = 0; i < shelter-> num_clients(); i++){
+   if (shelter->client(i).num_adopted() != 0){
+   oss << shelter->client(i) << " " << "adopted: ";
+  for (int j = 0; j < shelter->client(i).num_adopted(); j++)
+   {
+    oss << "\t\t" << shelter->client(i).animal(j) << "\n";
+}
+ oss << "\n";
+}
+}
+ data->set_text(oss.str());
+ status("");
 }
 
-
-// /////////////////
+// //////////////////
 // U T I L I T I E S
 // /////////////////
 

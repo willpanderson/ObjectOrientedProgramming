@@ -23,3 +23,9 @@ Animal& Client::animal(int index) const {return *(_adopted[index]);}
 
 
 int Client::num_adopted() {return _adopted.size();}
+
+void Client::adopt(Animal& animal) {
+ _adopted.push_back(&animal);
+}
+
+ 
