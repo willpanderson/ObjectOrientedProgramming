@@ -36,7 +36,10 @@ void Shelter::adopt(Client& client,Animal& animal) {
  this->_available.erase(_available.begin()+index);
 }
 
+//std::string Shelter::filename() :filename{filename}
+//{return filename;}
 
+void Shelter::save(std::ostream& ost) {ost << _x << ' ' << _y << ' ';}
 
   
 

@@ -15,8 +15,12 @@ class Shelter {
     void add_client(Client& client);
     int num_clients();
     Client& client(int index);
-    void adopt(Client& client,Animal& animal);
+    void adopt(Client& client, Animal& animal);
+    void save(std::ostream& ost);
 
+  protected:
+   std::string filename; 
+    
   private:
     std::string _name;
     std::vector<Animal*> _available;

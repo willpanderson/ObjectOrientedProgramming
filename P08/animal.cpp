@@ -37,3 +37,5 @@ std::ostream& operator<<(std::ostream& ost, const Gender& gender) {
 
 //Animal::Animal(std::istream& ist) : Animal(ist) { }
 
+void Animal::save(std::ostream& ost) {ost << _x << ' ' << _y << ' ';}
+

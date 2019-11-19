@@ -21,6 +21,7 @@ class Animal {
     //Animal(std::istream& ist);
     virtual std::string to_string() const;
     friend std::ostream& operator<<(std::ostream& ost, const Animal& animal);
+    void save(std::ostream& ost);
   protected:
     std::string _name;
     Gender _gender;

@@ -43,6 +43,7 @@ class Dog : public Animal {
     virtual ~Dog();
     virtual std::string family() const override;
     virtual std::string breed() const override;
+    void save(std::ostream& ost);
   private:
     Dog_breed _breed;
 };

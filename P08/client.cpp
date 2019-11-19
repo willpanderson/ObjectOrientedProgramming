@@ -28,4 +28,6 @@ void Client::adopt(Animal& animal) {
  _adopted.push_back(&animal);
 }
 
+
+
  

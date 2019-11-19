@@ -32,3 +32,6 @@ std::ostream& operator<<(std::ostream& ost, const Dog_breed& breed) {
     return ost;
     
 }
+
+void Dog::save(std::ostream& ost) {ost << _x << ' ' << _y << ' ';}
+

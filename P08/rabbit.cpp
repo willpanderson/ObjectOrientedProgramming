@@ -36,3 +36,6 @@ std::ostream& operator<<(std::ostream& ost, const rabbit_breed& breed)
     ost << ::to_string(breed);
     return ost;
 }
+
+void Rabbit::save(std::ostream& ost) {ost << _x << ' ' << _y << ' ';}
+
