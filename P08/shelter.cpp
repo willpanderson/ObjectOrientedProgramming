@@ -36,6 +36,7 @@ void Shelter::adopt(Client& client,Animal& animal) {
  this->_available.erase(_available.begin()+index);
 }
 
-  
+
+
   
 

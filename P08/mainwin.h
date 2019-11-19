@@ -24,8 +24,10 @@ class Mainwin : public Gtk::Window {
 /*      void on_profile_manager_click();   // Change access mode
         void on_open_click();              // Open an existing file
         void on_new_shelter_click();       // Create a new shelter
-        void on_save_as_click();           // Save shelter into file
-        void on_about_click();*/           // See important info
+        void on_save_as_click();
+        bool on_delete_event(GdkEventAny* event);
+        bool safe_to_exit();   */          // Save shelter into file
+        void on_about_click();           // See important info
         void status(std::string s);        // Set the status message
     private:
         Shelter *shelter;                  // Current animal shelter

@@ -17,6 +17,10 @@ Mainwin::Mainwin() : shelter{new Shelter{"Mavs Animal Shelter"}} {
 
     set_default_size(800, 600);
     set_title(APP_TITLE);
+/*
+    // Notify when the main window is closing
+    signal_delete_event().connect([this] (GdkEventAny* event) -> bool {this->on_delete_event(event);});
+*/
 
     // Put a vertical box container as the Window contents
     Gtk::Box *vbox = Gtk::manage(new Gtk::VBox);
@@ -77,18 +81,18 @@ Mainwin::Mainwin() : shelter{new Shelter{"Mavs Animal Shelter"}} {
     //           N E W
     // Append New to the Animal menu
 
-    Gtk::MenuItem *menuitem_newanimal = Gtk::manage(new Gtk::MenuItem("_New", true));
+    Gtk::MenuItem *menuitem_newanimal = Gtk::manage(new Gtk::MenuItem("_New Animal", true));
     menuitem_newanimal->signal_activate().connect([this] {this->on_new_animal_click();});
     animalmenu->append(*menuitem_newanimal);
 
     //           L I S T
     // Append List to the Animal menu
 
-    Gtk::MenuItem *menuitem_listanimal = Gtk::manage(new Gtk::MenuItem("_List", true));
+    Gtk::MenuItem *menuitem_listanimal = Gtk::manage(new Gtk::MenuItem("_List Animal", true));
     menuitem_listanimal->signal_activate().connect([this] {this->on_list_animals_click();});
     animalmenu->append(*menuitem_listanimal);
 
-    Gtk::MenuItem *menuitem_newadopt = Gtk::manage(new Gtk::MenuItem("_Adopt", true));
+    Gtk::MenuItem *menuitem_newadopt = Gtk::manage(new Gtk::MenuItem("_Adopt Animal", true));
     menuitem_newadopt->signal_activate().connect([this] {this->on_adopt_animal_click();});
     animalmenu->append(*menuitem_newadopt);
 
@@ -109,13 +113,27 @@ Mainwin::Mainwin() : shelter{new Shelter{"Mavs Animal Shelter"}} {
     //           N E W
     // Append New to the Client menu
 
-    Gtk::MenuItem *menuitem_newclient = Gtk::manage(new Gtk::MenuItem("_New", true));
+    Gtk::MenuItem *menuitem_newclient = Gtk::manage(new Gtk::MenuItem("_New Client", true));
     menuitem_newclient->signal_activate().connect([this] {this->on_new_client_click();});
     clientmenu->append(*menuitem_newclient);
 
-    Gtk::MenuItem *menuitem_listclient = Gtk::manage(new Gtk::MenuItem("_List", true));
+    Gtk::MenuItem *menuitem_listclient = Gtk::manage(new Gtk::MenuItem("_List Clients", true));
     menuitem_listclient->signal_activate().connect([this] {this->on_list_clients_click();});
     clientmenu->append(*menuitem_listclient);
+
+
+    //     H E L P
+    // Create a Help menu and add to the menu bar
+    Gtk::MenuItem *menuitem_help = Gtk::manage(new Gtk::MenuItem("_Help", true));
+    menubar->append(*menuitem_help);
+    Gtk::Menu *helpmenu = Gtk::manage(new Gtk::Menu());
+    menuitem_help->set_submenu(*helpmenu);
+
+    //           A B O U T
+    // Append About to the Help menu
+    Gtk::MenuItem *menuitem_about = Gtk::manage(new Gtk::MenuItem("_About", true));
+    menuitem_about->signal_activate().connect([this] {this->on_about_click();});
+    helpmenu->append(*menuitem_about);
 
 //////////////////////////////////////////////////////////////////////
 
@@ -127,50 +145,58 @@ Mainwin::Mainwin() : shelter{new Shelter{"Mavs Animal Shelter"}} {
     toolbar->override_background_color(Gdk::RGBA{"gray"});
     vbox->pack_start(*toolbar, Gtk::PACK_SHRINK, 0);
 
- /*Gtk::ToolButton *load_shelter_button = Gtk::manage(new Gtk::ToolButton(Gtk::Stock::NEW));
+ /* Gtk::Image *load_image = Gtk::manage(new Gtk::Image("load.png"));
+    Gtk::ToolButton *load_shelter_button = Gtk::manage(new Gtk::ToolButton(*load_image));
     load_shelter_button->set_tooltip_markup("Load a .muss file");
     load_shelter_button->signal_clicked().connect([this] {this->on_open_click();});
     toolbar->append(*load_shelter_button);
 
- Gtk::ToolButton *save_shelter_button = Gtk::manage(new Gtk::ToolButton(Gtk::Stock::NEW));
+    Gtk::Image *save_image = Gtk::manage(new Gtk::Image("save_file.png"));
+    Gtk::ToolButton *save_shelter_button = Gtk::manage(new Gtk::ToolButton(*save_image));
     save_shelter_button->set_tooltip_markup("Save a .muss file");
     save_shelter_button->signal_clicked().connect([this] {this->on_save_click();});
     toolbar->append(*save_shelter_button);
 
+*/
 
-
-
-     Gtk::ToolButton *new_animal_button = Gtk::manage(new Gtk::ToolButton(Gtk::Stock::NEW));
+    Gtk::Image *new_animal = Gtk::manage(new Gtk::Image("dog_aboutx.png"));
+    Gtk::ToolButton *new_animal_button = Gtk::manage(new Gtk::ToolButton(*new_animal));
     new_animal_button->set_tooltip_markup("Create a new animal");
     new_animal_button->signal_clicked().connect([this] {this->on_new_animal_click();});
     toolbar->append(*new_animal_button);
 
- Gtk::ToolButton *list_animals_button = Gtk::manage(new Gtk::ToolButton(Gtk::Stock::NEW));
+    Gtk::Image *find_image = Gtk::manage(new Gtk::Image("find.png"));
+    Gtk::ToolButton *list_animals_button = Gtk::manage(new Gtk::ToolButton(*find_image));
     list_animals_button->set_tooltip_markup("List all animals in the shelter");
     list_animals_button->signal_clicked().connect([this] {this->on_list_animals_click();});
     toolbar->append(*list_animals_button);
 
- Gtk::ToolButton *new_client_button = Gtk::manage(new Gtk::ToolButton(Gtk::Stock::NEW));
+    Gtk::Image *client_image = Gtk::manage(new Gtk::Image("client.png"));
+    Gtk::ToolButton *new_client_button = Gtk::manage(new Gtk::ToolButton(*client_image));
     new_client_button->set_tooltip_markup("Create a new client");
     new_client_button->signal_clicked().connect([this] {this->on_new_client_click();});
     toolbar->append(*new_client_button);
 
- Gtk::ToolButton *client_list_button = Gtk::manage(new Gtk::ToolButton(Gtk::Stock::NEW));
+    Gtk::Image *client_list = Gtk::manage(new Gtk::Image("client_list.png"));
+    Gtk::ToolButton *client_list_button = Gtk::manage(new Gtk::ToolButton(*client_list));
     client_list_button->set_tooltip_markup("List all the clients in the shelter");
     client_list_button->signal_clicked().connect([this] {this->on_list_clients_click();});
     toolbar->append(*client_list_button);
 
-Gtk::ToolButton *adopt_animal_button = Gtk::manage(new Gtk::ToolButton(Gtk::Stock::NEW));
+    Gtk::Image *adopt_image = Gtk::manage(new Gtk::Image("adopt.png"));
+    Gtk::ToolButton *adopt_animal_button = Gtk::manage(new Gtk::ToolButton(*adopt_image));
     adopt_animal_button->set_tooltip_markup("Match an animal with a client");
     adopt_animal_button->signal_clicked().connect([this] {this->on_adopt_animal_click();});
     toolbar->append(*adopt_animal_button);
 
-Gtk::ToolButton *adopt_list_button = Gtk::manage(new Gtk::ToolButton(Gtk::Stock::NEW));
+    Gtk::Image *info_image = Gtk::manage(new Gtk::Image("info.png"));
+    Gtk::ToolButton *adopt_list_button = Gtk::manage(new Gtk::ToolButton(*info_image));
     adopt_list_button->set_tooltip_markup("List clients with adoptions");
     adopt_list_button->signal_clicked().connect([this] {this->on_list_adopted_click();});
     toolbar->append(*adopt_list_button);
 
-Gtk::ToolButton *quit_button = Gtk::manage(new Gtk::ToolButton(Gtk::Stock::QUIT));
+    Gtk::Image *exit_image = Gtk::manage(new Gtk::Image("exit.png"));
+    Gtk::ToolButton *quit_button = Gtk::manage(new Gtk::ToolButton(*exit_image));
     quit_button->set_tooltip_markup("Exit the Shelter");
     quit_button->signal_clicked().connect([this] {this->on_quit_click();});
 
@@ -178,7 +204,7 @@ Gtk::ToolButton *quit_button = Gtk::manage(new Gtk::ToolButton(Gtk::Stock::QUIT)
     sep->set_expand(true);  // The expanding sep forces the Quit button to the right
     toolbar->append(*sep);
     toolbar->append(*quit_button);
-*/
+
 ////////////////////////////////////////////////////////////////////
    
      // ///////////////////////
@@ -364,7 +390,7 @@ void Mainwin::on_new_client_click()
   dialog.show_all();
 
   while(dialog.run()) {
-      if(n_name.get_text().size() == 0 || e_email.get_text().size() == 0 || p_phone.get_text().size() == 0 || p_phone.get_text().size() != 10 /*|| n_name.get_text() == "*required*" || e_email.get_text() == "*required*" || p_phone.get_text() == "*required*" */ )
+      if(n_name.get_text().size() == 0 || e_email.get_text().size() == 0 || p_phone.get_text().size() == 0 || p_phone.get_text().size() != 10 || n_name.get_text() == "*required*" || e_email.get_text() == "*required*" || p_phone.get_text() == "*required*" )
        {n_name.set_text("*required*");
         e_email.set_text("*required*");
         p_phone.set_text("*required*");
@@ -381,6 +407,8 @@ void Mainwin::on_new_client_click()
 }
 }
 
+///////////////////////////////////////////////////////////////////
+
 void Mainwin::on_list_clients_click() {
     std::ostringstream oss;
     for(int i=0; i<shelter->num_clients(); ++i)
@@ -388,7 +416,9 @@ void Mainwin::on_list_clients_click() {
     data->set_text(oss.str());
     status("");
 }      // List all animals
+
 ///////////////////////////////////////////////////////////////////
+
 void Mainwin::on_adopt_animal_click()
 {
   if (shelter->num_clients() == 0 || (shelter->num_animals() == 0))
@@ -420,7 +450,7 @@ void Mainwin::on_adopt_animal_click()
   grid.attach(c_animal, 1, 1, 2, 1);
   dialog.get_content_area()->add(grid);
 
-  dialog.add_button("Add Client", 1);
+  dialog.add_button("Adopt", 1);
   dialog.add_button("Cancel", 0);
 
   dialog.show_all();
@@ -540,27 +570,42 @@ void Mainwin::on_save_click() {
 ////////////////////////////////////////////////////////////////////
 
 void Mainwin::on_profile_manager_click() {} //BONUS FEATURE
-
+*/
 ////////////////////////////////////////////////////////////////////
 
 void Mainwin::on_about_click() {
     Gtk::AboutDialog dialog{};
     dialog.set_transient_for(*this); // Avoid the discouraging warning
-    dialog.set_program_name(TITLE);
-    //auto logo = Gdk::Pixbuf::create_from_file("logo.png");
-    //dialog.set_logo(logo);
+    dialog.set_program_name(APP_TITLE);
+    auto logo = Gdk::Pixbuf::create_from_file("dog_about.png");
+    dialog.set_logo(logo);
     dialog.set_version(VERSION);
     dialog.set_copyright("Copyright 2019");
     dialog.set_license_type(Gtk::License::LICENSE_GPL_3_0);
     std::vector< Glib::ustring > authors = {"William P. Anderson"};
     dialog.set_authors(authors);
-    //std::vector< Glib::ustring > artists = {};
-    //dialog.set_artists(artists);
-    //dialog.set_comments("Animal Shelter.");
+    std::vector< Glib::ustring > artists = {"https://commons.wikimedia.org/wiki/File:Creative-Tail-Animal-dog.svg","https://fr.m.wikipedia.org/wiki/Fichier:Boss-icon.png","https://commons.wikimedia.org/wiki/File:Find_it_EZ_Logo.png","https://commons.wikimedia.org/wiki/File:Rie_Black_Icon_User.png","https://en.wikipedia.org/wiki/File:Information.svg","https://commons.wikimedia.org/wiki/File:Icon_Disk_256x256.png","https://commons.wikimedia.org/wiki/File:Human-gnome-session-logout.svg","https://commons.wikimedia.org/wiki/File:Folder_4_icon-72a7cf.svg","https://de.wikipedia.org/wiki/Datei:Icon_Cabinet_02_256x256.png","https://en.m.wikipedia.org/wiki/File:Childbook.png"};
+    dialog.set_artists(artists);
+    dialog.set_comments("Animal Shelter.");
     dialog.run();
 }
+
 ///////////////////////////////////////////////////////////////////
+
+
+///////////////////////////////////////////////////////////////////
+/*
+// /////////////
+// S I G N A L S
+// /////////////
+
+// Signaled when the main window is about to close
+// False enables closing the app, true aborts close
+bool Mainwin::on_delete_event(GdkEventAny* event) {
+    return !all_data_saved();
+}
 */
+////////////////////////////////////////////////////////////////////
 
 // //////////////////
 // U T I L I T I E S
@@ -572,6 +617,30 @@ void Mainwin::on_about_click() {
 void Mainwin::status(std::string s) {msg->set_text(s);}
 
 ////////////////////////////////////////////////////////////////////
+/*
+bool Mainwin::all_data_saved() {
+  if (shelter->saved()) return true;
+  Gtk::MessageDialog dialog{*this, "Unsaved data will be lost", false, 
+                            Gtk::MESSAGE_WARNING, Gtk::BUTTONS_NONE};
+  dialog.add_button("Save", 1);
+  dialog.add_button("Discard", 2);
+  dialog.add_button("Cancel", 3);
+  int response = dialog.run();
+  if (response == 1) {        // Save
+    try {
+        on_save_as_click();
+        return true; // save was successful
+    } catch(std::exception& e) {
+        Gtk::MessageDialog{*this, "Unable to save data", false, Gtk::MESSAGE_ERROR}.run();
+        return false;
+    }
+  } else if (response == 2) { // Discard
+    canvas->clear();
+    return true;
+  } else {                    // Cancel
+    return false;
+  }
+}*/
 
-
+///////////////////////////////////////////////////////////////////
 
