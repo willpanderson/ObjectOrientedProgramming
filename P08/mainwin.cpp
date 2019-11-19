@@ -276,12 +276,12 @@ void Mainwin::on_new_animal_click() {
 
     Gtk::Grid grid;
 
-    Gtk::Label l_name{"Name"};
+    Gtk::Label l_name{"Name:"};
     Gtk::Entry e_name;
     grid.attach(l_name, 0, 0, 1, 1);
     grid.attach(e_name, 1, 0, 2, 1);
 
-    Gtk::Label l_breed{"Breed"};
+    Gtk::Label l_breed{"Breed:"};
     Gtk::ComboBoxText c_breed;
     if (selection == 0)
     	for(auto b : dog_breeds) c_breed.append(to_string(b));
@@ -293,7 +293,7 @@ void Mainwin::on_new_animal_click() {
     grid.attach(l_breed, 0, 1, 1, 1);
     grid.attach(c_breed, 1, 1, 2, 1);
 
-    Gtk::Label l_gender{"Gender"};
+    Gtk::Label l_gender{"Gender:"};
     Gtk::ComboBoxText c_gender;
     c_gender.append("Female");
     c_gender.append("Male");
@@ -367,17 +367,17 @@ void Mainwin::on_new_client_click()
 
   Gtk::Grid grid;
 
-  Gtk::Label l_name{"Name"};
+  Gtk::Label l_name{"Name:"};
   Gtk::Entry n_name;
   grid.attach(l_name, 0, 0, 1, 1);
   grid.attach(n_name, 1, 0, 2, 1);
 
-  Gtk::Label l_email{"Email"};
+  Gtk::Label l_email{"Email:"};
   Gtk::Entry e_email;
   grid.attach(l_email, 0, 1, 1, 1);
   grid.attach(e_email, 1, 1, 2, 1);
 
-  Gtk::Label l_phone{"Phone (no spaces)"};
+  Gtk::Label l_phone{"Phone (no spaces):"};
   Gtk::Entry p_phone;
   grid.attach(l_phone, 0, 2, 1, 1);
   grid.attach(p_phone, 1, 2, 2, 1);
@@ -471,21 +471,53 @@ void Mainwin::on_adopt_animal_click()
 
 void Mainwin::on_list_adopted_click()
 {
- std::ostringstream oss;
-   for (int i = 0; i < shelter-> num_clients(); i++){
-   if (shelter->client(i).num_adopted() != 0){
-   oss << shelter->client(i) << " " << "adopted: ";
-  for (int j = 0; j < shelter->client(i).num_adopted(); j++)
-   {
-    oss << "\n" << shelter->client(i).animal(j) << "\n";
-}
- oss << "\n";
-}
-}
- data->set_text(oss.str());
- status("");
-}
+ if (shelter->num_clients() == 0)
+     {
+      Gtk::MessageDialog{*this, "Please add a client to continue"}.run();
+     }
+    else
+     {
+    Gtk::Dialog dialoga{"Animal Information", *this};
+    Gtk::Grid grid2;
+    Gtk::Label l_type{"Client:"};
+    Gtk::ComboBoxText c_type;
+    for (int g = 0; g < shelter->num_clients(); g++)
+    {
+     c_type.append(shelter->client(g).name());
+    }
+    c_type.set_active(0);
+    dialoga.get_content_area()->add(grid2);
+    dialoga.add_button("Add", 1);
+    dialoga.add_button("Cancel", 0);
+    grid2.attach(l_type, 0, 2, 1, 1);
+    grid2.attach(c_type, 1, 2, 2, 1);
+    dialoga.show_all();
+    int selection = -1;
+    int option = dialoga.run();
 
+    if (option == 1)
+   {
+    selection = c_type.get_active_row_number();
+    dialoga.close();
+    std::ostringstream oss;
+    if (shelter->client(selection).num_adopted() != 0)
+    {
+       oss << shelter->client(selection) << " " << "adopted: ";
+       for (int j = 0; j < shelter->client(selection).num_adopted(); j++)
+        {
+         oss << "\n" << shelter->client(selection).animal(j) << "\n";
+        }
+        oss << "\n";
+    }
+    else
+     {
+      Gtk::MessageDialog{*this, "This client needs to adopt an animal to continue"}.run();
+     }
+    data->set_text(oss.str());
+    status("");
+}
+}
+}
 ////////////////////////////////////////////////////////////////////
 
 /*void Mainwin::on_save_as_click() {
@@ -621,7 +653,7 @@ void Mainwin::status(std::string s) {msg->set_text(s);}
 bool Mainwin::all_data_saved() {
   if (shelter->saved()) return true;
   Gtk::MessageDialog dialog{*this, "Unsaved data will be lost", false, 
-                            Gtk::MESSAGE_WARNING, Gtk::BUTTONS_NONE};
+                            Gtk::MESSAGE_WARNING, Gtk::BUTTONS_NOg_object_ref: assertion 'G_IS_OBJECT (object)' failedNE};
   dialog.add_button("Save", 1);
   dialog.add_button("Discard", 2);
   dialog.add_button("Cancel", 3);
