@@ -18,7 +18,7 @@ Client& Shelter::client(int index) {return _clients[index];}
 
 void Shelter::adopt(Client& client,Animal& animal) {
  int index = -1;
-/*animals might have the same name,breed,gender,family, and age so 
+/*animals might have the same name,breed,gender,family, and age so
 //we will have to check each aspect to ensure that the right animal is removed */
  for (int i = 0; i < _available.size(); i++)
  {
@@ -39,7 +39,14 @@ void Shelter::adopt(Client& client,Animal& animal) {
 //std::string Shelter::filename() :filename{filename}
 //{return filename;}
 
-void Shelter::save(std::ostream& ost) {ost << _x << ' ' << _y << ' ';}
+void Shelter::save(std::ostream& ost)
+ {
+  ost << _name << std::endl;
+  ost << _available << std::endl;
+  ost << _clients << std::endl;
+  }
 
-  
-
+void Shelter::load(std::istream& ist)
+{
+  ist >> _name >> _available >> _clients;
+}
