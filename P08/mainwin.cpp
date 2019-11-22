@@ -40,15 +40,15 @@ Mainwin::Mainwin() : shelter{new Shelter{"Mavs Animal Shelter"}} {
     menubar->append(*menuitem_file);
     Gtk::Menu *filemenu = Gtk::manage(new Gtk::Menu());
     menuitem_file->set_submenu(*filemenu);
-
+/*
 
     Gtk::MenuItem *menuitem_newshelter = Gtk::manage(new Gtk::MenuItem("_New Shelter", true));
     menuitem_newshelter->signal_activate().connect([this] {this->on_new_shelter_click();});
     filemenu->append(*menuitem_newshelter);
-
+*/
     Gtk::MenuItem *menuitem_load = Gtk::manage(new Gtk::MenuItem("_Load Shelter", true));
     menuitem_load->signal_activate().connect([this] {this->on_open_click();});
-    filemenu->append(*menuitem_quit);
+    filemenu->append(*menuitem_load);
 /*
     Gtk::MenuItem *menuitem_save = Gtk::manage(new Gtk::MenuItem("_Save", true));
     menuitem_save->signal_activate().connect([this] {this->on_save_click();});
