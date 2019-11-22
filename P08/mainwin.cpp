@@ -41,7 +41,7 @@ Mainwin::Mainwin() : shelter{new Shelter{"Mavs Animal Shelter"}} {
     Gtk::Menu *filemenu = Gtk::manage(new Gtk::Menu());
     menuitem_file->set_submenu(*filemenu);
 
-/*
+
     Gtk::MenuItem *menuitem_newshelter = Gtk::manage(new Gtk::MenuItem("_New Shelter", true));
     menuitem_newshelter->signal_activate().connect([this] {this->on_new_shelter_click();});
     filemenu->append(*menuitem_newshelter);
@@ -49,15 +49,15 @@ Mainwin::Mainwin() : shelter{new Shelter{"Mavs Animal Shelter"}} {
     Gtk::MenuItem *menuitem_load = Gtk::manage(new Gtk::MenuItem("_Load Shelter", true));
     menuitem_load->signal_activate().connect([this] {this->on_open_click();});
     filemenu->append(*menuitem_quit);
-
+/*
     Gtk::MenuItem *menuitem_save = Gtk::manage(new Gtk::MenuItem("_Save", true));
     menuitem_save->signal_activate().connect([this] {this->on_save_click();});
     filemenu->append(*menuitem_save);
-
- Gtk::MenuItem *menuitem_saveas = Gtk::manage(new Gtk::MenuItem("_Save As", true));
+*/
+    Gtk::MenuItem *menuitem_saveas = Gtk::manage(new Gtk::MenuItem("_Save As", true));
     menuitem_saveas->signal_activate().connect([this] {this->on_save_as_click();});
     filemenu->append(*menuitem_saveas);
-*/
+
 
 
     //         Q U I T
@@ -144,13 +144,13 @@ Mainwin::Mainwin() : shelter{new Shelter{"Mavs Animal Shelter"}} {
     Gtk::Toolbar *toolbar = Gtk::manage(new Gtk::Toolbar);
     toolbar->override_background_color(Gdk::RGBA{"gray"});
     vbox->pack_start(*toolbar, Gtk::PACK_SHRINK, 0);
-/*
+
     Gtk::Image *load_image = Gtk::manage(new Gtk::Image("load.png"));
     Gtk::ToolButton *load_shelter_button = Gtk::manage(new Gtk::ToolButton(*load_image));
     load_shelter_button->set_tooltip_markup("Load a .muss file");
     load_shelter_button->signal_clicked().connect([this] {this->on_open_click();});
     toolbar->append(*load_shelter_button);
-
+/*
     Gtk::Image *save_image = Gtk::manage(new Gtk::Image("save_file.png"));
     Gtk::ToolButton *save_shelter_button = Gtk::manage(new Gtk::ToolButton(*save_image));
     save_shelter_button->set_tooltip_markup("Save a .muss file");
@@ -518,8 +518,8 @@ void Mainwin::on_list_adopted_click()
 }
 }
 ////////////////////////////////////////////////////////////////////
-/*
-    void Mainwin::on_save_as_click() {
+
+void Mainwin::on_save_as_click() {
     Gtk::FileChooserDialog dialog("Please choose a file",
           Gtk::FileChooserAction::FILE_CHOOSER_ACTION_SAVE);
     dialog.set_transient_for(*this);
@@ -546,7 +546,6 @@ void Mainwin::on_list_adopted_click()
         std::ofstream ofs{dialog.get_filename()};
         if(!ofs) throw std::runtime_error{"Error writing file"};
     }
-}
 
 ////////////////////////////////////////////////////////////////////
 
@@ -588,7 +587,7 @@ void Mainwin::on_open_click() {
 }
 
 ////////////////////////////////////////////////////////////////////
-
+/*
 void Mainwin::on_save_click() {
     try {
         std::ofstream ofs{shelter->filename()};
