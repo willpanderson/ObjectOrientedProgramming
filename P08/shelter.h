@@ -17,10 +17,10 @@ class Shelter {
     Client& client(int index);
     void adopt(Client& client, Animal& animal);
     void save(std::ostream& ost);
-
+    void load(std::istream& ist);
   protected:
-   std::string filename; 
-    
+   std::string filename;
+
   private:
     std::string _name;
     std::vector<Animal*> _available;
