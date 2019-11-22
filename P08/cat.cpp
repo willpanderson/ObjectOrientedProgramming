@@ -34,7 +34,7 @@ std::ostream& operator<<(std::ostream& ost, const cat_breed& breed) {
     ost << ::to_string(breed);
     return ost;
 }
-
+/*
 void Cat::save(std::ostream& ost)
 {
   ost << _breed << std::endl;
@@ -44,3 +44,4 @@ void Cat::load(std::istream& ist)
 {
   ist >> _breed;
 }
+*/
