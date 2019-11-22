@@ -44,8 +44,8 @@ class Cat : public Animal {
     virtual ~Cat();
     virtual std::string family() const override;
     virtual std::string breed() const override;
-    void save(std::ostream& ost);
-    void load(std::ostream& ist);
+    virtual void save(std::ostream& ost);
+    virtual void load(std::ostream& ist);
   private:
     cat_breed _breed;
 };

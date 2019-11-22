@@ -19,7 +19,7 @@ Mainwin::Mainwin() : shelter{new Shelter{"Mavs Animal Shelter"}} {
     set_title(APP_TITLE);
 
     // Notify when the main window is closing
-    signal_delete_event().connect([this] (GdkEventAny* event) -> bool {this->on_delete_event(event);});
+    //signal_delete_event().connect([this] (GdkEventAny* event) -> bool {this->on_delete_event(event);});
 
 
     // Put a vertical box container as the Window contents
@@ -45,11 +45,11 @@ Mainwin::Mainwin() : shelter{new Shelter{"Mavs Animal Shelter"}} {
     Gtk::MenuItem *menuitem_newshelter = Gtk::manage(new Gtk::MenuItem("_New Shelter", true));
     menuitem_newshelter->signal_activate().connect([this] {this->on_new_shelter_click();});
     filemenu->append(*menuitem_newshelter);
-*/
+
     Gtk::MenuItem *menuitem_load = Gtk::manage(new Gtk::MenuItem("_Load Shelter", true));
     menuitem_load->signal_activate().connect([this] {this->on_open_click();});
     filemenu->append(*menuitem_quit);
-    
+
     Gtk::MenuItem *menuitem_save = Gtk::manage(new Gtk::MenuItem("_Save", true));
     menuitem_save->signal_activate().connect([this] {this->on_save_click();});
     filemenu->append(*menuitem_save);
@@ -57,7 +57,7 @@ Mainwin::Mainwin() : shelter{new Shelter{"Mavs Animal Shelter"}} {
  Gtk::MenuItem *menuitem_saveas = Gtk::manage(new Gtk::MenuItem("_Save As", true));
     menuitem_saveas->signal_activate().connect([this] {this->on_save_as_click();});
     filemenu->append(*menuitem_saveas);
-
+*/
 
 
     //         Q U I T
@@ -69,7 +69,7 @@ Mainwin::Mainwin() : shelter{new Shelter{"Mavs Animal Shelter"}} {
 
 
 ///////////////////////////////////////////////////////////////////
-    
+
      //     A N I M A L
     // Create an Animal menu and add to the menu bar
 
@@ -101,7 +101,7 @@ Mainwin::Mainwin() : shelter{new Shelter{"Mavs Animal Shelter"}} {
     animalmenu->append(*menuitem_listadopted);
 
 ////////////////////////////////////////////////////////////////////
-    
+
      //     C L I E N T
     // Create an Client menu and add to the menu bar
 
@@ -144,7 +144,7 @@ Mainwin::Mainwin() : shelter{new Shelter{"Mavs Animal Shelter"}} {
     Gtk::Toolbar *toolbar = Gtk::manage(new Gtk::Toolbar);
     toolbar->override_background_color(Gdk::RGBA{"gray"});
     vbox->pack_start(*toolbar, Gtk::PACK_SHRINK, 0);
-
+/*
     Gtk::Image *load_image = Gtk::manage(new Gtk::Image("load.png"));
     Gtk::ToolButton *load_shelter_button = Gtk::manage(new Gtk::ToolButton(*load_image));
     load_shelter_button->set_tooltip_markup("Load a .muss file");
@@ -156,7 +156,7 @@ Mainwin::Mainwin() : shelter{new Shelter{"Mavs Animal Shelter"}} {
     save_shelter_button->set_tooltip_markup("Save a .muss file");
     save_shelter_button->signal_clicked().connect([this] {this->on_save_click();});
     toolbar->append(*save_shelter_button);
-
+*/
 
     Gtk::Image *new_animal = Gtk::manage(new Gtk::Image("dog_aboutx.png"));
     Gtk::ToolButton *new_animal_button = Gtk::manage(new Gtk::ToolButton(*new_animal));
@@ -205,7 +205,7 @@ Mainwin::Mainwin() : shelter{new Shelter{"Mavs Animal Shelter"}} {
     toolbar->append(*quit_button);
 
 ////////////////////////////////////////////////////////////////////
-   
+
      // ///////////////////////
     // D A T A   D I S P L A Y
     // Provide a text entry box to show the remaining data
@@ -458,7 +458,7 @@ void Mainwin::on_adopt_animal_click()
   while(dialog.run()) {
   client_a = c_client.get_active_row_number();
   animal_a = c_animal.get_active_row_number();
-  
+
   Animal& animal = shelter->animal(animal_a);
   Client& client = shelter->client(client_a);
   shelter->adopt(client,animal);
@@ -518,7 +518,7 @@ void Mainwin::on_list_adopted_click()
 }
 }
 ////////////////////////////////////////////////////////////////////
-
+/*
     void Mainwin::on_save_as_click() {
     Gtk::FileChooserDialog dialog("Please choose a file",
           Gtk::FileChooserAction::FILE_CHOOSER_ACTION_SAVE);
@@ -563,7 +563,7 @@ void Mainwin::on_open_click() {
     filter_ctp->set_name(MUSS);
     filter_ctp->add_pattern("*."+MUSS);
     dialog.add_filter(filter_ctp);
- 
+
     auto filter_any = Gtk::FileFilter::create();
     filter_any->set_name("Any files");
     filter_any->add_pattern("*");
@@ -597,7 +597,7 @@ void Mainwin::on_save_click() {
         Gtk::MessageDialog{*this, "Unable to save data", false, Gtk::MESSAGE_ERROR}.run();
     }
 }
-
+*/
 ////////////////////////////////////////////////////////////////////
 /*
 void Mainwin::on_profile_manager_click() {} //BONUS FEATURE
@@ -629,13 +629,13 @@ void Mainwin::on_about_click() {
 // /////////////
 // S I G N A L S
 // /////////////
-
+/*
 // Signaled when the main window is about to close
 // False enables closing the app, true aborts close
 bool Mainwin::on_delete_event(GdkEventAny* event) {
     return !all_data_saved();
 }
-
+*/
 ////////////////////////////////////////////////////////////////////
 
 // //////////////////
@@ -648,7 +648,7 @@ bool Mainwin::on_delete_event(GdkEventAny* event) {
 void Mainwin::status(std::string s) {msg->set_text(s);}
 
 ////////////////////////////////////////////////////////////////////
-
+/*
 bool Mainwin::all_data_saved() {
   //if (shelter->saved()) return true;
   Gtk::MessageDialog dialog{*this, "Unsaved data will be lost", false,Gtk::MESSAGE_WARNING, Gtk::BUTTONS_NOg_object_ref: assertion 'G_IS_OBJECT (object)' failedNE};
@@ -672,6 +672,5 @@ bool Mainwin::all_data_saved() {
     return false;
   }
 }
-
+*/
 ///////////////////////////////////////////////////////////////////
-
