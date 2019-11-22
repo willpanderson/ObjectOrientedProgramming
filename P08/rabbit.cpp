@@ -31,11 +31,19 @@ std::string to_string(const rabbit_breed& breed)
 
 }
 
-std::ostream& operator<<(std::ostream& ost, const rabbit_breed& breed) 
+std::ostream& operator<<(std::ostream& ost, const rabbit_breed& breed)
 {
     ost << ::to_string(breed);
     return ost;
 }
 
-void Rabbit::save(std::ostream& ost) {ost << _x << ' ' << _y << ' ';}
+void Rabbit::save(std::ostream& ost)
+{
+  ost << _breed << std::endl;
 
+}
+
+void Rabbit::load(std::istream& ist)
+{
+  ist >> _breed;
+}

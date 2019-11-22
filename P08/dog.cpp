@@ -30,8 +30,16 @@ std::string to_string(const Dog_breed& breed) {
 std::ostream& operator<<(std::ostream& ost, const Dog_breed& breed) {
     ost << ::to_string(breed);
     return ost;
-    
+
 }
 
-void Dog::save(std::ostream& ost) {ost << _x << ' ' << _y << ' ';}
+void Dog::save(std::ostream& ost)
+{
+  ost << _breed << std::endl;
 
+}
+
+void Dog::load(std::istream& ist)
+{
+  ist >> _breed;
+}

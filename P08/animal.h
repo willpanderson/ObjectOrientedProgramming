@@ -2,6 +2,8 @@
 #define __ANIMAL_H
 
 #include <ostream>
+#include <istream>
+
 
 enum class Gender{FEMALE, MALE};
 std::string to_string(Gender gender);

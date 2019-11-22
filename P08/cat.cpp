@@ -27,7 +27,7 @@ std::string to_string(const cat_breed& breed)
   };
 
 	return breeds[breed];
- 
+
 }
 
 std::ostream& operator<<(std::ostream& ost, const cat_breed& breed) {
@@ -35,5 +35,12 @@ std::ostream& operator<<(std::ostream& ost, const cat_breed& breed) {
     return ost;
 }
 
-void Cat::save(std::ostream& ost) {ost << _x << ' ' << _y << ' ';}
+void Cat::save(std::ostream& ost)
+{
+  ost << _breed << std::endl;
+}
 
+void Cat::load(std::istream& ist)
+{
+  ist >> _breed;
+}
