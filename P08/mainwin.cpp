@@ -546,7 +546,7 @@ void Mainwin::on_save_as_click() {
         std::ofstream ofs{dialog.get_filename()};
         if(!ofs) throw std::runtime_error{"Error writing file"};
     }
-
+}
 ////////////////////////////////////////////////////////////////////
 
 //void Mainwin::on_new_shelter_click() {}
