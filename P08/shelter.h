@@ -16,16 +16,19 @@ class Shelter {
     int num_clients();
     Client& client(int index);
     void adopt(Client& client, Animal& animal);
+    std::string get_filename();
     void set_filename(std::string filename);
+    //void clear(); // clear all drawings from the canvas
+    //bool saved(); // true if all data has been saved
     //void save(std::ostream& ost);
     //void load(std::istream& ist);
-   std::string filename();
+protected:
+   std::string filename;
 
   private:
     std::string _name;
     std::vector<Animal*> _available;
     std::vector<Client> _clients;
-    std::string _filename;
 };
 
 #endif
