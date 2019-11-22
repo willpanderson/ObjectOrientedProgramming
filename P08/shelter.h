@@ -19,13 +19,13 @@ class Shelter {
     void set_filename(std::string filename);
     //void save(std::ostream& ost);
     //void load(std::istream& ist);
-  protected:
    std::string filename();
 
   private:
     std::string _name;
     std::vector<Animal*> _available;
     std::vector<Client> _clients;
+    std::string _filename
 };
 
 #endif
