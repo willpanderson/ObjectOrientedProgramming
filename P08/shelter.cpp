@@ -38,7 +38,7 @@ void Shelter::adopt(Client& client,Animal& animal) {
 
 //std::string Shelter::filename() :filename{filename}
 //{return filename;}
-
+/*
 void Shelter::save(std::ostream& ost)
  {
   ost << _name << std::endl;
@@ -50,3 +50,4 @@ void Shelter::load(std::istream& ist)
 {
   ist >> _name >> _available >> _clients;
 }
+*/
