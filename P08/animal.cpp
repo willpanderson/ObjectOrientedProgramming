@@ -35,7 +35,7 @@ std::ostream& operator<<(std::ostream& ost, const Gender& gender) {
     return ost;
 }
 
-
+/*
 void Animal::save(std::ostream& ost)
 {
   ost << _name << std::endl;
@@ -47,3 +47,4 @@ void Animal::load(std::istream& ist)
 {
   ist >> _name >> _gender >> _age;
 }
+*/
