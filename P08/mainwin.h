@@ -21,12 +21,12 @@ class Mainwin : public Gtk::Window {
         void on_list_clients_click();      // List all clients
         void on_adopt_animal_click();      // Adopt an animal
         void on_list_adopted_click();      // List adoption list
-     // void on_profile_manager_click();   // Change access mode
+       // void on_profile_manager_click();   // Change access mode
         //void on_open_click();              // Open an existing file
       //  void on_new_shelter_click();       // Create a new shelter
         //void on_save_as_click();
       //  void on_save_click();
-        //bool on_delete_event(GdkEventAny* event);
+      // bool on_delete_event(GdkEventAny* event);
       //  bool safe_to_exit();
       //  bool all_data_saved();          // Save shelter into file
         void on_about_click();           // See important info
