@@ -49,11 +49,11 @@ Mainwin::Mainwin() : shelter{new Shelter{"Mavs Animal Shelter"}} {
     Gtk::MenuItem *menuitem_load = Gtk::manage(new Gtk::MenuItem("_Load Shelter", true));
     menuitem_load->signal_activate().connect([this] {this->on_open_click();});
     filemenu->append(*menuitem_load);
-/*
+
     Gtk::MenuItem *menuitem_save = Gtk::manage(new Gtk::MenuItem("_Save", true));
     menuitem_save->signal_activate().connect([this] {this->on_save_click();});
     filemenu->append(*menuitem_save);
-*/
+
     Gtk::MenuItem *menuitem_saveas = Gtk::manage(new Gtk::MenuItem("_Save As", true));
     menuitem_saveas->signal_activate().connect([this] {this->on_save_as_click();});
     filemenu->append(*menuitem_saveas);
@@ -150,13 +150,13 @@ Mainwin::Mainwin() : shelter{new Shelter{"Mavs Animal Shelter"}} {
     load_shelter_button->set_tooltip_markup("Load a .muss file");
     load_shelter_button->signal_clicked().connect([this] {this->on_open_click();});
     toolbar->append(*load_shelter_button);
-/*
+
     Gtk::Image *save_image = Gtk::manage(new Gtk::Image("save_file.png"));
     Gtk::ToolButton *save_shelter_button = Gtk::manage(new Gtk::ToolButton(*save_image));
     save_shelter_button->set_tooltip_markup("Save a .muss file");
     save_shelter_button->signal_clicked().connect([this] {this->on_save_click();});
     toolbar->append(*save_shelter_button);
-*/
+
 
     Gtk::Image *new_animal = Gtk::manage(new Gtk::Image("dog_aboutx.png"));
     Gtk::ToolButton *new_animal_button = Gtk::manage(new Gtk::ToolButton(*new_animal));
