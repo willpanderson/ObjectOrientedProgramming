@@ -587,16 +587,16 @@ void Mainwin::on_open_click() {
 }
 
 ////////////////////////////////////////////////////////////////////
-/*
+
 void Mainwin::on_save_click() {
     try {
-        std::ofstream ofs{shelter->filename()};
-        shelter->save(ofs);
+        std::ofstream ofs{shelter->get_filename()};
+        //shelter->save(ofs);
     } catch(std::exception e) {
         Gtk::MessageDialog{*this, "Unable to save data", false, Gtk::MESSAGE_ERROR}.run();
     }
 }
-*/
+
 ////////////////////////////////////////////////////////////////////
 /*
 void Mainwin::on_profile_manager_click() {} //BONUS FEATURE
@@ -650,7 +650,7 @@ void Mainwin::status(std::string s) {msg->set_text(s);}
 /*
 bool Mainwin::all_data_saved() {
   //if (shelter->saved()) return true;
-  Gtk::MessageDialog dialog{*this, "Unsaved data will be lost", false,Gtk::MESSAGE_WARNING, Gtk::BUTTONS_NOg_object_ref: assertion 'G_IS_OBJECT (object)' failedNE};
+  //Gtk::MessageDialog dialog{*this, "Unsaved data will be lost", false,Gtk::MESSAGE_WARNING, Gtk::BUTTONS_NOg_object_ref: assertion 'G_IS_OBJECT (object)' failedNE};
 
   dialog.add_button("Save", 1);
   dialog.add_button("Discard", 2);
