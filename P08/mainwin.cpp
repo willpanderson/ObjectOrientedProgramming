@@ -19,7 +19,7 @@ Mainwin::Mainwin() : shelter{new Shelter{"Mavs Animal Shelter"}} {
     set_title(APP_TITLE);
 
     // Notify when the main window is closing
-    //signal_delete_event().connect([this] (GdkEventAny* event) -> bool {this->on_delete_event(event);});
+    signal_delete_event().connect([this] (GdkEventAny* event) -> bool {this->on_delete_event(event);});
 
 
     // Put a vertical box container as the Window contents
@@ -628,13 +628,13 @@ void Mainwin::on_about_click() {
 // /////////////
 // S I G N A L S
 // /////////////
-/*
+
 // Signaled when the main window is about to close
 // False enables closing the app, true aborts close
 bool Mainwin::on_delete_event(GdkEventAny* event) {
     return !all_data_saved();
 }
-*/
+
 ////////////////////////////////////////////////////////////////////
 
 // //////////////////
