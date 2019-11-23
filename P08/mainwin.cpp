@@ -650,7 +650,7 @@ void Mainwin::status(std::string s) {msg->set_text(s);}
 
 bool Mainwin::all_data_saved() {
   //if (shelter->saved()) return true;
-  //Gtk::MessageDialog dialog{*this, "Unsaved data will be lost", false,Gtk::MESSAGE_WARNING, Gtk::BUTTONS_NOg_object_ref: assertion 'G_IS_OBJECT (object)' failedNE};
+  Gtk::MessageDialog dialog{*this, "Unsaved data will be lost", false,Gtk::MESSAGE_WARNING, Gtk::BUTTONS_NONE};
 
   dialog.add_button("Save", 1);
   dialog.add_button("Discard", 2);
