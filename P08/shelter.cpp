@@ -38,16 +38,18 @@ void Shelter::adopt(Client& client,Animal& animal) {
 
 std::string Shelter::get_filename() {return filename;}
 void Shelter::set_filename(std::string filename) {this->filename = filename;}
-/*
+
 void Shelter::save(std::ostream& ost)
  {
-  ost << _name << std::endl;
-  ost << _available << std::endl;
-  ost << _clients << std::endl;
+  ost << clients.size() << ' '
+  for (Client s : clients) s.save(ost);
+  ost << _name << ' ' << _available << ' ' <<_clients;
   }
 
 void Shelter::load(std::istream& ist)
 {
-  ist >> _name >> _available >> _clients;
+  //bool was_dirty = (shapes.size() > 0);
+  //while(ist) {
+    //  std::string typetag;
+  //}
 }
-*/
