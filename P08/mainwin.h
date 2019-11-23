@@ -26,8 +26,8 @@ class Mainwin : public Gtk::Window {
       //  void on_new_shelter_click();       // Create a new shelter
         void on_save_as_click();
         void on_save_click();
-      // bool on_delete_event(GdkEventAny* event);
-      //  bool safe_to_exit();
+     bool on_delete_event(GdkEventAny* event);
+        bool safe_to_exit();
       //  bool all_data_saved();          // Save shelter into file
         void on_about_click();           // See important info
         void status(std::string s);        // Set the status message
