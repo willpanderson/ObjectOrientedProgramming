@@ -43,6 +43,6 @@ void Rabbit::save(std::ostream& ost)
   ost << _breed << ' ' << family() << std::endl;
 }
 
-Rabbit::Rabbit(std::istream& ist)
-{
-}
+//Rabbit::Rabbit(std::istream& ist)
+//{
+//}

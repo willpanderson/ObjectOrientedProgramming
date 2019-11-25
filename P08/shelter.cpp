@@ -43,6 +43,6 @@ void Shelter::save(std::ostream& ost)
  {
 }
 
-Shelter::Shelter(std::istream& ist)
-{
-}
+//Shelter::Shelter(std::istream& ist)
+//{
+//}

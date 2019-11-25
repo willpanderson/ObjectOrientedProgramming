@@ -40,6 +40,6 @@ void Cat::save(std::ostream& ost)
   Animal::save(ost);
   ost << _breed << ' ' << family() << std::endl;
 }
-Cat::Cat(std::istream& ist)
-{
-}
+//Cat::Cat(std::istream& ist)
+//{
+//}

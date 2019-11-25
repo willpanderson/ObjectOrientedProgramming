@@ -39,6 +39,6 @@ void Dog::save(std::ostream& ost)
   ost << _breed << ' ' << family() << std::endl;
 }
 
-Dog::Dog(std::istream& ist)
-{
-}
+//Dog::Dog(std::istream& ist)
+//{
+//}

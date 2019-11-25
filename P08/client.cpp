@@ -27,13 +27,13 @@ int Client::num_adopted() {return _adopted.size();}
 void Client::adopt(Animal& animal) {
  _adopted.push_back(&animal);
 }
+//
+//Client::Client(std::istream& ist)
+//{
 
-Client::Client(std::istream& ist)
-{
-
-}
+//}
 
 void Client::save(std::ostream& ost)
 {
-  
+
 }
