@@ -45,9 +45,10 @@ void Rabbit::save(std::ostream& ost)
   ost << _age << std::endl;
   ost << _breed << std::endl;
 }
-
+/*
 Rabbit::Rabbit(std::istream& ist) : Animal(ist)
 {
   ist >> breed;
   Animal(ist);
 }
+*/

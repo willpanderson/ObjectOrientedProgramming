@@ -28,10 +28,10 @@ void Client::adopt(Animal& animal) {
  _adopted.push_back(&animal);
 }
 
-Client::Client(std::istream& ist)
-{
- ist >> _name >> ' ' >> _phone >> ' ' _email;
-}
+//Client::Client(std::istream& ist)
+//{
+
+//}
 
 void Client::save(std::ostream& ost)
 {

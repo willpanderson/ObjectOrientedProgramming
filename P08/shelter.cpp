@@ -41,6 +41,8 @@ void Shelter::set_filename(std::string filename) {this->filename = filename;}
 
 void Shelter::save(std::ostream& ost)
 {
+  ost << _name >> std::endl;
+
  for (auto a : _available)
  {
    a.save(ost);
@@ -50,7 +52,28 @@ void Shelter::save(std::ostream& ost)
    b.save(ost);
  }
 }
-
+/*
 Shelter::Shelter(std::istream& ist)
 {
+  ist >> _name;
+  int X;
+  ist >> X
+  for (int i = 0; i < N; i++)
+  {
+    std::string data;
+    ist >> data;
+    Animal *a;
+  if (data == "dog")
+  {
+    a = new Dog(ist);
+  }
+  else if (data == "cat")
+  {
+    a = new Cat(ist);
+  }
+  else if (data == "rabbit")
+  {
+    a = new Rabbit(ist);
 }
+}
+*/
