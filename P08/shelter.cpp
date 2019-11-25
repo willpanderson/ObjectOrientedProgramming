@@ -45,11 +45,11 @@ void Shelter::save(std::ostream& ost)
 
  for (auto a : _available)
  {
-   a.save(ost);
+   a->save(ost);
  }
  for (auto b : _clients)
  {
-   b.save(ost);
+   b->save(ost);
  }
 }
 /*
