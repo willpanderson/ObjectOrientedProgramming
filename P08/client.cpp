@@ -38,7 +38,7 @@ void Client::save(std::ostream& ost)
  ost << _name << std::endl;
  ost << _email << std::endl;
  ost << _phone << std::endl;
- for (auto *z = _adopted)
+ for (auto *z : _adopted)
  {
    z->save(ost);
 
