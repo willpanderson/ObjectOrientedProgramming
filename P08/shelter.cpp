@@ -41,7 +41,7 @@ void Shelter::set_filename(std::string filename) {this->filename = filename;}
 
 void Shelter::save(std::ostream& ost)
 {
-  ost << _name >> std::endl;
+  ost << _name << std::endl;
 
  for (auto a : _available)
  {
