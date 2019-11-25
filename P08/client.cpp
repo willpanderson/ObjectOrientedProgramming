@@ -30,7 +30,7 @@ void Client::adopt(Animal& animal) {
 
 Client::Client(std::istream& ist)
 {
- ist >> _name >>_phone >> _email;
+ ist >> _name >> ' ' >> _phone >> ' ' _email;
 }
 
 void Client::save(std::ostream& ost)

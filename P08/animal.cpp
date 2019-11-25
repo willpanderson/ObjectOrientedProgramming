@@ -43,5 +43,5 @@ void Animal::save(std::ostream& ost)
 
 Animal::Animal(std::istream& ist)
 {
-  ist >> _name >> _gender >> _age;
+  ist >> _name >> ' ' >> _gender >> ' ' >> _age;
 }
