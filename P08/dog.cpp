@@ -33,7 +33,7 @@ std::ostream& operator<<(std::ostream& ost, const Dog_breed& breed) {
 
 }
 
-void Dog::save(std::ostream& ost) override
+void Dog::save(std::ostream& ost)
 {
   Animal::save(ost);
   ost << _breed << ' ' << family() << std::endl;
