@@ -41,15 +41,15 @@ void Shelter::set_filename(std::string filename) {this->filename = filename;}
 
 void Shelter::save(std::ostream& ost)
  {
-   ost << shelter->name() << ' ';
+   ost << Shelter->name() << ' ';
    for (int i = 0; i < num_clients(); i++)
     {
-      ost << shelter->animal(i) << ' ';
+      ost << Shelter->animal(i) << ' ';
     }
   for (int j = 0; j < num_clients; j++)
     {
-      ost << shelter->client(i) << ' ';
-    } 
+      ost << Shelter->client(i) << ' ';
+    }
   }
 
 void Shelter::load(std::istream& ist)
