@@ -40,9 +40,10 @@ std::string Shelter::get_filename() {return filename;}
 void Shelter::set_filename(std::string filename) {this->filename = filename;}
 
 void Shelter::save(std::ostream& ost)
- {
+{
+
 }
 
-//Shelter::Shelter(std::istream& ist)
-//{
-//}
+Shelter::Shelter(std::istream& ist)
+{
+}
