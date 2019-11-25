@@ -32,15 +32,12 @@ std::ostream& operator<<(std::ostream& ost, const Dog_breed& breed) {
     return ost;
 
 }
-/*
+
 void Dog::save(std::ostream& ost)
 {
-  ost << _breed << std::endl;
 
 }
 
-void Dog::load(std::istream& ist)
+Dog::Dog(std::istream& ist)
 {
-  ist >> _breed;
 }
-*/
