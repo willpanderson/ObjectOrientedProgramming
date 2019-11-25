@@ -581,7 +581,6 @@ void Mainwin::on_open_click() {
         try {
             std::ifstream ifs{dialog.get_filename()};
             if(!ifs) throw std::runtime_error{"File contents bad"};
-            shelter->
         } catch (std::exception& e) {
             Gtk::MessageDialog{*this, "Unable to open shelter"}.run();
         }
