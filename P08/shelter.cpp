@@ -41,7 +41,14 @@ void Shelter::set_filename(std::string filename) {this->filename = filename;}
 
 void Shelter::save(std::ostream& ost)
 {
-
+ for (auto a : _available)
+ {
+   a.save(ost);
+ }
+ for (auto b : _clients)
+ {
+   b.save(ost);
+ }
 }
 
 Shelter::Shelter(std::istream& ist)

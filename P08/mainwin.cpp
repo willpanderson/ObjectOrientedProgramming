@@ -544,6 +544,7 @@ void Mainwin::on_save_as_click() {
 
     if (result == 1) {
         std::ofstream ofs{dialog.get_filename()};
+        shelter->save(ofs);
         if(!ofs) throw std::runtime_error{"Error writing file"};
     }
 }
@@ -580,6 +581,7 @@ void Mainwin::on_open_click() {
         try {
             std::ifstream ifs{dialog.get_filename()};
             if(!ifs) throw std::runtime_error{"File contents bad"};
+            shelter->
         } catch (std::exception& e) {
             Gtk::MessageDialog{*this, "Unable to open shelter"}.run();
         }
@@ -665,7 +667,7 @@ bool Mainwin::all_data_saved() {
         return false;
     }
   } else if (response == 2) { // Discard
-    //canvas->clear();
+    //shelter->clear();
     return true;
   } else {                    // Cancel
     return false;

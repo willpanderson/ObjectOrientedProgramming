@@ -35,5 +35,5 @@ Client::Client(std::istream& ist)
 
 void Client::save(std::ostream& ost)
 {
- ost << _name << ' ' << _phone << _email;
+ 
 }

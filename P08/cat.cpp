@@ -37,8 +37,11 @@ std::ostream& operator<<(std::ostream& ost, const cat_breed& breed) {
 
 void Cat::save(std::ostream& ost)
 {
-  Animal::save(ost);
-  ost << _breed << ' ' << family() << std::endl;
+  ost << family() << std::endl;
+  ost << _name << std::endl;
+  ost << _gender << std::endl;
+  ost << _age << std::endl;
+  ost << _breed << std::endl;
 }
 
 Cat::Cat(std::istream& ist) : Animal(ist)

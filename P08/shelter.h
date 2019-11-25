@@ -20,7 +20,7 @@ class Shelter {
     void set_filename(std::string filename);
     //void clear(); // clear all drawings from the canvas
     //bool saved(); // true if all data has been saved
-    virtual void save(std::ostream& ost);
+    virtual void save(std::ostream& ost) = 0;
     Shelter(std::istream& ist);
 protected:
    std::string filename;
