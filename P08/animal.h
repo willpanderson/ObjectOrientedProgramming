@@ -22,6 +22,7 @@ class Animal {
     int age() const;
     virtual std::string to_string() const;
     friend std::ostream& operator<<(std::ostream& ost, const Animal& animal);
+    virtual void save(std::ostream& ost) = 0;
     //Animal(std::istream& ist);
 
   protected:
