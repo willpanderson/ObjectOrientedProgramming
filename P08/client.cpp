@@ -41,6 +41,5 @@ void Client::save(std::ostream& ost)
  for (auto *z : _adopted)
  {
    z->save(ost);
-
 }
   }
