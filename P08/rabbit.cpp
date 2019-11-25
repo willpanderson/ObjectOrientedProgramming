@@ -39,6 +39,8 @@ std::ostream& operator<<(std::ostream& ost, const rabbit_breed& breed)
 
 void Rabbit::save(std::ostream& ost)
 {
+  Animal::save(ost);
+  ost << _breed << ' ' << family() << std::endl;
 }
 
 Rabbit::Rabbit(std::istream& ist)

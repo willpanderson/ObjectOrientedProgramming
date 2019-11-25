@@ -15,6 +15,8 @@ class Client {
     Animal& animal(int index) const;
     void adopt(Animal& animal);
     int num_adopted();
+    Client(std::istream& ist);
+    void save(std::ostream& ost);
 
   private:
     std::string _name;

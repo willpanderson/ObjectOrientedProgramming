@@ -42,9 +42,9 @@ class Rabbit : public Animal {
     virtual ~Rabbit();
     virtual std::string family() const override;
     virtual std::string breed() const override;
-    virtual void save(std::ostream& ost);
+    virtual void save(std::ostream& ost) override;
     Rabbit(std::istream& ist);
-    
+
   private:
     rabbit_breed _breed;
 };
