@@ -41,9 +41,15 @@ void Shelter::set_filename(std::string filename) {this->filename = filename;}
 
 void Shelter::save(std::ostream& ost)
  {
-//  ost << client.size() << ' '
-  //for (Client s : clients) s.save(ost);
-  //ost << _name << ' ' << _available << ' ' <<_clients;
+   ost << shelter->name() << ' ';
+   for (int i = 0; i < num_clients(); i++)
+    {
+      ost << shelter->animal(i) << ' ';
+    }
+  for (int j = 0; j < num_clients; j++)
+    {
+      ost << shelter->client(i) << ' ';
+    } 
   }
 
 void Shelter::load(std::istream& ist)
