@@ -591,7 +591,7 @@ void Mainwin::on_open_click() {
 void Mainwin::on_save_click() {
     try {
         std::ofstream ofs{shelter->get_filename()};
-        //shelter->save(ofs);
+        shelter->save(ofs);
     } catch(std::exception e) {
         Gtk::MessageDialog{*this, "Unable to save data", false, Gtk::MESSAGE_ERROR}.run();
     }
