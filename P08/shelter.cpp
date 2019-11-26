@@ -55,25 +55,6 @@ void Shelter::save(std::ostream& ost)
 /*
 Shelter::Shelter(std::istream& ist)
 {
-  ist >> _name;
-  int X;
-  ist >> X
-  for (int i = 0; i < N; i++)
-  {
-    std::string data;
-    ist >> data;
-    Animal *a;
-  if (data == "dog")
-  {
-    a = new Dog(ist);
-  }
-  else if (data == "cat")
-  {
-    a = new Cat(ist);
-  }
-  else if (data == "rabbit")
-  {
-    a = new Rabbit(ist);
-}
+
 }
 */
