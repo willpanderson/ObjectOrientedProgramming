@@ -245,11 +245,6 @@ Mainwin::~Mainwin() { }
 void Mainwin::on_quit_click() { close();}
 
 ///////////////////////////////////////////////////////////////////
-
-void Mainwin::on_quit_click() {
-    close();
-}
-
 void Mainwin::on_new_animal_click() {
     status("");
 
