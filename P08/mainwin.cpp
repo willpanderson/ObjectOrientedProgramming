@@ -576,7 +576,7 @@ void Mainwin::status(std::string s) {
 ////////////////////////////////////////////////////////////////////
 
 void Mainwin::on_save_as_click() {
-    Gtk::FileChooserDialog dialog("Please choose a file",
+    Gtk::FileChooserDialog dialog("Save As",
           Gtk::FileChooserAction::FILE_CHOOSER_ACTION_SAVE);
     dialog.set_transient_for(*this);
 
