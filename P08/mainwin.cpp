@@ -283,7 +283,7 @@ void Mainwin::on_open_click() {
         shelter = new Shelter{ifs};
 }
     } catch (std::exception& e) {
-       // shelter = new Shelter;
+       shelter{new Shelter{"Mavs Animal Shelter"}}
         std::ostringstream oss;
         oss << "Unable to open file\n" << e.what();
         Gtk::MessageDialog{*this, oss.str(), false, Gtk::MESSAGE_ERROR}.run();
@@ -376,17 +376,17 @@ void Mainwin::on_new_animal_click() {
         if (e_name.get_text().size() == 0) {e_name.set_text("*required*"); continue;}
         Animal* animal;
         if (animal_type == "Dog")
-            animal = new Dog{dog_breeds[c_breed.get_active_row_number()], 
+            animal = new Dog{dog_breeds[c_breed.get_active_row_number()],
                              e_name.get_text(),
                              (c_gender.get_active_row_number() ? Gender::MALE : Gender::FEMALE),
                              static_cast<int>(s_age.get_value())};
         else if (animal_type == "Cat")
-            animal = new Cat{cat_breeds[c_breed.get_active_row_number()], 
+            animal = new Cat{cat_breeds[c_breed.get_active_row_number()],
                              e_name.get_text(),
                              (c_gender.get_active_row_number() ? Gender::MALE : Gender::FEMALE),
                              static_cast<int>(s_age.get_value())};
         else if (animal_type == "Rabbit")
-            animal = new Rabbit{rabbit_breeds[c_breed.get_active_row_number()], 
+            animal = new Rabbit{rabbit_breeds[c_breed.get_active_row_number()],
                              e_name.get_text(),
                              (c_gender.get_active_row_number() ? Gender::MALE : Gender::FEMALE),
                              static_cast<int>(s_age.get_value())};
@@ -403,7 +403,7 @@ void Mainwin::on_new_animal_click() {
 void Mainwin::on_list_animals_click() {
     std::ostringstream oss;
     for(int i=0; i<shelter->num_animals(); ++i)
-        oss << shelter->animal(i) << '\n'; 
+        oss << shelter->animal(i) << '\n';
     data->set_text(oss.str());
     status("List of All Animals");
 }
@@ -454,7 +454,7 @@ void Mainwin::on_new_client_click() {
 void Mainwin::on_list_clients_click() {
     std::ostringstream oss;
     for(int i=0; i<shelter->num_clients(); ++i)
-        oss << shelter->client(i) << '\n'; 
+        oss << shelter->client(i) << '\n';
     data->set_text(oss.str());
     status("List of All Clients");
 }
