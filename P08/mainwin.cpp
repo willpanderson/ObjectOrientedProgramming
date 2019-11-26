@@ -46,7 +46,7 @@ Mainwin::Mainwin() : shelter{new Shelter{"Mavs Animal Shelter"}} {
 
     //         S A V E  A S
     // Append Save to the File menu
-    Gtk::MenuItem *menuitem_saveas = Gtk::manage(new Gtk::MenuItem("_Save", true));
+    Gtk::MenuItem *menuitem_saveas = Gtk::manage(new Gtk::MenuItem("_Save As", true));
     menuitem_saveas->signal_activate().connect([this] {this->on_save_as_click();});
     filemenu->append(*menuitem_saveas);
 
