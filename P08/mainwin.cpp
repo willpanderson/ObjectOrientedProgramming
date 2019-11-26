@@ -582,7 +582,7 @@ void Mainwin::on_save_as_click() {
 
     auto filter_ctp = Gtk::FileFilter::create();
     filter_ctp->set_name(MASS);
-    filter_ctp->add_pattern("*."+MASS);
+    filter_ctp->add_pattern("*"+MASS);
     dialog.add_filter(filter_ctp);
 
     auto filter_any = Gtk::FileFilter::create();
@@ -590,7 +590,7 @@ void Mainwin::on_save_as_click() {
     filter_any->add_pattern("*");
     dialog.add_filter(filter_any);
 
-    dialog.set_filename("untitled."+MASS);
+    dialog.set_filename("untitled"+MASS);
 
     //Add response buttons the the dialog:
     dialog.add_button("_Cancel", 0);
