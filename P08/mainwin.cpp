@@ -251,7 +251,7 @@ Mainwin::~Mainwin() { }
 // /////////////////
 void Mainwin::on_new_shelter_click()
 {
-
+ new Shelter;
 }
 void Mainwin::on_open_click() {
     try {
