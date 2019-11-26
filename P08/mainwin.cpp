@@ -245,50 +245,54 @@ Mainwin::~Mainwin() { }
 void Mainwin::on_quit_click() { close();}
 
 ///////////////////////////////////////////////////////////////////
+
 void Mainwin::on_new_animal_click() {
-    status("");
 
-    Gtk::Dialog adialog{"Animal Type", *this};
-    Gtk::ComboBoxText atype;
-    atype.append("Dog");
-    atype.append("Cat");
-    atype.append("Rabbit");
-    atype.set_active(0);
-    adialog.get_content_area()->pack_start(atype, Gtk::PACK_SHRINK, 0);
-    adialog.add_button("Select", 1);
-    adialog.add_button("Cancel", 0);
-    adialog.show_all();
-    if (adialog.run() == 0) return;
 
-    std::string animal_type;
-    Gtk::ComboBoxText c_breed;
-    if (atype.get_active_row_number() == 0) {
-        animal_type = "Dog";
-        for(auto b : dog_breeds) c_breed.append(to_string(b));
-    } else if (atype.get_active_row_number() == 1) {
-        animal_type = "Cat";
-        for (auto& [c, s] : cats_map) c_breed.append(to_string(c));
-    } else if (atype.get_active_row_number() == 2) {
-        animal_type = "Rabbit";
-        for(auto r : rabbit_breeds) c_breed.append(to_string(r));
-    }
-    c_breed.set_active(0);
+    Gtk::Dialog dialoga{"Animal Information", *this};
+    Gtk::Grid grid2;
+    Gtk::Label l_type{"Animal Type"};
+    Gtk::ComboBoxText c_type;
+    c_type.append("Dog");
+    c_type.append("Cat");
+    c_type.append("Rabbit");
+    c_type.set_active(0);
+    dialoga.get_content_area()->add(grid2);
+    dialoga.add_button("Add", 1);
+    dialoga.add_button("Cancel", 0);
+    grid2.attach(l_type, 0, 2, 1, 1);
+    grid2.attach(c_type, 1, 2, 2, 1);
+    dialoga.show_all();
+    int selection = -1;
+    int option = dialoga.run();
 
-    Gtk::Dialog dialog{animal_type + "Information", *this};
+    if (option == 1)
+   {
+    selection = c_type.get_active_row_number();
+    dialoga.close();
+
+    Gtk::Dialog dialog{"Animal Information", *this};
 
     Gtk::Grid grid;
 
-    Gtk::Label l_name{"Name"};
+    Gtk::Label l_name{"Name:"};
     Gtk::Entry e_name;
     grid.attach(l_name, 0, 0, 1, 1);
     grid.attach(e_name, 1, 0, 2, 1);
 
-    Gtk::Label l_breed{"Breed"};
+    Gtk::Label l_breed{"Breed:"};
+    Gtk::ComboBoxText c_breed;
+    if (selection == 0)
+    	for(auto b : dog_breeds) c_breed.append(to_string(b));
+    else if (selection == 1)
+    	for(auto b : cat_breeds) c_breed.append(to_string(b));
+    else if (selection == 2)
+        for(auto b : rabbit_breeds) c_breed.append(to_string(b));
     c_breed.set_active(0);
     grid.attach(l_breed, 0, 1, 1, 1);
     grid.attach(c_breed, 1, 1, 2, 1);
 
-    Gtk::Label l_gender{"Gender"};
+    Gtk::Label l_gender{"Gender:"};
     Gtk::ComboBoxText c_gender;
     c_gender.append("Female");
     c_gender.append("Male");
@@ -306,195 +310,210 @@ void Mainwin::on_new_animal_click() {
 
     dialog.get_content_area()->add(grid);
 
-    dialog.add_button("Add " + animal_type, 1);
+    dialog.add_button("Add", 1);
     dialog.add_button("Cancel", 0);
 
     dialog.show_all();
 
     while(dialog.run()) {
-        if (e_name.get_text().size() == 0) {e_name.set_text("*required*"); continue;}
-        Animal* animal;
-        if (animal_type == "Dog")
-            animal = new Dog{dog_breeds[c_breed.get_active_row_number()],
-                             e_name.get_text(),
-                             (c_gender.get_active_row_number() ? Gender::MALE : Gender::FEMALE),
-                             static_cast<int>(s_age.get_value())};
-        else if (animal_type == "Cat")
-            animal = new Cat{cat_breeds[c_breed.get_active_row_number()],
-                             e_name.get_text(),
-                             (c_gender.get_active_row_number() ? Gender::MALE : Gender::FEMALE),
-                             static_cast<int>(s_age.get_value())};
-        else if (animal_type == "Rabbit")
-            animal = new Rabbit{rabbit_breeds[c_breed.get_active_row_number()],
-                             e_name.get_text(),
-                             (c_gender.get_active_row_number() ? Gender::MALE : Gender::FEMALE),
-                             static_cast<int>(s_age.get_value())};
-        else
-            throw std::runtime_error{"Invalid animal type: " + animal_type};
-        shelter->add_animal(*animal);
-        std::ostringstream oss;
-        oss << "Added " << *animal;
-        status(oss.str());
-        break;
+        if(e_name.get_text().size() == 0) {e_name.set_text("*required*"); continue;}
+
+    Animal* animal;
+    if (selection == 0)
+    animal = new Dog{dog_breeds[c_breed.get_active_row_number()],
+                                 e_name.get_text(),
+                                 (c_gender.get_active_row_number() ? Gender::MALE : Gender::FEMALE),
+                                 static_cast<int>(s_age.get_value())};
+
+    if (selection == 1)
+    animal = new Cat{cat_breeds[c_breed.get_active_row_number()],
+                                 e_name.get_text(),
+                                 (c_gender.get_active_row_number() ? Gender::MALE : Gender::FEMALE),
+                                 static_cast<int>(s_age.get_value())};
+
+    if (selection == 2)
+    animal = new Rabbit{rabbit_breeds[c_breed.get_active_row_number()],
+                                 e_name.get_text(),
+                                 (c_gender.get_active_row_number() ? Gender::MALE : Gender::FEMALE),
+                                 static_cast<int>(s_age.get_value())};
+
+
+    shelter->add_animal(*animal);
+    std::ostringstream oss;
+    oss << "Added " << *animal;
+    status(oss.str());
+    break;
     }
 }
+}
 
-void Mainwin::on_list_animals_click() {
+///////////////////////////////////////////////////////////////////
+
+void Mainwin::on_list_animals_click()
+{
     std::ostringstream oss;
     for(int i=0; i<shelter->num_animals(); ++i)
         oss << shelter->animal(i) << '\n';
     data->set_text(oss.str());
-    status("List of All Animals");
-}
-void Mainwin::on_new_client_click() {
     status("");
-    Gtk::Dialog dialog{"Client Information", *this};
+}      // List all animals
 
-    Gtk::Grid grid;
+///////////////////////////////////////////////////////////////////
 
-    Gtk::Label l_name{"Name"};
-    Gtk::Entry e_name;
-    grid.attach(l_name, 0, 0, 1, 1);
-    grid.attach(e_name, 1, 0, 2, 1);
+void Mainwin::on_new_client_click()
+{
+  Gtk::Dialog dialog{"Client Information", *this};
 
-    Gtk::Label l_phone{"Phone"};
-    Gtk::Entry e_phone;
-    grid.attach(l_phone, 0, 1, 1, 1);
-    grid.attach(e_phone, 1, 1, 2, 1);
+  Gtk::Grid grid;
 
-    Gtk::Label l_email{"Email"};
-    Gtk::Entry e_email;
-    grid.attach(l_email, 0, 2, 1, 1);
-    grid.attach(e_email, 1, 2, 2, 1);
+  Gtk::Label l_name{"Name:"};
+  Gtk::Entry n_name;
+  grid.attach(l_name, 0, 0, 1, 1);
+  grid.attach(n_name, 1, 0, 2, 1);
 
-    dialog.get_content_area()->add(grid);
+  Gtk::Label l_email{"Email:"};
+  Gtk::Entry e_email;
+  grid.attach(l_email, 0, 1, 1, 1);
+  grid.attach(e_email, 1, 1, 2, 1);
 
-    dialog.add_button("Add Client", 1);
-    dialog.add_button("Cancel", 0);
+  Gtk::Label l_phone{"Phone (no spaces):"};
+  Gtk::Entry p_phone;
+  grid.attach(l_phone, 0, 2, 1, 1);
+  grid.attach(p_phone, 1, 2, 2, 1);
 
-    dialog.show_all();
+  dialog.get_content_area()->add(grid);
 
-    while(dialog.run()) {
-        if (e_name.get_text().size() == 0) {e_name.set_text("*required*"); continue;}
-        if (e_phone.get_text().size() == 0) {e_phone.set_text("*required*"); continue;}
-        if (e_email.get_text().size() == 0) {e_email.set_text("*required*"); continue;}
+  dialog.add_button("Add Client", 1);
+  dialog.add_button("Cancel", 0);
 
-        Client* client = new Client{e_name.get_text(), e_phone.get_text(), e_email.get_text()};
-        shelter->add_client(*client);
+  dialog.show_all();
 
-        std::ostringstream oss;
-        oss << "Added " << *client;
-        status(oss.str());
+  while(dialog.run()) {
+      if(n_name.get_text().size() == 0 || e_email.get_text().size() == 0 || p_phone.get_text().size() == 0 || p_phone.get_text().size() != 10 || n_name.get_text() == "*required*" || e_email.get_text() == "*required*" || p_phone.get_text() == "*required*" )
+       {n_name.set_text("*required*");
+        e_email.set_text("*required*");
+        p_phone.set_text("*required*");
+        continue;}
 
-        break;
-    }
+
+  Client client{n_name.get_text(),e_email.get_text(),p_phone.get_text()};
+  shelter->add_client(client);
+  std::ostringstream oss;
+  oss << "Added " << client;
+  status(oss.str());
+  break;
+
 }
+}
+
+///////////////////////////////////////////////////////////////////
 
 void Mainwin::on_list_clients_click() {
     std::ostringstream oss;
     for(int i=0; i<shelter->num_clients(); ++i)
         oss << shelter->client(i) << '\n';
     data->set_text(oss.str());
-    status("List of All Clients");
-}
-
-void Mainwin::on_adopt_animal_click() {
     status("");
+}      // List all animals
 
-    if(shelter->num_animals() == 0) {
-        Gtk::MessageDialog{*this, "No animals available to adopt!"}.run();
-        return;
-    }
-    if(shelter->num_clients() == 0) {
-        Gtk::MessageDialog{*this, "No clients currently registered!"}.run();
-        return;
-    }
+///////////////////////////////////////////////////////////////////
 
-    Gtk::Dialog dialog{"Adopt an Animal", *this};
+void Mainwin::on_adopt_animal_click()
+{
+  if (shelter->num_clients() == 0 || (shelter->num_animals() == 0))
+  {
+  Gtk::MessageDialog{*this, "No animals or clients defined"}.run();
+  }
+  else{
 
-    Gtk::Grid grid;
+  Gtk::Dialog dialog{"Want to Adopt an Animal?", *this};
+  Gtk::Grid grid;
 
-    Gtk::ComboBoxText c_client;
-    for(int i=0; i<shelter->num_clients(); ++i) {
-        std::ostringstream oss;
-        oss << shelter->client(i);
-        c_client.append(oss.str());
-    }
-    c_client.set_active(0);
-    Gtk::Label l_client{"Client"};
-    grid.attach(l_client, 0, 1, 1, 1);
-    grid.attach(c_client, 1, 1, 2, 1);
+  Gtk::Label l_name{"Client"};
+  Gtk::ComboBoxText c_client;
+  for (int k = 0; k < shelter->num_clients(); k++)
+  {
+    c_client.append(shelter->client(k).name());
+  }
+  c_client.set_active(0);
+  Gtk::Label l_animal{"Animal"};
+  Gtk::ComboBoxText c_animal;
+  for (int l = 0; l < shelter->num_animals(); l++)
+  {
+    c_animal.append(shelter->animal(l).adoptname());
+  }
+  c_animal.set_active(0);
+  grid.attach(l_name, 0, 0, 1, 1);
+  grid.attach(c_client, 1, 0, 2, 1);
+  grid.attach(l_animal, 0, 1, 1, 1);
+  grid.attach(c_animal, 1, 1, 2, 1);
+  dialog.get_content_area()->add(grid);
 
-    Gtk::ComboBoxText c_animal;
-    for(int i=0; i<shelter->num_animals(); ++i) {
-        std::ostringstream oss;
-        oss << shelter->animal(i);
-        c_animal.append(oss.str());
-    }
-    c_animal.set_active(0);
-    Gtk::Label l_animal{"Animal"};
-    grid.attach(l_animal, 0, 0, 1, 1);
-    grid.attach(c_animal, 1, 0, 2, 1);
+  dialog.add_button("Adopt", 1);
+  dialog.add_button("Cancel", 0);
 
-    dialog.get_content_area()->add(grid);
+  dialog.show_all();
+  int client_a;
+  int animal_a;
+  while(dialog.run()) {
+  client_a = c_client.get_active_row_number();
+  animal_a = c_animal.get_active_row_number();
 
-    dialog.add_button("Adopt", 1);
-    dialog.add_button("Cancel", 0);
-
-    dialog.show_all();
-
-    if (dialog.run()) {
-        shelter->adopt(shelter->client(c_client.get_active_row_number()),
-                       shelter->animal(c_animal.get_active_row_number()));
-    }
+  Animal& animal = shelter->animal(animal_a);
+  Client& client = shelter->client(client_a);
+  shelter->adopt(client,animal);
+  break;
 }
+}
+}
+///////////////////////////////////////////////////////////////////
 
-void Mainwin::on_list_adopted_click() {
-    if(shelter->num_clients() == 0) {
-        Gtk::MessageDialog{*this, "No clients currently registered!"}.run();
-        return;
-    }
+void Mainwin::on_list_adopted_click()
+{
+  if(shelter->num_clients() == 0) {
+         Gtk::MessageDialog{*this, "No clients currently registered!"}.run();
+         return;
+     }
 
-    Gtk::Dialog dialog{"List Adoptions by a Client", *this};
+     Gtk::Dialog dialog{"List Adoptions by a Client", *this};
 
-    Gtk::Grid grid;
+     Gtk::Grid grid;
 
-    Gtk::ComboBoxText c_client;
-    std::vector<int> c2index;
-    for(int i=0; i<shelter->num_clients(); ++i) {
-        if(shelter->client(i).num_adopted()) {
-            std::ostringstream oss;
-            oss << shelter->client(i);
-            c_client.append(oss.str());
-            c2index.push_back(i);
-        }
-    }
-    c_client.set_active(0);
-    Gtk::Label l_client{"Client"};
-    grid.attach(l_client, 0, 1, 1, 1);
-    grid.attach(c_client, 1, 1, 2, 1);
+     Gtk::ComboBoxText c_client;
+     std::vector<int> c2index;
+     for(int i=0; i<shelter->num_clients(); ++i) {
+         if(shelter->client(i).num_adopted()) {
+             std::ostringstream oss;
+             oss << shelter->client(i);
+             c_client.append(oss.str());
+             c2index.push_back(i);
+         }
+     }
+     c_client.set_active(0);
+     Gtk::Label l_client{"Client"};
+     grid.attach(l_client, 0, 1, 1, 1);
+     grid.attach(c_client, 1, 1, 2, 1);
 
-    dialog.get_content_area()->add(grid);
+     dialog.get_content_area()->add(grid);
 
-    dialog.add_button("List Adoptions", 1);
-    dialog.add_button("Cancel", 0);
+     dialog.add_button("List Adoptions", 1);
+     dialog.add_button("Cancel", 0);
 
-    dialog.show_all();
+     dialog.show_all();
 
-    if(dialog.run()) {
-        int index = c2index[c_client.get_active_row_number()];
-        Client& client = shelter->client(index);
-        std::ostringstream oss;
+     if(dialog.run()) {
+         int index = c2index[c_client.get_active_row_number()];
+         Client& client = shelter->client(index);
+         std::ostringstream oss;
 
-        for(int i=0; i < client.num_adopted(); ++i)
-            oss << client.animal(i) << '\n';
-        data->set_text(oss.str());
+         for(int i=0; i < client.num_adopted(); ++i)
+             oss << client.animal(i) << '\n';
+         data->set_text(oss.str());
 
-        std::ostringstream osc;
-        osc << "List of animals adopted by " << client;
-        status(osc.str());
-    }
-
+         std::ostringstream osc;
+         osc << "List of animals adopted by " << client;
+         status(osc.str());
+     }
 }
 ////////////////////////////////////////////////////////////////////
 
