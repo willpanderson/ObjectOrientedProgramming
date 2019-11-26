@@ -36,14 +36,14 @@ std::ostream& operator<<(std::ostream& ost, const Gender& gender) {
 }
 void Animal::save(std::ostream& ost)
 {
-  ost << _name << std::endl;
-  ost << _gender << std::endl;
+  ost << _name;
+  ost << _gender;
   ost << _age << std::endl;
 }
 
-Animal::Animal(std::istream& ist)
-{
-  ist >> _name >> std::endl;
-  ist >> _gender >> std::endl;
-  ist >> _age >> std::endl;
+//Animal::Animal(std::istream& ist)
+//{
+  //ist >> _name >> std::endl;
+  //ist >> _gender >> std::endl;
+  //ist >> _age >> std::endl;
 }
