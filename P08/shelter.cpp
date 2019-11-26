@@ -47,12 +47,10 @@ void Shelter::save(std::ostream& ost)
  {
    a->save(ost);
  }
- ost << "\n";
  for (auto b : _clients)
  {
    b.save(ost);
  }
- ost << "\n";
 }
 /*
 Shelter::Shelter(std::istream& ist)
