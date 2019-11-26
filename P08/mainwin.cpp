@@ -138,12 +138,89 @@ Mainwin::Mainwin() : shelter{new Shelter{"Mavs Animal Shelter"}} {
     menuitem_list_adoptions->signal_activate().connect([this] {this->on_list_adopted_click();});
     clientmenu->append(*menuitem_list_adoptions);
 
+
+    //     H E L P
+    // Create a Help menu and add to the menu bar
+    Gtk::MenuItem *menuitem_help = Gtk::manage(new Gtk::MenuItem("_Help", true));
+    menubar->append(*menuitem_help);
+    Gtk::Menu *helpmenu = Gtk::manage(new Gtk::Menu());
+    menuitem_help->set_submenu(*helpmenu);
+
+    //           A B O U T
+    // Append About to the Help menu
+    Gtk::MenuItem *menuitem_about = Gtk::manage(new Gtk::MenuItem("_About", true));
+    menuitem_about->signal_activate().connect([this] {this->on_about_click();});
+    helpmenu->append(*menuitem_about);
+
+
+
     // /////////////
     // T O O L B A R
     // Add a toolbar to the vertical box below the menu
     Gtk::Toolbar *toolbar = Gtk::manage(new Gtk::Toolbar);
     toolbar->override_background_color(Gdk::RGBA{"gray"});
     vbox->pack_start(*toolbar, Gtk::PACK_SHRINK, 0);
+
+Gtk::Image *load_image = Gtk::manage(new Gtk::Image("load.png"));
+    Gtk::ToolButton *load_shelter_button = Gtk::manage(new Gtk::ToolButton(*load_image));
+    load_shelter_button->set_tooltip_markup("Load a .muss file");
+    load_shelter_button->signal_clicked().connect([this] {this->on_open_click();});
+    toolbar->append(*load_shelter_button);
+
+    Gtk::Image *save_image = Gtk::manage(new Gtk::Image("save_file.png"));
+    Gtk::ToolButton *save_shelter_button = Gtk::manage(new Gtk::ToolButton(*save_image));
+    save_shelter_button->set_tooltip_markup("Save a .muss file");
+    save_shelter_button->signal_clicked().connect([this] {this->on_save_click();});
+    toolbar->append(*save_shelter_button);
+
+
+    Gtk::Image *new_animal = Gtk::manage(new Gtk::Image("dog_aboutx.png"));
+    Gtk::ToolButton *new_animal_button = Gtk::manage(new Gtk::ToolButton(*new_animal));
+    new_animal_button->set_tooltip_markup("Create a new animal");
+    new_animal_button->signal_clicked().connect([this] {this->on_new_animal_click();});
+    toolbar->append(*new_animal_button);
+
+    Gtk::Image *find_image = Gtk::manage(new Gtk::Image("find.png"));
+    Gtk::ToolButton *list_animals_button = Gtk::manage(new Gtk::ToolButton(*find_image));
+    list_animals_button->set_tooltip_markup("List all animals in the shelter");
+    list_animals_button->signal_clicked().connect([this] {this->on_list_animals_click();});
+    toolbar->append(*list_animals_button);
+
+    Gtk::Image *client_image = Gtk::manage(new Gtk::Image("client.png"));
+    Gtk::ToolButton *new_client_button = Gtk::manage(new Gtk::ToolButton(*client_image));
+    new_client_button->set_tooltip_markup("Create a new client");
+    new_client_button->signal_clicked().connect([this] {this->on_new_client_click();});
+    toolbar->append(*new_client_button);
+
+    Gtk::Image *client_list = Gtk::manage(new Gtk::Image("client_list.png"));
+    Gtk::ToolButton *client_list_button = Gtk::manage(new Gtk::ToolButton(*client_list));
+    client_list_button->set_tooltip_markup("List all the clients in the shelter");
+    client_list_button->signal_clicked().connect([this] {this->on_list_clients_click();});
+    toolbar->append(*client_list_button);
+
+    Gtk::Image *adopt_image = Gtk::manage(new Gtk::Image("adopt.png"));
+    Gtk::ToolButton *adopt_animal_button = Gtk::manage(new Gtk::ToolButton(*adopt_image));
+    adopt_animal_button->set_tooltip_markup("Match an animal with a client");
+    adopt_animal_button->signal_clicked().connect([this] {this->on_adopt_animal_click();});
+    toolbar->append(*adopt_animal_button);
+
+    Gtk::Image *info_image = Gtk::manage(new Gtk::Image("info.png"));
+    Gtk::ToolButton *adopt_list_button = Gtk::manage(new Gtk::ToolButton(*info_image));
+    adopt_list_button->set_tooltip_markup("List clients with adoptions");
+    adopt_list_button->signal_clicked().connect([this] {this->on_list_adopted_click();});
+    toolbar->append(*adopt_list_button);
+
+    Gtk::Image *exit_image = Gtk::manage(new Gtk::Image("exit.png"));
+    Gtk::ToolButton *quit_button = Gtk::manage(new Gtk::ToolButton(*exit_image));
+    quit_button->set_tooltip_markup("Exit the Shelter");
+    quit_button->signal_clicked().connect([this] {this->on_quit_click();});
+
+    Gtk::SeparatorToolItem *sep = Gtk::manage(new Gtk::SeparatorToolItem());
+    sep->set_expand(true);  // The expanding sep forces the Quit button to the right
+    toolbar->append(*sep);
+    toolbar->append(*quit_button);
+
+
 
     // ///////////////////////
     // D A T A   D I S P L A Y
@@ -176,16 +253,39 @@ Mainwin::~Mainwin() { }
 void Mainwin::on_open_click() {
     try {
         delete shelter;
-        std::ifstream ifs{"untitled.mass"};
+        Gtk::FileChooserDialog dialog("Please choose a file",
+          Gtk::FileChooserAction::FILE_CHOOSER_ACTION_OPEN);
+    dialog.set_transient_for(*this);
+
+    auto filter_ctp = Gtk::FileFilter::create();
+    filter_ctp->set_name(MASS);
+    filter_ctp->add_pattern("*."+MASS);
+    dialog.add_filter(filter_ctp);
+
+    auto filter_any = Gtk::FileFilter::create();
+    filter_any->set_name("Any files");
+    filter_any->add_pattern("*");
+    dialog.add_filter(filter_any);
+
+    //Add response buttons the the dialog:
+    dialog.add_button("_Cancel", 0);
+    dialog.add_button("_Open", 1);
+
+    int result = dialog.run();
+
+    if (result == 1) {
+        std::ifstream ifs{dialog.get_filename()};
         std::string s;
         std::getline(ifs,s);
         if(s != COOKIE) throw std::runtime_error{"Not a MASS file"};
         std::getline(ifs,s);
         if(s != VERSION) throw std::runtime_error{"Incompatible MASS file version"};
         shelter = new Shelter{ifs};
+}
     } catch (std::exception& e) {
+       // shelter = new Shelter;
         std::ostringstream oss;
-        oss << "Unable to open file: untitled.mass\n" << e.what();
+        oss << "Unable to open file\n" << e.what();
         Gtk::MessageDialog{*this, oss.str(), false, Gtk::MESSAGE_ERROR}.run();
     }
 }
@@ -473,8 +573,8 @@ void Mainwin::on_save_as_click() {
     dialog.set_transient_for(*this);
 
     auto filter_ctp = Gtk::FileFilter::create();
-    filter_ctp->set_name(MUSS);
-    filter_ctp->add_pattern("*."+MUSS);
+    filter_ctp->set_name(MASS);
+    filter_ctp->add_pattern("*."+MASS);
     dialog.add_filter(filter_ctp);
 
     auto filter_any = Gtk::FileFilter::create();
@@ -482,7 +582,7 @@ void Mainwin::on_save_as_click() {
     filter_any->add_pattern("*");
     dialog.add_filter(filter_any);
 
-    dialog.set_filename("untitled."+MUSS);
+    dialog.set_filename("untitled."+MASS);
 
     //Add response buttons the the dialog:
     dialog.add_button("_Cancel", 0);
