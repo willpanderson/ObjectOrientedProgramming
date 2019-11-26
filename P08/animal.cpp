@@ -46,4 +46,4 @@ void Animal::save(std::ostream& ost)
   //ist >> _name >> std::endl;
   //ist >> _gender >> std::endl;
   //ist >> _age >> std::endl;
-}
+//}
