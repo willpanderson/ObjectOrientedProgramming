@@ -4,50 +4,54 @@
 #include "animal.h"
 #include <map>
 
-// List of cat breeds, conversion to/from string and stream, and iteration
-enum class cat_breed {
-    SHORTHAIR,
-    BOMBAY,
-    PERSIAN,
+enum class Cat_breed {
+    ABYSSINIAN,
+    AMERICAN_SHORTHAIR,
     BENGAL,
-    SPHYNX,
-    BURMESE,
-    BOBTAIL,
-    MAU,
-    LYKOI,
-    KORAT,
-    MANX,
+    BIRMAN,
+    DEVON_REX,
+    HIMALAYAN,
+    MAINE_COON,
+    MIX,
+    ORIENTAL_SHORTHAIR, 
+    PERSIAN,
+    RAGDOLL,
     SIAMESE,
 };
-constexpr cat_breed cat_breeds[] = {
-    cat_breed::SHORTHAIR,
-    cat_breed::BOMBAY,
-    cat_breed::PERSIAN,
-    cat_breed::BENGAL,
-    cat_breed::SPHYNX,
-    cat_breed::BURMESE,
-    cat_breed::BOBTAIL,
-    cat_breed::MAU,
-    cat_breed::LYKOI,
-    cat_breed::KORAT,
-    cat_breed::MANX,
-    cat_breed::SIAMESE,
+constexpr Cat_breed cat_breeds[] = {
+    Cat_breed::ABYSSINIAN,
+    Cat_breed::AMERICAN_SHORTHAIR,
+    Cat_breed::BENGAL,
+    Cat_breed::BIRMAN,
+    Cat_breed::DEVON_REX,
+    Cat_breed::HIMALAYAN,
+    Cat_breed::MAINE_COON,
+    Cat_breed::MIX,
+    Cat_breed::ORIENTAL_SHORTHAIR, 
+    Cat_breed::PERSIAN,
+    Cat_breed::RAGDOLL,
+    Cat_breed::SIAMESE,
 };
+// Cat implements to_string with a global map, which makes cat_breeds[] above redundant,
+// since you can iterate over all cat breeds using this:
+//    for (auto& [breed, s] : cats_map)
+//  instead of this:
+//    for (Cat_breed breed : cat_breeds)
+// This eliminates cat_breeds (and 1 of your 3 redundant breeds lists) entirely.
+extern const std::map<Cat_breed, std::string> cats_map;
+std::string to_string(const Cat_breed& breed);
+std::ostream& operator<<(std::ostream& ost, const Cat_breed& breed);
 
-std::string to_string(const cat_breed& breed);
-std::ostream& operator<<(std::ostream& ost, const cat_breed& breed);
-
-// Class Dog with overrides for family and breed
 class Cat : public Animal {
   public:
-    Cat(cat_breed breed, std::string name, Gender gender, int age);
+    Cat(Cat_breed breed, std::string name, Gender gender, int age);
+    Cat(std::istream& ist);
+    void save(std::ostream& ost) override;
     virtual ~Cat();
     virtual std::string family() const override;
     virtual std::string breed() const override;
-    virtual void save(std::ostream& ost) override;
-    Cat(std::istream& ist);
   private:
-    cat_breed _breed;
+    Cat_breed _breed;
 };
 
 #endif

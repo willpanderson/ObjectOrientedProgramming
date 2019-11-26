@@ -1,45 +1,36 @@
 #include "client.h"
+#include <iostream>
 
-Client::Client(std::string name, std::string phone, std::string email) : _name{name}, _phone{phone}, _email{email} { }
+// Constructor / Destructor
+Client::Client(std::string name, std::string phone, std::string email)
+    : _name{name}, _phone{phone}, _email{email} { }
+Client::~Client() {} // for(Animal* a : _adopted) delete a;}
 
-std::ostream& operator <<(std::ostream& ost, const Client& client) {
-   ost << client.to_string();
-   return ost;
+// File I/O
+Client::Client(std::istream& ist) {
+    std::getline(ist, _name);
+    std::getline(ist, _phone);
+    std::getline(ist, _email);
+    int animals;
+    ist >> animals; ist.ignore(65535, '\n');
+    while(animals--) _adopted.push_back(Animal::make_animal(ist)); 
+}
+void Client::save(std::ostream& ost) {
+    ost << _name << '\n' << _phone << '\n' << _email << '\n';
+    ost << _adopted.size() << '\n';
+    for (Animal* a : _adopted) a->save(ost);
 }
 
-std::string Client::to_string() const {
-   std::string format = "";
-   format += _name + '(' + _phone + ",  " + _email + ')';
-   return format;
+// Streaming I/O
+std::ostream& operator<<(std::ostream& ost, const Client& client) {
+    ost << client._name  << " ("
+        << client._phone << ", "
+        << client._email << ')';
+    return ost;
 }
 
-std::string Client::name() const {
-  std::string format = "";
-  format += _name;
-  return format;
-}
-
-Animal& Client::animal(int index) const {return *(_adopted[index]);}
-
-
+// Iteration
+void Client::adopt(Animal& animal) {_adopted.push_back(&animal);}
 int Client::num_adopted() {return _adopted.size();}
+const Animal& Client::animal(int index) {return *(_adopted[index]);}
 
-void Client::adopt(Animal& animal) {
- _adopted.push_back(&animal);
-}
-
-//Client::Client(std::istream& ist)
-//{
-
-//}
-
-void Client::save(std::ostream& ost)
-{
- ost << _name << std::endl;
- ost << _email << std::endl;
- ost << _phone << std::endl;
- for (auto *z : _adopted)
- {
-   z->save(ost);
-}
-  }

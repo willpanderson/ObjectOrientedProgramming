@@ -1,52 +1,52 @@
-#ifndef __RABBIT_H
-#define __RABBIT_H
+#ifndef __Rabbit_H
+#define __Rabbit_H
 
 #include "animal.h"
 
-// List of cat breeds, conversion to/from string and stream, and iteration
-enum class rabbit_breed {
-    HARE, //0
-    GIANT, //1
-    FUZZY, //2
-    GOTLAND,
-    HARLEQUIN,
-    PALOMINO,
-    SABLE,
-    ANGORA,
-    DWARF,
-    WOOLY,
+enum class Rabbit_breed {
+    CALIFORNIA_WHITE,
     CHINCHILLA,
+    FLEMISH_CHINCHILLA,
+    GIANT_CHINCHILLA,
+    HARLEQUIN,
     LIONHEAD,
+    LOP,
+    MIX,
+    NEW_ZEALAND,
+    POLISH,
+    REX,
+    SILVER_FOX, 
+    VIENNA_WHITE,
 };
-constexpr rabbit_breed rabbit_breeds[] = {
-    rabbit_breed::HARE,
-    rabbit_breed::GIANT,
-    rabbit_breed::FUZZY,
-    rabbit_breed::GOTLAND,
-    rabbit_breed::HARLEQUIN,
-    rabbit_breed::PALOMINO,
-    rabbit_breed::SABLE,
-    rabbit_breed::ANGORA,
-    rabbit_breed::DWARF,
-    rabbit_breed::WOOLY,
-    rabbit_breed::CHINCHILLA,
-    rabbit_breed::LIONHEAD,
+constexpr Rabbit_breed rabbit_breeds[] = {
+    Rabbit_breed::CALIFORNIA_WHITE,
+    Rabbit_breed::CHINCHILLA,
+    Rabbit_breed::FLEMISH_CHINCHILLA,
+    Rabbit_breed::GIANT_CHINCHILLA,
+    Rabbit_breed::HARLEQUIN,
+    Rabbit_breed::LIONHEAD,
+    Rabbit_breed::LOP,
+    Rabbit_breed::MIX,
+    Rabbit_breed::NEW_ZEALAND,
+    Rabbit_breed::POLISH,
+    Rabbit_breed::REX,
+    Rabbit_breed::SILVER_FOX, 
+    Rabbit_breed::VIENNA_WHITE,
 };
-std::string to_string(const rabbit_breed& breed);
-std::ostream& operator<<(std::ostream& ost, const rabbit_breed& breed);
+// Rabbit implements to_string with a private std::map
+std::string to_string(const Rabbit_breed& breed);
+std::ostream& operator<<(std::ostream& ost, const Rabbit_breed& breed);
 
-// Class Dog with overrides for family and breed
 class Rabbit : public Animal {
   public:
-    Rabbit(rabbit_breed breed, std::string name, Gender gender, int age);
+    Rabbit(Rabbit_breed breed, std::string name, Gender gender, int age);
     virtual ~Rabbit();
+    Rabbit(std::istream& ist);
+    void save(std::ostream& ost) override;
     virtual std::string family() const override;
     virtual std::string breed() const override;
-    virtual void save(std::ostream& ost) override;
-    //Rabbit(std::istream& ist);
-
   private:
-    rabbit_breed _breed;
+    Rabbit_breed _breed;
 };
 
 #endif

@@ -11,14 +11,13 @@ enum class Dog_breed {
     DACHSHUND,
     LABRADOR,
     MIX,
-    POINTER,
+    POINTER, 
     POODLE,
     RETRIEVER,
     ROTTWEILER,
     SHEPHERD,
     TERRIER,
 };
-
 constexpr Dog_breed dog_breeds[] = {
     Dog_breed::BEAGLE,
     Dog_breed::BOXER,
@@ -26,13 +25,14 @@ constexpr Dog_breed dog_breeds[] = {
     Dog_breed::DACHSHUND,
     Dog_breed::LABRADOR,
     Dog_breed::MIX,
-    Dog_breed::POINTER,
+    Dog_breed::POINTER, 
     Dog_breed::POODLE,
     Dog_breed::RETRIEVER,
     Dog_breed::ROTTWEILER,
     Dog_breed::SHEPHERD,
     Dog_breed::TERRIER,
 };
+// Dog implements to_string using a switch statement (if/else if/else is equivalent)
 std::string to_string(const Dog_breed& breed);
 std::ostream& operator<<(std::ostream& ost, const Dog_breed& breed);
 
@@ -40,11 +40,11 @@ std::ostream& operator<<(std::ostream& ost, const Dog_breed& breed);
 class Dog : public Animal {
   public:
     Dog(Dog_breed breed, std::string name, Gender gender, int age);
+    Dog(std::istream& ist);
+    void save(std::ostream& ost) override;
     virtual ~Dog();
     virtual std::string family() const override;
     virtual std::string breed() const override;
-    virtual void save(std::ostream& ost) override;
-    //Dog(std::istream& ist);
   private:
     Dog_breed _breed;
 };

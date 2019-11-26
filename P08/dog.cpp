@@ -5,6 +5,19 @@ Dog::Dog(Dog_breed breed, std::string name, Gender gender, int age)
     : Animal(name, gender, age), _breed{breed} { }
 Dog::~Dog() { }
 
+// File I/O
+Dog::Dog(std::istream& ist) : Animal(ist) {
+    std::string s;
+    getline(ist, s);
+    for(Dog_breed breed : dog_breeds) 
+        if(s == ::to_string(breed)) {_breed = breed; break;}
+}
+void Dog::save(std::ostream& ost) {
+    ost << "Dog\n";
+    Animal::save(ost);
+    ost << breed() << '\n';
+}
+
 // Overrides for pure virtual methods
 std::string Dog::family() const {return "dog";}
 std::string Dog::breed() const {return ::to_string(_breed);}
@@ -14,37 +27,22 @@ std::string to_string(const Dog_breed& breed) {
     switch(breed) {
         case  Dog_breed::MIX:        return "Mix";
         case  Dog_breed::LABRADOR:   return "Labrador";
-        case  Dog_breed::RETRIEVER:  return "Retriever";
-        case  Dog_breed::SHEPHERD:   return "Shepherd";
-        case  Dog_breed::BULLDOG:    return "Bulldog";
-        case  Dog_breed::BEAGLE:     return "Beagle";
-        case  Dog_breed::POODLE:     return "Poodle";
-        case  Dog_breed::ROTTWEILER: return "Rottweiler";
-        case  Dog_breed::POINTER:    return "Pointer";
-        case  Dog_breed::TERRIER:    return "Terrier";
-        case  Dog_breed::BOXER:      return "Boxer";
-        case  Dog_breed::DACHSHUND:  return "Dachshund";
+        case  Dog_breed::RETRIEVER:  return "Retriever"; 
+        case  Dog_breed::SHEPHERD:   return "Shepherd"; 
+        case  Dog_breed::BULLDOG:    return "Bulldog"; 
+        case  Dog_breed::BEAGLE:     return "Beagle"; 
+        case  Dog_breed::POODLE:     return "Poodle"; 
+        case  Dog_breed::ROTTWEILER: return "Rottweiler"; 
+        case  Dog_breed::POINTER:    return "Pointer"; 
+        case  Dog_breed::TERRIER:    return "Terrier"; 
+        case  Dog_breed::BOXER:      return "Boxer"; 
+        case  Dog_breed::DACHSHUND:  return "Dachshund"; 
         default:                     return "UNKNOWN";
     }
 }
+
+// Streaming I/O
 std::ostream& operator<<(std::ostream& ost, const Dog_breed& breed) {
     ost << ::to_string(breed);
     return ost;
-
 }
-
-void Dog::save(std::ostream& ost)
-{
-  ost << family() << std::endl;
-  ost << _name << std::endl;
-  ost << _gender << std::endl;
-  ost << _age << std::endl;
-  ost << _breed << std::endl;
-}
-/*
-Dog::Dog(std::istream& ist) : Animal(ist)
-{
-  ist >> breed;
-  Animal(ist);
-}
-*/

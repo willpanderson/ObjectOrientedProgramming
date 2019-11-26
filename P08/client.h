@@ -1,33 +1,29 @@
 #ifndef __CLIENT_H
 #define __CLIENT_H
 
-#include <string>
-#include <ostream>
 #include "animal.h"
+#include <string>
 #include <vector>
 
 class Client {
   public:
     Client(std::string name, std::string phone, std::string email);
-    friend std::ostream& operator<<(std::ostream& ost, const Client& client);
-    virtual std::string to_string() const;
-    virtual std::string name() const;
-    Animal& animal(int index) const;
-    void adopt(Animal& animal);
-    int num_adopted();
-  //  Client(std::istream& ist);
+    ~Client();
+    Client(std::istream& ist);
     void save(std::ostream& ost);
 
+    friend std::ostream& operator<<(std::ostream& ost, const Client& client);
+
+    void adopt(Animal& animal);
+    int num_adopted();
+    const Animal& animal(int index);
+ 
   private:
     std::string _name;
     std::string _phone;
     std::string _email;
-    std::vector <Animal *> _adopted;
+    std::vector<Animal*> _adopted;
 };
 
-
-
-
-
-
 #endif
+
