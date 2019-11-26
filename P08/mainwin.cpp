@@ -249,18 +249,21 @@ Mainwin::~Mainwin() { }
 // /////////////////
 // C A L L B A C K S
 // /////////////////
+void Mainwin::on_new_shelter_click()
+{
 
+}
 void Mainwin::on_open_click() {
     try {
-        delete shelter;
+        if(!all_data_saved()) return;
         Gtk::FileChooserDialog dialog("Please choose a file",
           Gtk::FileChooserAction::FILE_CHOOSER_ACTION_OPEN);
     dialog.set_transient_for(*this);
 
-    auto filter_ctp = Gtk::FileFilter::create();
-    filter_ctp->set_name(MASS);
-    filter_ctp->add_pattern("*."+MASS);
-    dialog.add_filter(filter_ctp);
+    auto filter_muss = Gtk::FileFilter::create();
+    filter_muss->set_name(MASS);
+    filter_muss->add_pattern("*."+MASS);
+    dialog.add_filter(filter_muss);
 
     auto filter_any = Gtk::FileFilter::create();
     filter_any->set_name("Any files");
@@ -283,7 +286,6 @@ void Mainwin::on_open_click() {
         shelter = new Shelter{ifs};
 }
     } catch (std::exception& e) {
-       shelter = new Shelter;
         std::ostringstream oss;
         oss << "Unable to open file\n" << e.what();
         Gtk::MessageDialog{*this, oss.str(), false, Gtk::MESSAGE_ERROR}.run();
