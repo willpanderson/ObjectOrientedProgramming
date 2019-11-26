@@ -18,7 +18,6 @@ class Shelter {
     void adopt(Client& client, Animal& animal);
     std::string get_filename();
     void set_filename(std::string filename);
-    //void clear(); // clear all drawings from the canvas
     //bool saved(); // true if all data has been saved
     void save(std::ostream& ost);
   //  Shelter(std::istream& ist);

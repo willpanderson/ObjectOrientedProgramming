@@ -40,11 +40,10 @@ void Animal::save(std::ostream& ost)
   ost << _gender << std::endl;
   ost << _age << std::endl;
 }
-/*
+
 Animal::Animal(std::istream& ist)
 {
-  ist >> _name;
-  ist >> _gender;
-  ist >> _age;
+  ist >> _name >> std::endl;
+  ist >> _gender >> std::endl;
+  ist >> _age >> std::endl;
 }
-*/
