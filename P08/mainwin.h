@@ -24,11 +24,11 @@ class Mainwin : public Gtk::Window {
         void on_list_clients_click();      // List all clients
         void on_adopt_animal_click();      // A client adopts an animal
         void on_list_adopted_click();      // List all adoptions by a client
-        //  void on_new_shelter_click();       // Create a new shelter
+        void on_new_shelter_click();       // Create a new shelter
         void on_save_as_click();
         bool on_delete_event(GdkEventAny* event);
         bool safe_to_exit();
-        bool all_data_saved(); 
+        bool all_data_saved();
         void on_about_click();
         void status(std::string s);        // Set the status message
     private:
@@ -36,5 +36,4 @@ class Mainwin : public Gtk::Window {
         Gtk::Label *data;                 // Display for data area
         Gtk::Label *msg;                   // Status message display
 };
-#endif 
-
+#endif
