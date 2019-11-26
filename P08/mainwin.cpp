@@ -283,7 +283,7 @@ void Mainwin::on_open_click() {
         shelter = new Shelter{ifs};
 }
     } catch (std::exception& e) {
-       shelter{new Shelter{"Mavs Animal Shelter"}}
+       shelter{new Shelter{"Mavs Animal Shelter"}};
         std::ostringstream oss;
         oss << "Unable to open file\n" << e.what();
         Gtk::MessageDialog{*this, oss.str(), false, Gtk::MESSAGE_ERROR}.run();
