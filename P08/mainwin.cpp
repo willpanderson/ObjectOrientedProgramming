@@ -82,11 +82,28 @@ Mainwin::Mainwin() : shelter{new Shelter{"Mavs Animal Shelter"}} {
     });
     filemenu->append(*menuitem_test);
 
+    Gtk::MenuItem *menuitem_properties = Gtk::manage(new Gtk::MenuItem("_Properties", true));
+    menuitem_properties->signal_activate().connect([this] {this->on_quit_click();});
+    filemenu->append(*menuitem_properties);
+
+
     //         Q U I T
     // Append Quit to the File menu
     Gtk::MenuItem *menuitem_quit = Gtk::manage(new Gtk::MenuItem("_Quit", true));
     menuitem_quit->signal_activate().connect([this] {this->on_quit_click();});
     filemenu->append(*menuitem_quit);
+
+    //     E D I T
+    // Create a Edit menu and add to the menu bar
+    Gtk::MenuItem *menuitem_edit = Gtk::manage(new Gtk::MenuItem("_Edit", true));
+    menubar->append(*menuitem_edit);
+    Gtk::Menu *editmenu = Gtk::manage(new Gtk::Menu());
+    menuitem_edit->set_submenu(*editmenu);
+
+    Gtk::MenuItem *menuitem_undo = Gtk::manage(new Gtk::MenuItem("_Undo", true));
+    menuitem_undo->signal_activate().connect([this] {this->on_quit_click();});
+    editmenu->append(*menuitem_undo);
+
 
     //     A N I M A L
     // Create an Animal menu and add to the menu bar
