@@ -11,6 +11,7 @@ class Staff : public Client {
   Staff(std::string name, std::string email, std::string phone);
   ~Staff();
   Staff(std::istream& ist);
+  void manage_staff;
   void save(std::ostream& ost);
 
   friend std::ostream& operator<<(std::ostream& ost, const Staff& staff);

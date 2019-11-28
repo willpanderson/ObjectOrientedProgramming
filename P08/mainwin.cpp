@@ -184,7 +184,7 @@ Mainwin::Mainwin() : shelter{new Shelter{"Mavs Animal Shelter"}} {
     toolbar->override_background_color(Gdk::RGBA{"gray"});
     vbox->pack_start(*toolbar, Gtk::PACK_SHRINK, 0);
 
-Gtk::Image *load_image = Gtk::manage(new Gtk::Image("load.png"));
+    Gtk::Image *load_image = Gtk::manage(new Gtk::Image("load.png"));
     Gtk::ToolButton *load_shelter_button = Gtk::manage(new Gtk::ToolButton(*load_image));
     load_shelter_button->set_tooltip_markup("Load a .muss file");
     load_shelter_button->signal_clicked().connect([this] {this->on_open_click();});
@@ -272,10 +272,12 @@ Mainwin::~Mainwin() { }
 // /////////////////
 // C A L L B A C K S
 // /////////////////
+
 void Mainwin::on_new_shelter_click()
 {
  close();
 }
+
 void Mainwin::on_open_click() {
     try {
         if(!all_data_saved()) return;
@@ -314,6 +316,7 @@ void Mainwin::on_open_click() {
         Gtk::MessageDialog{*this, oss.str(), false, Gtk::MESSAGE_ERROR}.run();
     }
 }
+
 void Mainwin::on_save_click() {
     try {
         std::ofstream ofs{"untitled.mass"};
@@ -590,7 +593,7 @@ void Mainwin::on_list_adopted_click() {
 void Mainwin::status(std::string s) {
     msg->set_text(s);
 }
-////////////////////////////////////////////////////////////////////
+
 
 void Mainwin::on_save_as_click() {
     Gtk::FileChooserDialog dialog("Save As",
@@ -598,8 +601,8 @@ void Mainwin::on_save_as_click() {
     dialog.set_transient_for(*this);
 
     auto filter_ctp = Gtk::FileFilter::create();
-    filter_ctp->set_name(MASS);
-    filter_ctp->add_pattern("*"+MASS);
+    filter_ctp->set_name(EXT);
+    filter_ctp->add_pattern("*"+EXT);
     dialog.add_filter(filter_ctp);
 
     auto filter_any = Gtk::FileFilter::create();
@@ -607,7 +610,7 @@ void Mainwin::on_save_as_click() {
     filter_any->add_pattern("*");
     dialog.add_filter(filter_any);
 
-    dialog.set_filename("untitled"+MASS);
+    dialog.set_filename("untitled"+EXT);
 
     //Add response buttons the the dialog:
     dialog.add_button("_Cancel", 0);
@@ -621,7 +624,6 @@ void Mainwin::on_save_as_click() {
         if(!ofs) throw std::runtime_error{"Error writing file"};
     }
 }
-////////////////////////////////////////////////////////////////////
 
 //void Mainwin::on_new_shelter_click() {}
 
@@ -641,11 +643,6 @@ void Mainwin::on_about_click() {
     dialog.set_comments("Animal Shelter.");
     dialog.run();
 }
-
-///////////////////////////////////////////////////////////////////
-
-
-///////////////////////////////////////////////////////////////////
 
 // /////////////
 // S I G N A L S
