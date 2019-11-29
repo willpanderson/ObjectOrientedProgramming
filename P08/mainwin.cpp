@@ -104,7 +104,40 @@ Mainwin::Mainwin() : shelter{new Shelter{"Mavs Animal Shelter"}} {
     menuitem_undo->signal_activate().connect([this] {this->on_quit_click();});
     editmenu->append(*menuitem_undo);
 
-
+    
+    Gtk::MenuItem *menuitem_role = Gtk::manage(new Gtk::MenuItem("_Role", true));
+    menubar->append(*menuitem_role);
+    Gtk::Menu *rolemenu = Gtk::manage(new Gtk::Menu());
+    menuitem_role->set_submenu(*rolemenu);
+    
+    Gtk::MenuItem *menuitem_clientr = Gtk::manage(new Gtk::MenuItem("_Client", true));
+    menuitem_clientr->signal_activate().connect([this] {this->on_quit_click();});
+    rolemenu->append(*menuitem_clientr);
+    
+    Gtk::MenuItem *menuitem_staff = Gtk::manage(new Gtk::MenuItem("_Staff", true));
+    menuitem_staff->signal_activate().connect([this] {this->on_quit_click();});
+    rolemenu->append(*menuitem_staff);
+    
+    Gtk::MenuItem *menuitem_manager = Gtk::manage(new Gtk::MenuItem("_Manager", true));
+    menuitem_manager->signal_activate().connect([this] {this->on_quit_click();});
+    rolemenu->append(*menuitem_manager);
+    
+    Gtk::MenuItem *menuitem_director = Gtk::manage(new Gtk::MenuItem("_Director", true));
+    menuitem_director->signal_activate().connect([this] {this->on_quit_click();});
+    rolemenu->append(*menuitem_director);
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     //     A N I M A L
     // Create an Animal menu and add to the menu bar
     Gtk::MenuItem *menuitem_animal = Gtk::manage(new Gtk::MenuItem("_Animal", true));
