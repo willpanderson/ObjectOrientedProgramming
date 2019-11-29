@@ -36,3 +36,6 @@ void Shelter::adopt(Client& client, Animal& animal) {
     client.adopt(animal);
     _available.erase(std::remove(_available.begin(), _available.end(), &animal), _available.end());
 }
+bool Shelter::saved() {
+    return !dirty;
+}

@@ -35,5 +35,6 @@ class Mainwin : public Gtk::Window {
         Shelter *shelter;                  // Current animal shelter
         Gtk::Label *data;                 // Display for data area
         Gtk::Label *msg;                   // Status message display
+        
 };
 #endif

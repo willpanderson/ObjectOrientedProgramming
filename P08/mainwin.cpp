@@ -104,7 +104,8 @@ Mainwin::Mainwin() : shelter{new Shelter{"Mavs Animal Shelter"}} {
     menuitem_undo->signal_activate().connect([this] {this->on_quit_click();});
     editmenu->append(*menuitem_undo);
 
-    
+    //    R O L E
+    // Create a role menu and add to menu bar
     Gtk::MenuItem *menuitem_role = Gtk::manage(new Gtk::MenuItem("_Role", true));
     menubar->append(*menuitem_role);
     Gtk::Menu *rolemenu = Gtk::manage(new Gtk::Menu());
@@ -125,17 +126,6 @@ Mainwin::Mainwin() : shelter{new Shelter{"Mavs Animal Shelter"}} {
     Gtk::MenuItem *menuitem_director = Gtk::manage(new Gtk::MenuItem("_Director", true));
     menuitem_director->signal_activate().connect([this] {this->on_quit_click();});
     rolemenu->append(*menuitem_director);
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
     
     
     //     A N I M A L
