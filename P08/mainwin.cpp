@@ -327,8 +327,8 @@ void Mainwin::on_open_click() {
     dialog.set_transient_for(*this);
 
     auto filter_muss = Gtk::FileFilter::create();
-    filter_muss->set_name(MASS);
-    filter_muss->add_pattern("*"+MASS);
+    filter_muss->set_name(EXT);
+    filter_muss->add_pattern("*"+EXT);
     dialog.add_filter(filter_muss);
 
     auto filter_any = Gtk::FileFilter::create();

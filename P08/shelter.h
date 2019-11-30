@@ -16,7 +16,7 @@ class Shelter {
     void add_animal(Animal& animal);
     int num_animals();
     Animal& animal(int index); 
-
+    bool saved();
     void add_client(Client& client);
     int num_clients();
     Client& client(int index);
