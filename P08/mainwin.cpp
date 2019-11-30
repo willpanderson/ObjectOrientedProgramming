@@ -128,6 +128,7 @@ Mainwin::Mainwin() : shelter{new Shelter{"Mavs Animal Shelter"}} {
     rolemenu->append(*menuitem_director);
     
     
+    
     //     A N I M A L
     // Create an Animal menu and add to the menu bar
     Gtk::MenuItem *menuitem_animal = Gtk::manage(new Gtk::MenuItem("_Animal", true));
@@ -185,6 +186,23 @@ Mainwin::Mainwin() : shelter{new Shelter{"Mavs Animal Shelter"}} {
     clientmenu->append(*menuitem_list_adoptions);
 
 
+    //     R E P O R T
+    // Create a Report menu and add to the menu bar
+    Gtk::MenuItem *menuitem_report = Gtk::manage(new Gtk::MenuItem("_Report", true));
+    menubar->append(*menuitem_report);
+    Gtk::Menu *reportmenu = Gtk::manage(new Gtk::Menu());
+    menuitem_report->set_submenu(*reportmenu);
+    
+    Gtk::MenuItem *menuitem_ranimals = Gtk::manage(new Gtk::MenuItem("_Animals", true));
+    menuitem_ranimals->signal_activate().connect([this] {this->on_about_click();});
+    reportmenu->append(*menuitem_ranimals);
+
+    Gtk::MenuItem *menuitem_rclients = Gtk::manage(new Gtk::MenuItem("_Clients", true));
+    menuitem_rclients->signal_activate().connect([this] {this->on_about_click();});
+    reportmenu->append(*menuitem_rclients);
+
+    
+    
     //     H E L P
     // Create a Help menu and add to the menu bar
     Gtk::MenuItem *menuitem_help = Gtk::manage(new Gtk::MenuItem("_Help", true));
@@ -678,7 +696,7 @@ bool Mainwin::on_delete_event(GdkEventAny* event) {
 }
 
 bool Mainwin::all_data_saved() {
-  //if (shelter->saved()) return true;
+  if (shelter->saved()) return true;
   Gtk::MessageDialog dialog{*this, "Unsaved data will be lost", false,Gtk::MESSAGE_WARNING, Gtk::BUTTONS_NONE};
 
   dialog.add_button("Save", 1);
