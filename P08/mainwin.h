@@ -30,11 +30,51 @@ class Mainwin : public Gtk::Window {
         bool safe_to_exit();
         bool all_data_saved();
         void on_about_click();
+       //void on_client_report_click();
+       //void on_animal_report_click();
+        void on_client_role_click();
+        void on_staff_role_click();
+        void on_manager_role_click();
+        void on_director_role_click();
         void status(std::string s);        // Set the status message
     private:
         Shelter *shelter;                  // Current animal shelter
         Gtk::Label *data;                 // Display for data area
         Gtk::Label *msg;                   // Status message display
-        
+        Gtk::MenuItem *menuitem_file;
+        Gtk::MenuItem *menuitem_open;
+        Gtk::MenuItem *menuitem_save;
+        Gtk::MenuItem *menuitem_saveas;
+        Gtk::MenuItem *menuitem_test;
+        Gtk::MenuItem *menuitem_properties;
+        Gtk::MenuItem *menuitem_quit;
+	Gtk::MenuItem *menuitem_undo;
+	Gtk::MenuItem *menuitem_edit;
+        Gtk::MenuItem *menuitem_role;
+        Gtk::MenuItem *menuitem_clientr;
+        Gtk::MenuItem *menuitem_staff;
+        Gtk::MenuItem *menuitem_manager;
+        Gtk::MenuItem *menuitem_director;
+        Gtk::MenuItem *menuitem_animal;
+        Gtk::MenuItem *menuitem_newanimal;
+        Gtk::MenuItem *menuitem_listanimal;
+        Gtk::MenuItem *menuitem_show_adoptions;
+        Gtk::MenuItem *menuitem_client;
+        Gtk::MenuItem *menuitem_newclient;
+        Gtk::MenuItem *menuitem_listclient;
+        Gtk::MenuItem *menuitem_adopt;
+        Gtk::MenuItem *menuitem_list_adoptions;
+        Gtk::MenuItem *menuitem_report;
+        Gtk::MenuItem *menuitem_ranimals;
+        Gtk::MenuItem *menuitem_rclients;
+        Gtk::ToolButton *load_shelter_button;
+        Gtk::ToolButton *save_shelter_button;
+        Gtk::ToolButton *new_animal_button;
+        Gtk::ToolButton *list_animals_button;
+	Gtk::ToolButton *new_client_button;
+        Gtk::ToolButton *client_list_button;
+        Gtk::ToolButton *adopt_animal_button;
+        Gtk::ToolButton *adopt_list_button;
+        Gtk::ToolButton *quit_button;
 };
 #endif

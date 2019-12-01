@@ -27,32 +27,32 @@ Mainwin::Mainwin() : shelter{new Shelter{"Mavs Animal Shelter"}} {
 
     //     F I L E
     // Create a File menu and add to the menu bar
-    Gtk::MenuItem *menuitem_file = Gtk::manage(new Gtk::MenuItem("_File", true));
+    menuitem_file = Gtk::manage(new Gtk::MenuItem("_File", true));
     menubar->append(*menuitem_file);
     Gtk::Menu *filemenu = Gtk::manage(new Gtk::Menu());
     menuitem_file->set_submenu(*filemenu);
 
     //         O P E N
     // Append Open to the File menu
-    Gtk::MenuItem *menuitem_open = Gtk::manage(new Gtk::MenuItem("_Open", true));
+    menuitem_open = Gtk::manage(new Gtk::MenuItem("_Open", true));
     menuitem_open->signal_activate().connect([this] {this->on_open_click();});
     filemenu->append(*menuitem_open);
 
     //         S A V E
     // Append Save to the File menu
-    Gtk::MenuItem *menuitem_save = Gtk::manage(new Gtk::MenuItem("_Save", true));
+    menuitem_save = Gtk::manage(new Gtk::MenuItem("_Save", true));
     menuitem_save->signal_activate().connect([this] {this->on_save_click();});
     filemenu->append(*menuitem_save);
 
     //         S A V E  A S
     // Append Save to the File menu
-    Gtk::MenuItem *menuitem_saveas = Gtk::manage(new Gtk::MenuItem("_Save As", true));
+    menuitem_saveas = Gtk::manage(new Gtk::MenuItem("_Save As", true));
     menuitem_saveas->signal_activate().connect([this] {this->on_save_as_click();});
     filemenu->append(*menuitem_saveas);
 
     //         T E S T
     // Append Test to the File menu
-    Gtk::MenuItem *menuitem_test = Gtk::manage(new Gtk::MenuItem("_Test", true));
+    menuitem_test = Gtk::manage(new Gtk::MenuItem("_Test", true));
     menuitem_test->signal_activate().connect([this] {
         Animal* animals[] = {
             new Dog   {Dog_breed::MIX,          "Fido",      Gender::MALE,   3},
@@ -82,125 +82,119 @@ Mainwin::Mainwin() : shelter{new Shelter{"Mavs Animal Shelter"}} {
     });
     filemenu->append(*menuitem_test);
 
-    Gtk::MenuItem *menuitem_properties = Gtk::manage(new Gtk::MenuItem("_Properties", true));
+    menuitem_properties = Gtk::manage(new Gtk::MenuItem("_Properties", true));
     menuitem_properties->signal_activate().connect([this] {this->on_quit_click();});
     filemenu->append(*menuitem_properties);
 
 
     //         Q U I T
     // Append Quit to the File menu
-    Gtk::MenuItem *menuitem_quit = Gtk::manage(new Gtk::MenuItem("_Quit", true));
+    menuitem_quit = Gtk::manage(new Gtk::MenuItem("_Quit", true));
     menuitem_quit->signal_activate().connect([this] {this->on_quit_click();});
     filemenu->append(*menuitem_quit);
 
     //     E D I T
     // Create a Edit menu and add to the menu bar
-    Gtk::MenuItem *menuitem_edit = Gtk::manage(new Gtk::MenuItem("_Edit", true));
+    menuitem_edit = Gtk::manage(new Gtk::MenuItem("_Edit", true));
     menubar->append(*menuitem_edit);
     Gtk::Menu *editmenu = Gtk::manage(new Gtk::Menu());
     menuitem_edit->set_submenu(*editmenu);
 
-    Gtk::MenuItem *menuitem_undo = Gtk::manage(new Gtk::MenuItem("_Undo", true));
+    menuitem_undo = Gtk::manage(new Gtk::MenuItem("_Undo", true));
     menuitem_undo->signal_activate().connect([this] {this->on_quit_click();});
     editmenu->append(*menuitem_undo);
 
     //    R O L E
     // Create a role menu and add to menu bar
-    Gtk::MenuItem *menuitem_role = Gtk::manage(new Gtk::MenuItem("_Role", true));
+    menuitem_role = Gtk::manage(new Gtk::MenuItem("_Role", true));
     menubar->append(*menuitem_role);
     Gtk::Menu *rolemenu = Gtk::manage(new Gtk::Menu());
     menuitem_role->set_submenu(*rolemenu);
     
-    Gtk::MenuItem *menuitem_clientr = Gtk::manage(new Gtk::MenuItem("_Client", true));
-    menuitem_clientr->signal_activate().connect([this] {this->on_quit_click();});
+    menuitem_clientr = Gtk::manage(new Gtk::MenuItem("_Client", true));
+    menuitem_clientr->signal_activate().connect([this] {this->on_client_role_click();});
     rolemenu->append(*menuitem_clientr);
     
-    Gtk::MenuItem *menuitem_staff = Gtk::manage(new Gtk::MenuItem("_Staff", true));
-    menuitem_staff->signal_activate().connect([this] {this->on_quit_click();});
+    menuitem_staff = Gtk::manage(new Gtk::MenuItem("_Staff", true));
+    menuitem_staff->signal_activate().connect([this] {this->on_staff_role_click();});
     rolemenu->append(*menuitem_staff);
     
-    Gtk::MenuItem *menuitem_manager = Gtk::manage(new Gtk::MenuItem("_Manager", true));
-    menuitem_manager->signal_activate().connect([this] {this->on_quit_click();});
+    menuitem_manager = Gtk::manage(new Gtk::MenuItem("_Manager", true));
+    menuitem_manager->signal_activate().connect([this] {this->on_manager_role_click();});
     rolemenu->append(*menuitem_manager);
     
-    Gtk::MenuItem *menuitem_director = Gtk::manage(new Gtk::MenuItem("_Director", true));
-    menuitem_director->signal_activate().connect([this] {this->on_quit_click();});
+    menuitem_director = Gtk::manage(new Gtk::MenuItem("_Director", true));
+    menuitem_director->signal_activate().connect([this] {this->on_director_role_click();});
     rolemenu->append(*menuitem_director);
     
     
     
     //     A N I M A L
     // Create an Animal menu and add to the menu bar
-    Gtk::MenuItem *menuitem_animal = Gtk::manage(new Gtk::MenuItem("_Animal", true));
+    menuitem_animal = Gtk::manage(new Gtk::MenuItem("_Animal", true));
     menubar->append(*menuitem_animal);
     Gtk::Menu *animalmenu = Gtk::manage(new Gtk::Menu());
     menuitem_animal->set_submenu(*animalmenu);
 
     //           N E W
     // Append New to the Animal menu
-    Gtk::MenuItem *menuitem_newanimal = Gtk::manage(new Gtk::MenuItem("_New", true));
+    menuitem_newanimal = Gtk::manage(new Gtk::MenuItem("_New", true));
     menuitem_newanimal->signal_activate().connect([this] {this->on_new_animal_click();});
     animalmenu->append(*menuitem_newanimal);
 
     //           L I S T
     // Append List to the Animal menu
-    Gtk::MenuItem *menuitem_listanimal = Gtk::manage(new Gtk::MenuItem("_List", true));
+    menuitem_listanimal = Gtk::manage(new Gtk::MenuItem("_List", true));
     menuitem_listanimal->signal_activate().connect([this] {this->on_list_animals_click();});
     animalmenu->append(*menuitem_listanimal);
 
-    //           S H O W   A D O P T I O N S
-    // Append Show Adoptions to the Animal menu
-    Gtk::MenuItem *menuitem_show_adoptions = Gtk::manage(new Gtk::MenuItem("_Show Adoptions", true));
-    menuitem_show_adoptions->signal_activate().connect([this] {this->on_list_adopted_click();});
-    animalmenu->append(*menuitem_show_adoptions);
 
     //     C L I E N T
     // Create a Client menu and add to the menu bar
-    Gtk::MenuItem *menuitem_client = Gtk::manage(new Gtk::MenuItem("_Client", true));
+    menuitem_client = Gtk::manage(new Gtk::MenuItem("_Client", true));
     menubar->append(*menuitem_client);
     Gtk::Menu *clientmenu = Gtk::manage(new Gtk::Menu());
     menuitem_client->set_submenu(*clientmenu);
 
     //           N E W
     // Append New to the Client menu
-    Gtk::MenuItem *menuitem_newclient = Gtk::manage(new Gtk::MenuItem("_New", true));
+    menuitem_newclient = Gtk::manage(new Gtk::MenuItem("_New", true));
     menuitem_newclient->signal_activate().connect([this] {this->on_new_client_click();});
     clientmenu->append(*menuitem_newclient);
 
     //           L I S T
     // Append List to the Client menu
-    Gtk::MenuItem *menuitem_listclient = Gtk::manage(new Gtk::MenuItem("_List", true));
+    menuitem_listclient = Gtk::manage(new Gtk::MenuItem("_List", true));
     menuitem_listclient->signal_activate().connect([this] {this->on_list_clients_click();});
     clientmenu->append(*menuitem_listclient);
 
     //           A D O P T
     // Append Adopt to the Client menu
-    Gtk::MenuItem *menuitem_adopt = Gtk::manage(new Gtk::MenuItem("_Adopt", true));
+    menuitem_adopt = Gtk::manage(new Gtk::MenuItem("_Adopt", true));
     menuitem_adopt->signal_activate().connect([this] {this->on_adopt_animal_click();});
     clientmenu->append(*menuitem_adopt);
 
     //           S H O W   A D O P T I O N S
     // Append Show Adoptions to the Client menu
-    Gtk::MenuItem *menuitem_list_adoptions = Gtk::manage(new Gtk::MenuItem("_Show Adoptions", true));
+    menuitem_list_adoptions = Gtk::manage(new Gtk::MenuItem("_Show Adoptions", true));
     menuitem_list_adoptions->signal_activate().connect([this] {this->on_list_adopted_click();});
     clientmenu->append(*menuitem_list_adoptions);
 
 
     //     R E P O R T
     // Create a Report menu and add to the menu bar
-    Gtk::MenuItem *menuitem_report = Gtk::manage(new Gtk::MenuItem("_Report", true));
+    menuitem_report = Gtk::manage(new Gtk::MenuItem("_Report", true));
     menubar->append(*menuitem_report);
     Gtk::Menu *reportmenu = Gtk::manage(new Gtk::Menu());
     menuitem_report->set_submenu(*reportmenu);
     
-    Gtk::MenuItem *menuitem_ranimals = Gtk::manage(new Gtk::MenuItem("_Animals", true));
-    menuitem_ranimals->signal_activate().connect([this] {this->on_about_click();});
+    menuitem_ranimals = Gtk::manage(new Gtk::MenuItem("_Animals", true));
+    //menuitem_ranimals->signal_activate().connect([this] {this->on_animal_report_click();});
     reportmenu->append(*menuitem_ranimals);
 
-    Gtk::MenuItem *menuitem_rclients = Gtk::manage(new Gtk::MenuItem("_Clients", true));
-    menuitem_rclients->signal_activate().connect([this] {this->on_about_click();});
+    menuitem_rclients = Gtk::manage(new Gtk::MenuItem("_Clients", true));
+    //menuitem_rclients->signal_activate().connect([this] {this->on_client_report_click();});
     reportmenu->append(*menuitem_rclients);
-
     
     
     //     H E L P
@@ -226,56 +220,56 @@ Mainwin::Mainwin() : shelter{new Shelter{"Mavs Animal Shelter"}} {
     vbox->pack_start(*toolbar, Gtk::PACK_SHRINK, 0);
 
     Gtk::Image *load_image = Gtk::manage(new Gtk::Image("load.png"));
-    Gtk::ToolButton *load_shelter_button = Gtk::manage(new Gtk::ToolButton(*load_image));
+    load_shelter_button = Gtk::manage(new Gtk::ToolButton(*load_image));
     load_shelter_button->set_tooltip_markup("Load a .muss file");
     load_shelter_button->signal_clicked().connect([this] {this->on_open_click();});
     toolbar->append(*load_shelter_button);
 
     Gtk::Image *save_image = Gtk::manage(new Gtk::Image("save_file.png"));
-    Gtk::ToolButton *save_shelter_button = Gtk::manage(new Gtk::ToolButton(*save_image));
+    save_shelter_button = Gtk::manage(new Gtk::ToolButton(*save_image));
     save_shelter_button->set_tooltip_markup("Save a .muss file");
     save_shelter_button->signal_clicked().connect([this] {this->on_save_click();});
     toolbar->append(*save_shelter_button);
 
 
     Gtk::Image *new_animal = Gtk::manage(new Gtk::Image("dog_aboutx.png"));
-    Gtk::ToolButton *new_animal_button = Gtk::manage(new Gtk::ToolButton(*new_animal));
+    new_animal_button = Gtk::manage(new Gtk::ToolButton(*new_animal));
     new_animal_button->set_tooltip_markup("Create a new animal");
     new_animal_button->signal_clicked().connect([this] {this->on_new_animal_click();});
     toolbar->append(*new_animal_button);
 
     Gtk::Image *find_image = Gtk::manage(new Gtk::Image("find.png"));
-    Gtk::ToolButton *list_animals_button = Gtk::manage(new Gtk::ToolButton(*find_image));
+    list_animals_button = Gtk::manage(new Gtk::ToolButton(*find_image));
     list_animals_button->set_tooltip_markup("List all animals in the shelter");
     list_animals_button->signal_clicked().connect([this] {this->on_list_animals_click();});
     toolbar->append(*list_animals_button);
 
     Gtk::Image *client_image = Gtk::manage(new Gtk::Image("client.png"));
-    Gtk::ToolButton *new_client_button = Gtk::manage(new Gtk::ToolButton(*client_image));
+    new_client_button = Gtk::manage(new Gtk::ToolButton(*client_image));
     new_client_button->set_tooltip_markup("Create a new client");
     new_client_button->signal_clicked().connect([this] {this->on_new_client_click();});
     toolbar->append(*new_client_button);
 
     Gtk::Image *client_list = Gtk::manage(new Gtk::Image("client_list.png"));
-    Gtk::ToolButton *client_list_button = Gtk::manage(new Gtk::ToolButton(*client_list));
+    client_list_button = Gtk::manage(new Gtk::ToolButton(*client_list));
     client_list_button->set_tooltip_markup("List all the clients in the shelter");
     client_list_button->signal_clicked().connect([this] {this->on_list_clients_click();});
     toolbar->append(*client_list_button);
 
     Gtk::Image *adopt_image = Gtk::manage(new Gtk::Image("adopt.png"));
-    Gtk::ToolButton *adopt_animal_button = Gtk::manage(new Gtk::ToolButton(*adopt_image));
+    adopt_animal_button = Gtk::manage(new Gtk::ToolButton(*adopt_image));
     adopt_animal_button->set_tooltip_markup("Match an animal with a client");
     adopt_animal_button->signal_clicked().connect([this] {this->on_adopt_animal_click();});
     toolbar->append(*adopt_animal_button);
 
     Gtk::Image *info_image = Gtk::manage(new Gtk::Image("info.png"));
-    Gtk::ToolButton *adopt_list_button = Gtk::manage(new Gtk::ToolButton(*info_image));
+    adopt_list_button = Gtk::manage(new Gtk::ToolButton(*info_image));
     adopt_list_button->set_tooltip_markup("List clients with adoptions");
     adopt_list_button->signal_clicked().connect([this] {this->on_list_adopted_click();});
     toolbar->append(*adopt_list_button);
 
     Gtk::Image *exit_image = Gtk::manage(new Gtk::Image("exit.png"));
-    Gtk::ToolButton *quit_button = Gtk::manage(new Gtk::ToolButton(*exit_image));
+    quit_button = Gtk::manage(new Gtk::ToolButton(*exit_image));
     quit_button->set_tooltip_markup("Exit the Shelter");
     quit_button->signal_clicked().connect([this] {this->on_quit_click();});
 
@@ -303,6 +297,8 @@ Mainwin::Mainwin() : shelter{new Shelter{"Mavs Animal Shelter"}} {
     msg->set_hexpand(true);
     msg->override_background_color(Gdk::RGBA{"gray"});
     vbox->pack_start(*msg, Gtk::PACK_SHRINK, 0);
+    
+    on_client_role_click();
 
     // Make the box and everything in it visible
     vbox->show_all();
@@ -417,6 +413,7 @@ void Mainwin::on_new_animal_click() {
     c_breed.set_active(0);
     grid.attach(l_breed, 0, 1, 1, 1);
     grid.attach(c_breed, 1, 1, 2, 1);
+
 
     Gtk::Label l_gender{"Gender"};
     Gtk::ComboBoxText c_gender;
@@ -667,6 +664,146 @@ void Mainwin::on_save_as_click() {
 }
 
 //void Mainwin::on_new_shelter_click() {}
+//void Mainwin::on_client_report_click() {}
+//void Mainwin::on_animal_report_click(){
+   
+}
+
+void Mainwin::on_client_role_click(){
+    menuitem_saveas->set_sensitive(false);
+    menuitem_save->set_sensitive(false);
+    menuitem_test->set_sensitive(false);
+    menuitem_open->set_sensitive(false);
+    menuitem_rclients->set_sensitive(false);
+    menuitem_ranimals->set_sensitive(true);
+    menuitem_quit->set_sensitive(false);
+    menuitem_newanimal->set_sensitive(false);
+    menuitem_listanimal->set_sensitive(false);
+    load_shelter_button->set_sensitive(false);
+    save_shelter_button->set_sensitive(false);
+    new_animal_button->set_sensitive(false);
+    list_animals_button->set_sensitive(false);
+    quit_button->set_sensitive(false);
+ }
+
+
+void Mainwin::on_staff_role_click(){
+    status("");
+    Gtk::Dialog dialog{"Please enter your password", *this};
+
+    Gtk::Grid grid;
+
+    Gtk::Label l_name{"Password"};
+    Gtk::Entry e_name;
+    grid.attach(l_name, 0, 0, 1, 1);
+    grid.attach(e_name, 1, 0, 2, 1);
+    dialog.get_content_area()->add(grid);
+
+    dialog.add_button("Login", 1);
+    dialog.add_button("Cancel", 0);
+
+    dialog.show_all();
+    while(dialog.run()) {
+    if (e_name.get_text().size() == 0 || e_name.get_text() != "staff")
+     {
+      e_name.set_text("*invalid*"); continue;
+      }
+     break;
+    }
+    menuitem_saveas->set_sensitive(false);
+    menuitem_save->set_sensitive(false);
+    menuitem_test->set_sensitive(false);
+    menuitem_open->set_sensitive(false);
+    menuitem_rclients->set_sensitive(false);
+    menuitem_ranimals->set_sensitive(true);
+    menuitem_quit->set_sensitive(false);
+    menuitem_newanimal->set_sensitive(true);
+    menuitem_listanimal->set_sensitive(true);
+    load_shelter_button->set_sensitive(false);
+    save_shelter_button->set_sensitive(false);
+    new_animal_button->set_sensitive(true);
+    list_animals_button->set_sensitive(true);
+    quit_button->set_sensitive(false);
+}
+
+void Mainwin::on_manager_role_click(){
+    status("");
+    Gtk::Dialog dialog{"Please enter your password", *this};
+
+    Gtk::Grid grid;
+
+    Gtk::Label l_name{"Password"};
+    Gtk::Entry e_name;
+    grid.attach(l_name, 0, 0, 1, 1);
+    grid.attach(e_name, 1, 0, 2, 1);
+    dialog.get_content_area()->add(grid);
+
+    dialog.add_button("Login", 1);
+    dialog.add_button("Cancel", 0);
+
+    dialog.show_all();
+    while(dialog.run()) {
+     if (e_name.get_text().size() == 0 || e_name.get_text() != "manager")
+     {
+      e_name.set_text("*invalid*"); continue;
+      }
+      break;
+    }
+    menuitem_saveas->set_sensitive(true);
+    menuitem_save->set_sensitive(true);
+    menuitem_test->set_sensitive(false);
+    menuitem_open->set_sensitive(true);
+    menuitem_rclients->set_sensitive(true);
+    menuitem_ranimals->set_sensitive(true);
+    menuitem_quit->set_sensitive(true);
+    menuitem_newanimal->set_sensitive(true);
+    menuitem_listanimal->set_sensitive(true);
+    load_shelter_button->set_sensitive(true);
+    save_shelter_button->set_sensitive(true);
+    new_animal_button->set_sensitive(true);
+    list_animals_button->set_sensitive(true);
+    quit_button->set_sensitive(true);
+}
+
+
+void Mainwin::on_director_role_click(){
+   status("");
+    Gtk::Dialog dialog{"Please enter your password", *this};
+
+    Gtk::Grid grid;
+
+    Gtk::Label l_name{"Password"};
+    Gtk::Entry e_name;
+    grid.attach(l_name, 0, 0, 1, 1);
+    grid.attach(e_name, 1, 0, 2, 1);
+    dialog.get_content_area()->add(grid);
+
+    dialog.add_button("Login", 1);
+    dialog.add_button("Cancel", 0);
+
+    dialog.show_all();
+    while(dialog.run()) {
+     if (e_name.get_text().size() == 0 || e_name.get_text() != "director")
+     {
+      e_name.set_text("*invalid*"); continue;
+      }
+     break;
+    }
+    menuitem_saveas->set_sensitive(true);
+    menuitem_save->set_sensitive(true);
+    menuitem_test->set_sensitive(true);
+    menuitem_open->set_sensitive(true);
+    menuitem_rclients->set_sensitive(true);
+    menuitem_ranimals->set_sensitive(true);
+    menuitem_quit->set_sensitive(true);
+    menuitem_newanimal->set_sensitive(true);
+    menuitem_listanimal->set_sensitive(true);
+    load_shelter_button->set_sensitive(true);
+    save_shelter_button->set_sensitive(true);
+    new_animal_button->set_sensitive(true);
+    list_animals_button->set_sensitive(true);
+    quit_button->set_sensitive(true);
+}
 
 void Mainwin::on_about_click() {
     Gtk::AboutDialog dialog{};
