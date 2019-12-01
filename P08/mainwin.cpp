@@ -664,7 +664,21 @@ void Mainwin::on_save_as_click() {
 }
 
 //void Mainwin::on_new_shelter_click() {}
-//void Mainwin::on_client_report_click() {}
+void Mainwin::on_client_report_click() {
+  std::ostringstream oss;
+ for (int i = 0; i < shelter->num_clients(); i++)
+   oss << shelter->client(i);
+  
+  for (int j = 0; j < shelter->client(i).num_adopted(); j++)
+   {
+    oss << "\n" << shelter->client(i).animal(j) << "\n";
+}
+
+ oss << "\n";
+        std::ostringstream osc;
+        osc << "List of animals adopted by all clients";
+        status(osc.str());
+ }
 //void Mainwin::on_animal_report_click(){
    
 }
@@ -849,7 +863,6 @@ bool Mainwin::all_data_saved() {
         return false;
     }
   } else if (response == 2) { // Discard
-    //shelter->clear();
     return true;
   } else {                    // Cancel
     return false;
