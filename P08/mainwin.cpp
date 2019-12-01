@@ -83,7 +83,7 @@ Mainwin::Mainwin() : shelter{new Shelter{"Mavs Animal Shelter"}} {
     filemenu->append(*menuitem_test);
 
     menuitem_properties = Gtk::manage(new Gtk::MenuItem("_Properties", true));
-    menuitem_properties->signal_activate().connect([this] {this->on_quit_click();});
+    menuitem_properties->signal_activate().connect([this] {this->on_properties_click();});
     filemenu->append(*menuitem_properties);
 
 
@@ -189,11 +189,11 @@ Mainwin::Mainwin() : shelter{new Shelter{"Mavs Animal Shelter"}} {
     menuitem_report->set_submenu(*reportmenu);
     
     menuitem_ranimals = Gtk::manage(new Gtk::MenuItem("_Animals", true));
-    //menuitem_ranimals->signal_activate().connect([this] {this->on_animal_report_click();});
+    menuitem_ranimals->signal_activate().connect([this] {this->on_animal_report_click();});
     reportmenu->append(*menuitem_ranimals);
 
     menuitem_rclients = Gtk::manage(new Gtk::MenuItem("_Clients", true));
-    //menuitem_rclients->signal_activate().connect([this] {this->on_client_report_click();});
+    menuitem_rclients->signal_activate().connect([this] {this->on_client_report_click();});
     reportmenu->append(*menuitem_rclients);
     
     
@@ -310,10 +310,6 @@ Mainwin::~Mainwin() { }
 // C A L L B A C K S
 // /////////////////
 
-void Mainwin::on_new_shelter_click()
-{
- close();
-}
 
 void Mainwin::on_open_click() {
     try {
@@ -663,24 +659,74 @@ void Mainwin::on_save_as_click() {
     }
 }
 
-//void Mainwin::on_new_shelter_click() {}
+void Mainwin::on_new_shelter_click() { //*shelter = new Shelter(); 
+}
+
+void Mainwin::on_properties_click()
+{
+  std::ostringstream oss;
+  std::ostringstream ost;
+  std::ostringstream osc;
+  //std::string name; 
+  oss << "Animals: " << shelter->num_animals();
+  ost << "Clients: " << shelter->num_clients();
+   Gtk::Dialog dialog{"Client Information", *this};
+
+    Gtk::Grid grid;
+
+    Gtk::Label l_name{"Name:"};
+    grid.attach(l_name, 0, 0, 1, 1);
+
+    Gtk::Label l_phone{oss.str()};
+    grid.attach(l_phone, 0, 1, 1, 1);
+
+    Gtk::Label l_email{ost.str()};
+    grid.attach(l_email, 0, 2, 1, 1);
+
+    dialog.get_content_area()->add(grid);
+
+    dialog.add_button("Cancel", 0);
+
+    dialog.show_all();
+    int result = dialog.run();
+}
+
+
 void Mainwin::on_client_report_click() {
   std::ostringstream oss;
  for (int i = 0; i < shelter->num_clients(); i++)
-   oss << shelter->client(i);
-  
-  for (int j = 0; j < shelter->client(i).num_adopted(); j++)
    {
-    oss << "\n" << shelter->client(i).animal(j) << "\n";
-}
-
- oss << "\n";
+    oss << shelter->client(i) << " ";  
+    for (int j = 0; j < shelter->client(i).num_adopted(); j++)
+    {
+     oss << "\n" << shelter->client(i).animal(j) << "\n";
+    }
+     oss << "\n";
+   }
+        data->set_text(oss.str());
         std::ostringstream osc;
-        osc << "List of animals adopted by all clients";
+        osc << "List of all clients in the shelter";
         status(osc.str());
  }
-//void Mainwin::on_animal_report_click(){
-   
+void Mainwin::on_animal_report_click(){
+    
+   std::ostringstream oss;
+   for (int i = 0; i < shelter->num_clients(); ++i)
+   { 
+    for (int j = 0; j < shelter->client(i).num_adopted(); ++j)
+    {
+     oss << "\n" << shelter->client(i).animal(j) << "\n";
+    }
+     oss << "\n";
+   }
+   for (int k = 0; k < shelter->num_animals(); ++k)
+   {
+        oss << shelter->animal(k) << '\n';
+    }
+    data->set_text(oss.str());
+    std::ostringstream osc;
+    osc << "List of all clients in the shelter";
+    status(osc.str());
 }
 
 void Mainwin::on_client_role_click(){

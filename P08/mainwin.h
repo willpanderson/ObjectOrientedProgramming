@@ -30,9 +30,10 @@ class Mainwin : public Gtk::Window {
         bool safe_to_exit();
         bool all_data_saved();
         void on_about_click();
-       //void on_client_report_click();
-       //void on_animal_report_click();
+        void on_client_report_click();
+        void on_animal_report_click();
         void on_client_role_click();
+        void on_properties_click();
         void on_staff_role_click();
         void on_manager_role_click();
         void on_director_role_click();
