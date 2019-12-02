@@ -3,6 +3,7 @@
 #include "cat.h"
 #include "rabbit.h"
 #include "client.h"
+//#include "staff.h"
 #include <sstream>
 #include <fstream>
 
@@ -31,6 +32,16 @@ Mainwin::Mainwin() : shelter{new Shelter{"Mavs Animal Shelter"}} {
     menubar->append(*menuitem_file);
     Gtk::Menu *filemenu = Gtk::manage(new Gtk::Menu());
     menuitem_file->set_submenu(*filemenu);
+   
+
+
+    //         O P E N
+    // Append Open to the File menu
+    menuitem_new = Gtk::manage(new Gtk::MenuItem("_New", true));
+    menuitem_new->signal_activate().connect([this] {this->on_new_shelter_click();});
+    filemenu->append(*menuitem_new);
+
+
 
     //         O P E N
     // Append Open to the File menu
@@ -319,8 +330,8 @@ void Mainwin::on_open_click() {
     dialog.set_transient_for(*this);
 
     auto filter_muss = Gtk::FileFilter::create();
-    filter_muss->set_name(EXT);
-    filter_muss->add_pattern("*"+EXT);
+    filter_muss->set_name("Shelter Files");
+    filter_muss->add_pattern("*.muss");
     dialog.add_filter(filter_muss);
 
     auto filter_any = Gtk::FileFilter::create();
@@ -335,13 +346,12 @@ void Mainwin::on_open_click() {
     int result = dialog.run();
 
     if (result == 1) {
+        delete shelter;
         std::ifstream ifs{dialog.get_filename()};
-        std::string s;
-        std::getline(ifs,s);
-        if(s != COOKIE) throw std::runtime_error{"Not a MASS file"};
-        std::getline(ifs,s);
-        if(s != VERSION) throw std::runtime_error{"Incompatible MASS file version"};
         shelter = new Shelter{ifs};
+        shelter->setFilename(dialog.get_filename());
+        data->set_text(shelter->name());
+        on_client_role_click();
 }
     } catch (std::exception& e) {
         std::ostringstream oss;
@@ -352,9 +362,7 @@ void Mainwin::on_open_click() {
 
 void Mainwin::on_save_click() {
     try {
-        std::ofstream ofs{"untitled.mass"};
-        ofs << COOKIE << '\n';
-        ofs << VERSION << '\n';
+        std::ofstream ofs{shelter->getFilename()};
         shelter->save(ofs);
     } catch (std::exception& e) {
         std::ostringstream oss;
@@ -635,8 +643,8 @@ void Mainwin::on_save_as_click() {
     dialog.set_transient_for(*this);
 
     auto filter_ctp = Gtk::FileFilter::create();
-    filter_ctp->set_name(EXT);
-    filter_ctp->add_pattern("*"+EXT);
+    filter_ctp->set_name("Shelter files");
+    filter_ctp->add_pattern("*.mass");
     dialog.add_filter(filter_ctp);
 
     auto filter_any = Gtk::FileFilter::create();
@@ -644,7 +652,7 @@ void Mainwin::on_save_as_click() {
     filter_any->add_pattern("*");
     dialog.add_filter(filter_any);
 
-    dialog.set_filename("untitled"+EXT);
+    dialog.set_filename("untitled.mass");
 
     //Add response buttons the the dialog:
     dialog.add_button("_Cancel", 0);
@@ -653,13 +661,40 @@ void Mainwin::on_save_as_click() {
     int result = dialog.run();
 
     if (result == 1) {
+        try{
         std::ofstream ofs{dialog.get_filename()};
+        shelter->setFilename(dialog.get_filename());
         shelter->save(ofs);
-        if(!ofs) throw std::runtime_error{"Error writing file"};
+        }catch(std::exception e){
+        Gtk::MessageDialog{*this, "Unable to save shelter"}.run();
+        
     }
 }
+}
 
-void Mainwin::on_new_shelter_click() { //*shelter = new Shelter(); 
+void Mainwin::on_new_shelter_click() { 
+ 
+ std::string name;
+ Gtk::Dialog dialog{"Shelter Information", *this};
+ Gtk::Grid grid;
+ Gtk::Entry e_name;
+ Gtk::Label l_name; 
+ grid.attach(l_name, 0, 0, 1, 1);
+ grid.attach(e_name, 1, 0, 2, 1);
+ dialog.get_content_area()->add(grid);
+ dialog.add_button("Enter" ,1);
+ dialog.add_button("Cancel", 0);
+ dialog.show_all();
+ while(dialog.run()) {
+    if (e_name.get_text().size() == 0)
+     {
+      e_name.set_text("*invalid*"); continue;
+      } 
+     name = e_name.get_text(); 
+     delete shelter; 
+     shelter = new Shelter(name);
+    break;
+ }
 }
 
 void Mainwin::on_properties_click()
@@ -708,9 +743,14 @@ void Mainwin::on_client_report_click() {
         osc << "List of all clients in the shelter";
         status(osc.str());
  }
+
 void Mainwin::on_animal_report_click(){
     
    std::ostringstream oss;
+   for (int k = 0; k < shelter->num_animals(); ++k)
+   {
+        oss << shelter->animal(k) << '\n';
+    }
    for (int i = 0; i < shelter->num_clients(); ++i)
    { 
     for (int j = 0; j < shelter->client(i).num_adopted(); ++j)
@@ -719,13 +759,9 @@ void Mainwin::on_animal_report_click(){
     }
      oss << "\n";
    }
-   for (int k = 0; k < shelter->num_animals(); ++k)
-   {
-        oss << shelter->animal(k) << '\n';
-    }
     data->set_text(oss.str());
     std::ostringstream osc;
-    osc << "List of all clients in the shelter";
+    osc << "List of all animals in the shelter";
     status(osc.str());
 }
 
@@ -878,7 +914,7 @@ void Mainwin::on_about_click() {
     dialog.set_authors(authors);
     std::vector< Glib::ustring > artists = {"https://commons.wikimedia.org/wiki/File:Creative-Tail-Animal-dog.svg","https://fr.m.wikipedia.org/wiki/Fichier:Boss-icon.png","https://commons.wikimedia.org/wiki/File:Find_it_EZ_Logo.png","https://commons.wikimedia.org/wiki/File:Rie_Black_Icon_User.png","https://en.wikipedia.org/wiki/File:Information.svg","https://commons.wikimedia.org/wiki/File:Icon_Disk_256x256.png","https://commons.wikimedia.org/wiki/File:Human-gnome-session-logout.svg","https://commons.wikimedia.org/wiki/File:Folder_4_icon-72a7cf.svg","https://de.wikipedia.org/wiki/Datei:Icon_Cabinet_02_256x256.png","https://en.m.wikipedia.org/wiki/File:Childbook.png"};
     dialog.set_artists(artists);
-    dialog.set_comments("Animal Shelter.");
+    dialog.set_comments("A Animal Shelter.");
     dialog.run();
 }
 

@@ -5,15 +5,24 @@
 #include <string>
 #include <vector>
 
+enum class Staff_Type {
+    MANAGER,
+    STAFF,
+    DIRECTOR,
+};
+
+constexpr Staff_Type type_staff[] = {
+    Staff_Type::MANAGER,
+    Staff_Type::STAFF,
+    Staff_Type::DIRECTOR,
+};
+
 
 class Staff : public Client {
   public:
-  Staff(std::string name, std::string email, std::string phone);
+  Staff(std::string name, std::string email, std::string phone, double salary, std::string username, std::string password, bool active, Staff_Type role);
   ~Staff();
-  Staff(std::istream& ist);
-  void manage_staff;
-  void save(std::ostream& ost);
-
+  std::string to_string(const Staff_Type& staff);
   friend std::ostream& operator<<(std::ostream& ost, const Staff& staff);
 
   private:
@@ -21,8 +30,10 @@ class Staff : public Client {
     std::string _email;
     std::string _phone;
     double _salary;
+    std::string _username;
     std::string _password;
-    bool _active = true;
+    bool _active;
+    Staff_Type _role;
 };
 
 #endif

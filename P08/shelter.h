@@ -12,7 +12,8 @@ class Shelter {
     std::string name();
     Shelter(std::istream& ist);
     void save(std::ostream& ost);
-
+    std::string getFilename();
+    void setFilename(std::string name);
     void add_animal(Animal& animal);
     int num_animals();
     Animal& animal(int index); 
@@ -22,6 +23,10 @@ class Shelter {
     Client& client(int index);
     bool dirty;
     void adopt(Client& client, Animal& animal);
+
+    protected:
+    std::string filename;
+
   private:
     std::string _name;
     std::vector<Animal*> _available;

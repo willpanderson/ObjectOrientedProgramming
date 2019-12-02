@@ -43,6 +43,7 @@ class Mainwin : public Gtk::Window {
         Gtk::Label *data;                 // Display for data area
         Gtk::Label *msg;                   // Status message display
         Gtk::MenuItem *menuitem_file;
+        Gtk::MenuItem *menuitem_new;
         Gtk::MenuItem *menuitem_open;
         Gtk::MenuItem *menuitem_save;
         Gtk::MenuItem *menuitem_saveas;

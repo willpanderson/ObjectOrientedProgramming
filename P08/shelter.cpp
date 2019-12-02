@@ -1,12 +1,11 @@
 #include "shelter.h"
 #include <algorithm>
 
-Shelter::Shelter(std::string name) : _name{name} { }
+Shelter::Shelter(std::string name) : _name{name} , filename{"untitled.mass"} { }
 Shelter::~Shelter() {for(Animal* a : _available) delete a;}
 std::string Shelter::name() {return _name;}
 Shelter::Shelter(std::istream& ist) {
     std::getline(ist, _name);
-
     int num;
     ist >> num; ist.ignore(65535, '\n');
     while(num--) _available.push_back(Animal::make_animal(ist));
@@ -39,3 +38,10 @@ void Shelter::adopt(Client& client, Animal& animal) {
 bool Shelter::saved() {
     return !dirty;
 }
+
+void Shelter::setFilename(std::string name){
+  filename = name;
+}
+
+std::string Shelter::getFilename() { return filename; }
+
