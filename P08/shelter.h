@@ -32,6 +32,7 @@ class Shelter {
     std::string _name;
     std::vector<Animal*> _available;
     std::vector<Client>  _clients;
+    std::string _role;
 };
 
 #endif

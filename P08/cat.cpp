@@ -11,6 +11,7 @@ Cat::Cat(std::istream& ist) : Animal(ist) {
     getline(ist, s);
     for(auto& [_breed, breed_name] : cats_map)
         if(s == breed_name) break;
+        
 }
 void Cat::save(std::ostream& ost) {
     ost << "Cat\n";
