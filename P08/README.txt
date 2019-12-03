@@ -1,4 +1,4 @@
-Directions to run the Mav's Animal Shelter Software for those whomever it may concern . 
+Directions to run the Mav's Animal Shelter Software for those whomever it may concern and what parts do not work. 
 
 
 1. When the program opens, the sensitivity is set to the client mode. 
