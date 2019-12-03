@@ -331,7 +331,7 @@ void Mainwin::on_open_click() {
 
     auto filter_muss = Gtk::FileFilter::create();
     filter_muss->set_name("Shelter Files");
-    filter_muss->add_pattern("*.muss");
+    filter_muss->add_pattern("*.mass");
     dialog.add_filter(filter_muss);
 
     auto filter_any = Gtk::FileFilter::create();
@@ -347,7 +347,12 @@ void Mainwin::on_open_click() {
 
     if (result == 1) {
         delete shelter;
+        std::string s;
         std::ifstream ifs{dialog.get_filename()};
+        std::getline(ifs,s);
+        if(s != COOKIE) throw std::runtime_error{"Not a MASS file"};
+        std::getline(ifs,s);
+        if(s != VERSION) throw std::runtime_error{"Incompatible MASS file version"};
         shelter = new Shelter{ifs};
         shelter->setFilename(dialog.get_filename());
         data->set_text(shelter->name());
@@ -362,7 +367,9 @@ void Mainwin::on_open_click() {
 
 void Mainwin::on_save_click() {
     try {
-        std::ofstream ofs{shelter->getFilename()};
+        std::ofstream ofs{"untitled.mass"};
+        ofs << COOKIE << '\n';
+        ofs << VERSION << '\n';
         shelter->save(ofs);
     } catch (std::exception& e) {
         std::ostringstream oss;
@@ -408,7 +415,7 @@ void Mainwin::on_new_animal_click() {
     Gtk::ComboBoxText c_breed;
     if (atype.get_active_row_number() == 0) {
         animal_type = "Dog";
-        for(auto b : dog_breeds) c_breed.append(to_string(b));
+        for(auto& [b, s] : dogs_map) c_breed.append(to_string(b));
     } else if (atype.get_active_row_number() == 1) {
         animal_type = "Cat";
         for (auto& [c, s] : cats_map) c_breed.append(to_string(c));
@@ -685,6 +692,8 @@ void Mainwin::on_save_as_click() {
         try{
         std::ofstream ofs{dialog.get_filename()};
         shelter->setFilename(dialog.get_filename());
+        ofs << COOKIE << '\n';
+        ofs << VERSION << '\n';
         shelter->save(ofs);
         }catch(std::exception e){
         Gtk::MessageDialog{*this, "Unable to save shelter"}.run();
