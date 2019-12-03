@@ -18,7 +18,8 @@ Directions to run the Mav's Animal Shelter Software for those whomever it may co
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-3. The staff class is unfinished and I was unable to implement it into my software. I have included the classes.
+3. The staff class is unfinished and I was unable to implement it into my software. I have included the classes BUT it is not
+linked into the Makefile.
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
