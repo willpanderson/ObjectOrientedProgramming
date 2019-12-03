@@ -746,14 +746,25 @@ void Mainwin::on_new_shelter_click() {
  }
 }
 
+
 void Mainwin::on_properties_click()
 {
   std::ostringstream oss;
   std::ostringstream ost;
   std::ostringstream osc;
+  std::ostringstream osa;
   osc << "Name: " << shelter->name();
   oss << "Animals: " << shelter->num_animals();
   ost << "Clients: " << shelter->num_clients();
+  int count = 0;
+  for (int i = 0; i < shelter->num_clients(); i++)
+   {
+    for (int j = 0; j < shelter->client(i).num_adopted(); j++)
+    {
+     count++;
+    }
+    }
+   osa << "Adopted: " << count;
    Gtk::Dialog dialog{"Shelter Information", *this};
 
     Gtk::Grid grid;
@@ -766,7 +777,10 @@ void Mainwin::on_properties_click()
 
     Gtk::Label l_email{ost.str()};
     grid.attach(l_email, 0, 2, 1, 1);
-
+    
+    Gtk::Label l_emailx{osa.str()};
+    grid.attach(l_emailx, 0, 3, 1, 1);
+     
     dialog.get_content_area()->add(grid);
 
     dialog.add_button("Cancel", 0);
