@@ -625,7 +625,6 @@ void Mainwin::on_adopt_animal_click() {
      delete dialog;
     }
 
-
 }
 
 void Mainwin::on_list_adopted_click() {
