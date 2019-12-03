@@ -467,20 +467,23 @@ void Mainwin::on_new_animal_click() {
         if (e_name.get_text().size() == 0) {e_name.set_text("*required*"); continue;}
         Animal* animal;
         if (animal_type == "Dog")
+        {    
             animal = new Dog{dog_breeds[c_breed.get_active_row_number()],
                              e_name.get_text(),
                              (c_gender.get_active_row_number() ? Gender::MALE : Gender::FEMALE),
-                             static_cast<int>(s_age.get_value())};
+                             static_cast<int>(s_age.get_value())};}
         else if (animal_type == "Cat")
+           { 
             animal = new Cat{cat_breeds[c_breed.get_active_row_number()],
                              e_name.get_text(),
                              (c_gender.get_active_row_number() ? Gender::MALE : Gender::FEMALE),
-                             static_cast<int>(s_age.get_value())};
+                             static_cast<int>(s_age.get_value())};}
         else if (animal_type == "Rabbit")
+            {
             animal = new Rabbit{rabbit_breeds[c_breed.get_active_row_number()],
                              e_name.get_text(),
                              (c_gender.get_active_row_number() ? Gender::MALE : Gender::FEMALE),
-                             static_cast<int>(s_age.get_value())};
+                             static_cast<int>(s_age.get_value())};}
         else
             throw std::runtime_error{"Invalid animal type: " + animal_type};
         shelter->add_animal(*animal);
@@ -753,8 +756,32 @@ void Mainwin::on_properties_click()
   std::ostringstream ost;
   std::ostringstream osc;
   std::ostringstream osa;
+  std::ostringstream osd;
+  std::ostringstream osf;
+  std::ostringstream osg;
+  int l = 0;
+  int n = 0;
+  int o = 0;
+  for (int g = 0; g < shelter->num_animals(); g++)
+  {
+   if (shelter->animal(g).family() == "dog")
+    {
+     l++;
+    }
+   else if (shelter->animal(g).family() == "cat")
+   {
+    n++;
+   }
+   else if (shelter->animal(g).family() == "rabbit")
+   {
+    o++;
+   }
+  }
   osc << "Name: " << shelter->name();
   oss << "Animals: " << shelter->num_animals();
+  osd <<   "Dogs: " << l;
+  osf <<   "Cats: " << n;
+  osg <<   "Rabbits: " << o;
   ost << "Clients: " << shelter->num_clients();
   int count = 0;
   for (int i = 0; i < shelter->num_clients(); i++)
@@ -775,11 +802,21 @@ void Mainwin::on_properties_click()
     Gtk::Label l_phone{oss.str()};
     grid.attach(l_phone, 0, 1, 1, 1);
 
+    Gtk::Label l_phoned{osd.str()};
+    grid.attach(l_phoned, 0, 2, 1, 1);
+
+    Gtk::Label l_phonec{osf.str()};
+    grid.attach(l_phonec, 0, 3, 1, 1);
+
+    Gtk::Label l_phoner{osg.str()};
+    grid.attach(l_phoner, 0, 4, 1, 1);
+
+
     Gtk::Label l_email{ost.str()};
-    grid.attach(l_email, 0, 2, 1, 1);
+    grid.attach(l_email, 0, 5, 1, 1);
     
     Gtk::Label l_emailx{osa.str()};
-    grid.attach(l_emailx, 0, 3, 1, 1);
+    grid.attach(l_emailx, 0, 6, 1, 1);
      
     dialog.get_content_area()->add(grid);
 
