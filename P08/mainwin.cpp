@@ -866,6 +866,7 @@ void Mainwin::on_animal_report_click(){
 }
 
 void Mainwin::on_client_role_click(){
+    menuitem_new->set_sensitive(false);
     menuitem_saveas->set_sensitive(false);
     menuitem_save->set_sensitive(false);
     menuitem_test->set_sensitive(false);
@@ -906,6 +907,7 @@ void Mainwin::on_staff_role_click(){
       }
      break;
     }
+    menuitem_new->set_sensitive(true);
     menuitem_saveas->set_sensitive(false);
     menuitem_save->set_sensitive(false);
     menuitem_test->set_sensitive(false);
@@ -945,6 +947,7 @@ void Mainwin::on_manager_role_click(){
       }
       break;
     }
+    menuitem_new->set_sensitive(true);
     menuitem_saveas->set_sensitive(true);
     menuitem_save->set_sensitive(true);
     menuitem_test->set_sensitive(false);
@@ -985,6 +988,7 @@ void Mainwin::on_director_role_click(){
       }
      break;
     }
+    menuitem_new->set_sensitive(true);
     menuitem_saveas->set_sensitive(true);
     menuitem_save->set_sensitive(true);
     menuitem_test->set_sensitive(true);
