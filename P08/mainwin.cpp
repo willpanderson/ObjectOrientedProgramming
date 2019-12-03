@@ -568,7 +568,7 @@ void Mainwin::on_adopt_animal_click() {
         return;
     }
 
-    Gtk::Dialog dialog{"Adopt an Animal", *this};
+    Gtk::Dialog *dialog = new Gtk::Dialog{"Adopt an animal",this};
 
     Gtk::Grid grid;
 
@@ -594,18 +594,38 @@ void Mainwin::on_adopt_animal_click() {
     grid.attach(l_animal, 0, 0, 1, 1);
     grid.attach(c_animal, 1, 0, 2, 1);
 
-    dialog.get_content_area()->add(grid);
+    dialog->get_content_area()->add(grid);
 
-    dialog.add_button("Adopt", 1);
-    dialog.add_button("Cancel", 0);
+    dialog->add_button("Adopt", 1);
+    dialog->add_button("Cancel", 0);
+    dialog->add_button("Add Client", 2);
+    dialog->add_button("Add Animal", 3);
+    dialog->show_all();
+    int result = dialog->run();
 
-    dialog.show_all();
-
-    if (dialog.run()) {
-        shelter->adopt(shelter->client(c_client.get_active_row_number()),
+     if (result == 1)
+      {  shelter->adopt(shelter->client(c_client.get_active_row_number()),
                        shelter->animal(c_animal.get_active_row_number()));
+      delete dialog;
+     }
+    else if (result == 2)
+     {
+      delete dialog;
+      on_new_client_click();
+      on_adopt_animal_click();
+     }
+    else if (result == 3)
+     {
+      delete dialog;
+      on_new_animal_click();
+      on_adopt_animal_click();
+     }
+    else if (result == 0)
+    {
+     delete dialog;
     }
-    statusu = "adopted";
+
+
 }
 
 void Mainwin::on_list_adopted_click() {
