@@ -284,6 +284,14 @@ Mainwin::Mainwin() : shelter{new Shelter{"Mavs Animal Shelter"}} {
     quit_button->set_tooltip_markup("Exit the Shelter");
     quit_button->signal_clicked().connect([this] {this->on_quit_click();});
 
+    Gtk::Image *access_image = Gtk::manage(new Gtk::Image("access_mode.png"));
+    mode_button = Gtk::manage(new Gtk::ToolButton(*access_image));
+    mode_button->set_tooltip_markup("");
+    mode_button->signal_clicked().connect([this] {this->on_access_mode_toolbar_click();});
+    toolbar->append(*mode_button);
+
+
+
     Gtk::SeparatorToolItem *sep = Gtk::manage(new Gtk::SeparatorToolItem());
     sep->set_expand(true);  // The expanding sep forces the Quit button to the right
     toolbar->append(*sep);
@@ -630,6 +638,40 @@ void Mainwin::on_adopt_animal_click() {
 
 }
 
+void Mainwin::on_access_mode_toolbar_click()
+{
+    status("");
+    status("");
+    Gtk::Dialog dialog{"Access Mode", *this};
+
+    Gtk::Grid grid;
+
+    Gtk::Label l_name{"Level"};
+    Gtk::ComboBoxText e_name;
+    e_name.append("Client");
+    e_name.append("Staff");
+    e_name.append("Manager");
+    e_name.append("Director");
+    e_name.set_active(0);
+    grid.attach(l_name, 0, 0, 1, 1);
+    grid.attach(e_name, 1, 0, 2, 1);
+
+    dialog.get_content_area()->add(grid);
+
+    dialog.add_button("Enter", 1);
+    dialog.add_button("Cancel", 0);
+    std::string choice;
+    int index;
+    dialog.show_all();
+    if(dialog.run()) {
+        index = e_name.get_active_row_number();
+        choice = shelter->manage_role(index);
+    }
+    if (choice == "client") on_client_role_click();
+    else if (choice == "staff") on_staff_role_click();
+    else if (choice == "manager") on_manager_role_click();
+    else if (choice == "director") on_director_role_click();
+}
 void Mainwin::on_list_adopted_click() {
     if(shelter->num_clients() == 0) {
         Gtk::MessageDialog{*this, "No clients currently registered!"}.run();

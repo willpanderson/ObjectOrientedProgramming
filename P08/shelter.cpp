@@ -30,6 +30,15 @@ void Shelter::add_animal(Animal& animal) {
 int Shelter::num_animals() {return _available.size();}
 Animal& Shelter::animal(int index) {return *(_available[index]);}
 
+std::string Shelter::manage_role(int number)
+{
+ if (number == 0) _role = "client";
+ else if (number == 1) _role = "staff";
+ else if (number == 2) _role = "manager";
+ else if (number == 3) _role = "director";
+ return _role;
+}
+
 void Shelter::add_client(Client& client) {_clients.push_back(client);}
 int Shelter::num_clients() {return _clients.size();}
 Client& Shelter::client(int index) {return _clients[index];}

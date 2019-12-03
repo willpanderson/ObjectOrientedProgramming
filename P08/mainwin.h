@@ -32,6 +32,7 @@ class Mainwin : public Gtk::Window {
         bool safe_to_exit();
         bool all_data_saved();
         void on_about_click();
+        void on_access_mode_toolbar_click();
         void on_client_report_click();
         void on_animal_report_click();
         void on_client_role_click();
@@ -73,6 +74,7 @@ class Mainwin : public Gtk::Window {
         Gtk::MenuItem *menuitem_ranimals;
         Gtk::MenuItem *menuitem_rclients;
         Gtk::ToolButton *load_shelter_button;
+        Gtk::ToolButton *mode_button;
         Gtk::ToolButton *save_shelter_button;
         Gtk::ToolButton *new_animal_button;
         Gtk::ToolButton *list_animals_button;

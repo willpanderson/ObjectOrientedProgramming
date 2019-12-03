@@ -25,6 +25,7 @@ class Shelter {
     void adopt(Client& client, Animal& animal);
     void undo_client();
     void undo_animal();
+    std::string manage_role(int number);
     protected:
     std::string filename;
 
