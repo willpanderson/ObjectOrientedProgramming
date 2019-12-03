@@ -10,6 +10,8 @@ Directions to run the Mav's Animal Shelter Software for those whomever it may co
     Staff: "staff"
     Director: "director"
 
+   Additionally by clicking the lock icon on the toolbar, a dialog will appear allowing you to select the mode and prompt 
+   for a password.
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
