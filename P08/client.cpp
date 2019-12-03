@@ -1,5 +1,6 @@
 #include "client.h"
 #include <iostream>
+#include <algorithm>
 
 // Constructor / Destructor
 Client::Client(std::string name, std::string phone, std::string email)
@@ -30,7 +31,10 @@ std::ostream& operator<<(std::ostream& ost, const Client& client) {
 }
 
 // Iteration
-void Client::adopt(Animal& animal) {_adopted.push_back(&animal);}
+void Client::adopt(Animal& animal) 
+{
+_adopted.push_back(&animal);
+}
 int Client::num_adopted() {return _adopted.size();}
 const Animal& Client::animal(int index) {return *(_adopted[index]);}
 

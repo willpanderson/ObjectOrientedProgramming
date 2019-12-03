@@ -23,7 +23,8 @@ class Shelter {
     Client& client(int index);
     bool dirty;
     void adopt(Client& client, Animal& animal);
-
+    void undo_client();
+    void undo_animal();
     protected:
     std::string filename;
 
@@ -31,7 +32,6 @@ class Shelter {
     std::string _name;
     std::vector<Animal*> _available;
     std::vector<Client>  _clients;
-   
 };
 
 #endif

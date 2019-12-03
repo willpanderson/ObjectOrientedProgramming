@@ -112,7 +112,7 @@ Mainwin::Mainwin() : shelter{new Shelter{"Mavs Animal Shelter"}} {
     menuitem_edit->set_submenu(*editmenu);
 
     menuitem_undo = Gtk::manage(new Gtk::MenuItem("_Undo", true));
-    menuitem_undo->signal_activate().connect([this] {this->on_quit_click();});
+    menuitem_undo->signal_activate().connect([this] {this->on_undo_click();});
     editmenu->append(*menuitem_undo);
 
     //    R O L E
@@ -375,6 +375,20 @@ void Mainwin::on_quit_click() {
     close();
 }
 
+void Mainwin::on_undo_click(){
+    if (statusu == "animal")
+   {
+    shelter->undo_animal();
+    on_list_animals_click();
+}
+    else if (statusu == "client")
+{
+   shelter->undo_client();
+   on_list_clients_click();
+}
+}
+
+
 void Mainwin::on_new_animal_click() {
     status("");
 
@@ -439,7 +453,7 @@ void Mainwin::on_new_animal_click() {
 
     dialog.add_button("Add " + animal_type, 1);
     dialog.add_button("Cancel", 0);
-
+    
     dialog.show_all();
 
     while(dialog.run()) {
@@ -468,6 +482,8 @@ void Mainwin::on_new_animal_click() {
         status(oss.str());
         break;
     }
+ statusu = "animal";
+ on_list_animals_click();
 }
 
 void Mainwin::on_list_animals_click() {
@@ -476,6 +492,7 @@ void Mainwin::on_list_animals_click() {
         oss << shelter->animal(i) << '\n';
     data->set_text(oss.str());
     status("List of All Animals");
+    statusu = "animal";
 }
 void Mainwin::on_new_client_click() {
     status("");
@@ -519,6 +536,8 @@ void Mainwin::on_new_client_click() {
 
         break;
     }
+  statusu = "client";
+  on_list_clients_click();
 }
 
 void Mainwin::on_list_clients_click() {
@@ -527,6 +546,7 @@ void Mainwin::on_list_clients_click() {
         oss << shelter->client(i) << '\n';
     data->set_text(oss.str());
     status("List of All Clients");
+   statusu = "client";
 }
 
 void Mainwin::on_adopt_animal_click() {
@@ -578,6 +598,7 @@ void Mainwin::on_adopt_animal_click() {
         shelter->adopt(shelter->client(c_client.get_active_row_number()),
                        shelter->animal(c_animal.get_active_row_number()));
     }
+    statusu = "adopted";
 }
 
 void Mainwin::on_list_adopted_click() {
@@ -625,7 +646,7 @@ void Mainwin::on_list_adopted_click() {
         osc << "List of animals adopted by " << client;
         status(osc.str());
     }
-
+ statusu = "adopted";
 }
 
 // /////////////////
@@ -702,14 +723,14 @@ void Mainwin::on_properties_click()
   std::ostringstream oss;
   std::ostringstream ost;
   std::ostringstream osc;
-  //std::string name; 
+  osc << "Name: " << shelter->name();
   oss << "Animals: " << shelter->num_animals();
   ost << "Clients: " << shelter->num_clients();
-   Gtk::Dialog dialog{"Client Information", *this};
+   Gtk::Dialog dialog{"Shelter Information", *this};
 
     Gtk::Grid grid;
 
-    Gtk::Label l_name{"Name:"};
+    Gtk::Label l_name{osc.str()};
     grid.attach(l_name, 0, 0, 1, 1);
 
     Gtk::Label l_phone{oss.str()};
@@ -951,4 +972,4 @@ bool Mainwin::all_data_saved() {
   }
 }
 
-///////////////////////////////////////////////////////////////////
+
