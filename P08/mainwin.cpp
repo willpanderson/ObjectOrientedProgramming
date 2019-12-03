@@ -330,8 +330,8 @@ void Mainwin::on_open_click() {
     dialog.set_transient_for(*this);
 
     auto filter_muss = Gtk::FileFilter::create();
-    filter_muss->set_name("Shelter Files");
-    filter_muss->add_pattern("*.mass");
+    filter_muss->set_name(EXT);
+    filter_muss->add_pattern("*"+EXT);
     dialog.add_filter(filter_muss);
 
     auto filter_any = Gtk::FileFilter::create();
@@ -693,8 +693,8 @@ void Mainwin::on_save_as_click() {
     dialog.set_transient_for(*this);
 
     auto filter_ctp = Gtk::FileFilter::create();
-    filter_ctp->set_name("Shelter files");
-    filter_ctp->add_pattern("*.mass");
+    filter_ctp->set_name(EXT);
+    filter_ctp->add_pattern("*"+EXT);
     dialog.add_filter(filter_ctp);
 
     auto filter_any = Gtk::FileFilter::create();
